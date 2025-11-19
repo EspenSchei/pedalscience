@@ -1,27 +1,17 @@
 ---
-const {
-    as = "section",
-    id,
-    title,
-    description,
-    class: extraClass,
-    ...rest
-} = Astro.props;
-const Tag = as;
+const { title, class: extraClass = "" } = Astro.props as {
+    title?: string;
+    class?: string;
+};
 ---
 
-<Tag id={id} {...rest} class:list={["mt-10", extraClass]}>
+<section class={`mt-6 ${extraClass}`}>
     {title && (
-            <h2 class="text-lg font-semibold text-slate-100">
+            <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-600">
                 {title}
             </h2>
     )}
-    {description && (
-            <p class="mt-2 text-sm text-slate-300">
-                {description}
-            </p>
-    )}
-    <div class="mt-4">
+    <div class={title ? "mt-3" : ""}>
         <slot />
     </div>
-</Tag>
+</section>

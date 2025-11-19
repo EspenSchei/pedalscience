@@ -9,68 +9,74 @@ const description =
 ---
 
 <BaseLayout {title} {description}>
-    <h1 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
-        Klatretids-kalkulator
-    </h1>
+    <header class="mb-6">
+        <h1 class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+            Klatretids-kalkulator
+        </h1>
 
-    <p class="mt-2 text-sm text-slate-300">
-        Legg inn watt, totalvekt, lengde og stigning – få estimert tid og fart.
-        Kalkulatoren bruker en forenklet modell av gravitasjonskraften i motbakke.
-    </p>
+        <p class="mt-2 max-w-2xl text-sm text-slate-600">
+            Legg inn watt, totalvekt, lengde og stigning – få estimert tid og fart.
+            Kalkulatoren bruker en forenklet modell av gravitasjonskraften i motbakke.
+        </p>
+    </header>
 
-    <div class="mt-6 grid gap-6 md:grid-cols-2">
+    <div class="mt-4 grid gap-6 md:grid-cols-2">
         <div class="space-y-4">
             <!-- WATT -->
             <div class="space-y-1 text-sm">
-                <label for="watt" class="text-slate-200">Watt</label>
+                <label for="watt">Watt</label>
                 <input
                         id="watt"
                         type="number"
                         value="250"
-                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 outline-none"
+                        class="w-full"
                 />
             </div>
 
             <!-- VEKT -->
             <div class="space-y-1 text-sm">
-                <label for="weight" class="text-slate-200">Totalvekt (rytter + sykkel)</label>
+                <label for="weight">Totalvekt (rytter + sykkel)</label>
                 <input
                         id="weight"
                         type="number"
                         step="0.1"
                         value="82"
-                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 outline-none"
+                        class="w-full"
                 />
             </div>
 
             <!-- LENGDE -->
             <div class="space-y-1 text-sm">
-                <label for="length" class="text-slate-200">Lengde (meter)</label>
+                <label for="length">Lengde (meter)</label>
                 <input
                         id="length"
                         type="number"
                         value="2000"
-                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 outline-none"
+                        class="w-full"
                 />
             </div>
 
             <!-- STIGNING -->
             <div class="space-y-1 text-sm">
-                <label for="grade" class="text-slate-200">Stigning (%)</label>
+                <label for="grade">Stigning (%)</label>
                 <input
                         id="grade"
                         type="number"
                         value="6"
                         step="0.1"
-                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 outline-none"
+                        class="w-full"
                 />
             </div>
 
-            <Button id="calcBtn" variant="primary">Beregn klatretid</Button>
+            <div class="form-actions">
+                <Button id="calcBtn" variant="primary">
+                    Beregn klatretid
+                </Button>
+            </div>
         </div>
 
         <Card title="Resultat">
-            <div id="result" class="text-sm text-slate-300">
+            <div id="result" class="text-sm text-slate-600">
                 Fyll inn data og trykk «Beregn».
             </div>
         </Card>
@@ -105,8 +111,10 @@ const description =
             const sec = Math.round(time % 60);
 
             result.innerHTML = `
-        <p><strong>Estimert tid:</strong> ${min} min ${sec} sek</p>
-        <p><strong>Snittfart:</strong> ${kmh.toFixed(1)} km/t</p>
+        <p class="font-semibold text-slate-800">Estimert tid:</p>
+        <p class="text-slate-900">${min} min ${sec} sek</p>
+        <p class="mt-3 font-semibold text-slate-800">Snittfart:</p>
+        <p class="text-slate-900">${kmh.toFixed(1)} km/t</p>
       `;
         }
 

@@ -1,19 +1,19 @@
 ---
-const {as = "article", title, class: extraClass, ...rest} = Astro.props;
-const Tag = as;
+const { title, class: extraClass = "" } = Astro.props as {
+    title?: string;
+    class?: string;
+};
+
+const classes = `rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm ${extraClass}`.trim();
 ---
 
-<Tag
-    {...rest}
-    class:list={[
-        "rounded-2xl border border-slate-700/70 bg-slate-950/80 p-4 text-sm shadow-lg shadow-black/50",
-        extraClass,
-    ]}
->
+<div class={classes}>
     {title && (
-            <h3 class="text-sm font-semibold text-slate-100">
+            <h2 class="text-sm font-semibold tracking-tight text-slate-900">
                 {title}
-            </h3>
+            </h2>
     )}
-    <slot/>
-</Tag>
+    <div class={title ? "mt-2" : ""}>
+        <slot />
+    </div>
+</div>

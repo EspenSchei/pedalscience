@@ -12,20 +12,20 @@ body {
    -------------------------------------------------- */
 
 .article-content {
-    @apply text-[0.98rem] leading-relaxed text-slate-200;
+    @apply text-[0.98rem] leading-relaxed text-slate-800;
 }
 
 /* Overskrifter */
 .article-content h1 {
-    @apply text-4xl lg:text-5xl font-bold leading-tight mb-6 mt-2 text-slate-50;
+    @apply text-4xl lg:text-5xl font-bold leading-tight mb-6 mt-2 text-slate-900;
 }
 
 .article-content h2 {
-    @apply text-2xl lg:text-3xl font-semibold leading-snug mt-10 mb-4 text-slate-50;
+    @apply text-2xl lg:text-3xl font-semibold leading-snug mt-10 mb-4 text-slate-900;
 }
 
 .article-content h3 {
-    @apply text-xl font-semibold leading-snug mt-8 mb-3 text-slate-50;
+    @apply text-xl font-semibold leading-snug mt-8 mb-3 text-slate-900;
 }
 
 /* Avsnitt */
@@ -48,30 +48,30 @@ body {
 
 /* Lenker */
 .article-content a {
-    @apply text-sky-400 no-underline;
+    @apply text-sky-700 no-underline;
 }
 
 .article-content a:hover {
-    @apply text-sky-300;
+    @apply text-sky-800;
 }
 
 /* Bold / strong */
 .article-content strong {
-    @apply font-semibold text-slate-50;
+    @apply font-semibold text-slate-900;
 }
 
 /* Blockquotes som små bokser */
 .article-content blockquote {
-    @apply border-l-2 border-sky-500/60 bg-slate-950/60 rounded-xl px-4 py-3 not-italic my-4 text-[0.95rem];
+    @apply border-l-2 border-sky-200 bg-sky-50 rounded-xl px-4 py-3 not-italic my-4 text-[0.95rem] text-slate-800;
 }
 
 /* Kode */
 .article-content code {
-    @apply bg-slate-900 px-1.5 py-0.5 rounded text-[0.85rem];
+    @apply bg-slate-100 px-1.5 py-0.5 rounded text-[0.85rem] text-slate-900;
 }
 
 .article-content pre {
-    @apply bg-slate-900 border border-slate-700 rounded-md p-3 text-xs overflow-x-auto my-4;
+    @apply bg-slate-900 text-slate-50 rounded-md p-3 text-xs overflow-x-auto my-4;
 }
 
 /* Horisontale linjer – skjul */
@@ -81,8 +81,6 @@ body {
 
 /* --------------------------------------------------
    Callout-bokser (NOTE/TIP/INFO/WARNING/SUCCESS)
-   Brukes som:
-   <div class="callout callout-tip">...</div>
    -------------------------------------------------- */
 
 .article-content .callout {
@@ -90,50 +88,48 @@ body {
 }
 
 .article-content .callout-title {
-    @apply text-[0.65rem] font-semibold tracking-[0.18em] uppercase mb-1 text-slate-300;
+    @apply text-[0.65rem] font-semibold tracking-[0.18em] uppercase mb-1 text-slate-500;
 }
 
 /* NOTE (nøytral blå) */
 .article-content .callout-note {
-    @apply border-sky-400/80 bg-sky-950/40;
+    @apply border-sky-400 bg-sky-50;
 }
 
 /* TIP (grønn) */
 .article-content .callout-tip {
-    @apply border-emerald-400/80 bg-emerald-950/40;
+    @apply border-emerald-400 bg-emerald-50;
 }
 
 /* INFO (cyan) */
 .article-content .callout-info {
-    @apply border-cyan-400/80 bg-cyan-950/40;
+    @apply border-cyan-400 bg-cyan-50;
 }
 
 /* WARNING (gul/oransje) */
 .article-content .callout-warning {
-    @apply border-amber-400/90 bg-amber-950/40;
+    @apply border-amber-500 bg-amber-50;
 }
 
 /* SUCCESS (grønn, lysere) */
 .article-content .callout-success {
-    @apply border-lime-400/80 bg-lime-950/40;
+    @apply border-lime-500 bg-lime-50;
 }
 
 /* --------------------------------------------------
    Økt-bokser
-   Brukes som:
-   <div class="session-box">...</div>
    -------------------------------------------------- */
 
 .article-content .session-box {
-    @apply rounded-2xl border border-slate-700 bg-slate-950/70 px-4 py-3 my-4;
+    @apply rounded-2xl border border-slate-200 bg-white px-4 py-3 my-4 shadow-sm;
 }
 
 .article-content .session-title {
-    @apply text-sm font-semibold text-slate-100 mb-1;
+    @apply text-sm font-semibold text-slate-900 mb-1;
 }
 
 .article-content .session-meta {
-    @apply text-[0.7rem] uppercase tracking-[0.16em] text-slate-400 mb-2;
+    @apply text-[0.7rem] uppercase tracking-[0.16em] text-slate-500 mb-2;
 }
 
 .article-content .session-box ul {
@@ -149,11 +145,11 @@ body {
    -------------------------------------------------- */
 
 .article-content .related-articles {
-    @apply mt-10 pt-6 border-t border-slate-800/80;
+    @apply mt-10 pt-6 border-t border-slate-200;
 }
 
 .article-content .related-title {
-    @apply text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-3;
+    @apply text-xs font-semibold tracking-[0.2em] uppercase text-slate-500 mb-3;
 }
 
 .article-content .related-articles ul {
@@ -165,5 +161,37 @@ body {
 }
 
 .article-content .related-articles a {
-    @apply text-slate-200 hover:text-sky-300;
+    @apply text-slate-700 hover:text-sky-700;
+}
+
+/* --------------------------------------------------
+   Forms – felles stil for kalkulatorene
+   -------------------------------------------------- */
+
+/* Input-felter og select i verktøyene skal være lyse,
+   runde og tydelige, uansett tidligere dark-mode-klasser. */
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="tel"],
+select,
+textarea {
+    @apply w-full rounded-2xl border border-slate-300 bg-white px-4 py-2.5 text-sm text-slate-900 shadow-sm
+    focus:outline-none focus:ring-2 focus:ring-sky-500 focus:border-sky-500;
+}
+
+/* Labels (f.eks. “FTP (watt)”, “Varighet (timer)”) */
+label {
+    @apply block text-sm font-semibold text-slate-800 mb-1;
+}
+
+/* Hjelpetekst under feltene
+   (brukes allerede i verktøyene dine, tror jeg) */
+.form-help {
+    @apply mt-1 text-[0.75rem] text-slate-500;
+}
+
+/* Knapp-rad kan få litt ekstra luft hvis du bruker .form-actions */
+.form-actions {
+    @apply mt-4;
 }

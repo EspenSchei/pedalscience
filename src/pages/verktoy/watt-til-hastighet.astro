@@ -9,59 +9,59 @@ const description =
 ---
 
 <BaseLayout {title} {description}>
-    <h1 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
-        Watt → hastighet
-    </h1>
+    <header class="mb-6">
+        <h1 class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
+            Watt → hastighet
+        </h1>
 
-    <p class="mt-2 text-sm text-slate-300">
-        Kalkulator basert på balanse mellom luftmotstand og rullemotstand. Et
-        realistisk estimat for flat løype.
-    </p>
+        <p class="mt-2 max-w-2xl text-sm text-slate-600">
+            Kalkulator basert på balanse mellom luftmotstand og rullemotstand. Et
+            realistisk estimat for flat løype.
+        </p>
+    </header>
 
-    <div class="mt-6 grid gap-6 md:grid-cols-2">
+    <div class="mt-4 grid gap-6 md:grid-cols-2">
         <div class="space-y-4">
             <!-- WATT -->
             <div class="space-y-1 text-sm">
-                <label class="text-slate-200">Watt</label>
-                <input id="watt" type="number" value="250"
-                       class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm" />
+                <label for="watt">Watt</label>
+                <input id="watt" type="number" value="250" class="w-full" />
             </div>
 
             <!-- CdA -->
             <div class="space-y-1 text-sm">
-                <label class="text-slate-200">CdA</label>
-                <input id="cda" type="number" step="0.01" value="0.32"
-                       class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm" />
-                <p class="text-xs text-slate-400">Vanlig landevei: 0.25–0.35</p>
+                <label for="cda">CdA</label>
+                <input id="cda" type="number" step="0.01" value="0.32" class="w-full" />
+                <p class="text-xs text-slate-500">Typisk landevei: 0.25–0.35</p>
             </div>
 
             <!-- VEKT -->
             <div class="space-y-1 text-sm">
-                <label class="text-slate-200">Totalvekt (kg)</label>
-                <input id="weight" type="number" value="82" step="0.1"
-                       class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm" />
+                <label for="weight">Totalvekt (kg)</label>
+                <input id="weight" type="number" step="0.1" value="82" class="w-full" />
             </div>
 
             <!-- Crr -->
             <div class="space-y-1 text-sm">
-                <label class="text-slate-200">Rullemotstand (Crr)</label>
-                <input id="crr" type="number" step="0.0001" value="0.004"
-                       class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm" />
-                <p class="text-xs text-slate-400">Vanlige dekk: 0.0035–0.0050</p>
+                <label for="crr">Rullemotstand (Crr)</label>
+                <input id="crr" type="number" step="0.0001" value="0.004" class="w-full" />
+                <p class="text-xs text-slate-500">Vanlige dekk: 0.0035–0.0050</p>
             </div>
 
-            <Button id="calcBtn" variant="primary">Beregn fart</Button>
+            <div class="form-actions">
+                <Button id="calcBtn" variant="primary">Beregn fart</Button>
+            </div>
         </div>
 
         <Card title="Resultat">
-            <div id="result" class="text-sm text-slate-300">
+            <div id="result" class="text-sm text-slate-600">
                 Fyll inn data og trykk «Beregn».
             </div>
         </Card>
     </div>
 
     <script type="module">
-        const rho = 1.226; // vanlig lufttetthet
+        const rho = 1.226; // lufttetthet
         const g = 9.81;
 
         const watt = document.getElementById("watt");
@@ -76,8 +76,8 @@ const description =
             const m = Number(weight.value);
             const Crr = Number(crr.value);
 
-            // vi løser med iterasjon
-            let v = 5; // start, m/s
+            // iterativ løsning
+            let v = 5;
             for (let i = 0; i < 30; i++) {
                 const aero = 0.5 * rho * CdA * v * v;
                 const roll = m * g * Crr;
@@ -88,7 +88,8 @@ const description =
             const kmh = v * 3.6;
 
             result.innerHTML = `
-        <p><strong>Fart:</strong> ${kmh.toFixed(1)} km/t</p>
+        <p class="font-semibold text-slate-800">Fart:</p>
+        <p class="text-slate-900">${kmh.toFixed(1)} km/t</p>
       `;
         }
 
