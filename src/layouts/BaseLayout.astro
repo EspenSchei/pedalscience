@@ -1,0 +1,150 @@
+---
+import "../styles/global.css";
+import Breadcrumb from "../components/Breadcrumb.astro";
+import Button from "../components/Button.astro";
+
+const {
+    title = "Landevei",
+    description = "Verktøy og kunnskap for landeveissyklister",
+} = Astro.props;
+
+const year = new Date().getFullYear();
+const pathname = Astro.url.pathname;
+
+/* -------------------------------------------------------
+   BREADCRUMB LOGIKK
+------------------------------------------------------- */
+
+let breadcrumbItems = null;
+let isToolDetail = false;
+
+// Verktøy-detaljsider: /verktoy/...
+if (pathname.startsWith("/verktoy/") && pathname !== "/verktoy") {
+    isToolDetail = true;
+    breadcrumbItems = [
+        { label: "Hjem", href: "/" },
+        { label: "Verktøy", href: "/verktoy" },
+        { label: title },
+    ];
+}
+
+// Treningsartikler: /trening/...
+if (pathname.startsWith("/trening/") && pathname !== "/trening") {
+    breadcrumbItems = [
+        { label: "Hjem", href: "/" },
+        { label: "Trening", href: "/trening" },
+        { label: title },
+    ];
+}
+
+/* -------------------------------------------------------
+   SEO: Schema.org BreadcrumbList
+------------------------------------------------------- */
+
+let breadcrumbJson = null;
+
+if (breadcrumbItems) {
+    const origin = Astro.url.origin ?? "";
+    breadcrumbJson = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumbItems.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: item.label,
+            item: item.href ? `${origin}${item.href}` : Astro.url.href,
+        })),
+    };
+}
+---
+
+<!DOCTYPE html>
+<html lang="no" class="scroll-smooth">
+<head>
+    <meta charset="utf-8" />
+    <title>{title} | Landevei</title>
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    {breadcrumbJson && (
+        <script type="application/ld+json">
+        {JSON.stringify(breadcrumbJson)}
+      </script>
+    )}
+</head>
+
+<body
+        class="min-h-screen bg-gradient-to-b from-slate-950 via-slate-950 to-black text-slate-100"
+>
+<!-- HEADER / NAV -->
+<header
+        class="sticky top-0 z-20 border-b border-slate-800/80 bg-slate-950/80 backdrop-blur"
+>
+    <div
+            class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6"
+    >
+        <a
+                href="/"
+                class="inline-flex items-center rounded-full border border-slate-500/60 bg-slate-900/70 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em]"
+        >
+            Landevei
+        </a>
+
+        <nav class="flex gap-2 text-sm">
+            <a
+                    href="/"
+                    class="rounded-full px-3 py-1 text-slate-300 hover:bg-slate-800/80 hover:text-white"
+            >
+                Hjem
+            </a>
+            <a
+                    href="/verktoy"
+                    class="rounded-full px-3 py-1 text-slate-300 hover:bg-slate-800/80 hover:text-white"
+            >
+                Verktøy
+            </a>
+            <a
+                    href="/trening"
+                    class="rounded-full px-3 py-1 text-slate-300 hover:bg-slate-800/80 hover:text-white"
+            >
+                Trening
+            </a>
+        </nav>
+    </div>
+</header>
+
+<!-- INNHOLD -->
+<main class="py-8">
+    <div class="mx-auto max-w-5xl px-4 sm:px-6">
+
+        {breadcrumbItems && (
+                <>
+                    <Breadcrumb items={breadcrumbItems} />
+                    {isToolDetail && (
+                            <div class="mb-4">
+                                <Button
+                                        href="/verktoy"
+                                        variant="ghost"
+                                        class="px-3 py-1 text-xs"
+                                >
+                                    ← Tilbake til verktøy
+                                </Button>
+                            </div>
+                    )}
+                </>
+        )}
+
+        <slot />
+    </div>
+</main>
+
+<!-- FOOTER -->
+<footer
+        class="border-t border-slate-800/80 bg-slate-950/90 text-xs text-slate-400"
+>
+    <div class="mx-auto max-w-5xl px-4 py-4 sm:px-6">
+        © {year} Landevei.no – for mosjonister og nerder 🚴‍♂️
+    </div>
+</footer>
+</body>
+</html>

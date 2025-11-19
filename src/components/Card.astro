@@ -1,0 +1,19 @@
+---
+const {as = "article", title, class: extraClass, ...rest} = Astro.props;
+const Tag = as;
+---
+
+<Tag
+    {...rest}
+    class:list={[
+        "rounded-2xl border border-slate-700/70 bg-slate-950/80 p-4 text-sm shadow-lg shadow-black/50",
+        extraClass,
+    ]}
+>
+    {title && (
+            <h3 class="text-sm font-semibold text-slate-100">
+                {title}
+            </h3>
+    )}
+    <slot/>
+</Tag>

@@ -1,0 +1,64 @@
+---
+const { items = [] } = Astro.props;
+---
+
+<nav class="mb-6 text-sm text-slate-400">
+    <ol class="flex flex-wrap items-center gap-1">
+        {items.map((item, i) => (
+                <li class="flex items-center gap-1">
+                    {i === 0 ? (
+                        // Første element – vis hjemikon
+          item.href ? (
+                                    <a
+                                            href={item.href}
+                                            class="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-slate-300 hover:bg-slate-800/80 hover:text-slate-50"
+                                    >
+              <span class="inline-flex h-4 w-4 items-center justify-center">
+                <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                        class="h-4 w-4"
+                >
+                  <path
+                          d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-5h-4v5H5a1 1 0 0 1-1-1v-9.5Z"
+                          fill="currentColor"
+                  />
+                </svg>
+              </span>
+                                        <span>Hjem</span>
+                                    </a>
+                        ) : (
+                                    <span class="inline-flex items-center gap-1">
+              <span class="inline-flex h-4 w-4 items-center justify-center">
+                <svg
+                        viewBox="0 0 24 24"
+                        aria-hidden="true"
+                        class="h-4 w-4"
+                >
+                  <path
+                          d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-5v-5h-4v5H5a1 1 0 0 1-1-1v-9.5Z"
+                          fill="currentColor"
+                  />
+                </svg>
+              </span>
+              <span class="text-slate-200">{item.label}</span>
+            </span>
+                        )
+                    ) : item.href ? (
+                            <a
+                                    href={item.href}
+                                    class="transition hover:text-slate-200"
+                            >
+                                {item.label}
+                            </a>
+                    ) : (
+                            <span class="text-slate-200">{item.label}</span>
+                    )}
+
+                    {i < items.length - 1 && (
+                            <span class="select-none text-slate-500">/</span>
+                    )}
+                </li>
+        ))}
+    </ol>
+</nav>

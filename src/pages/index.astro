@@ -1,16 +1,98 @@
 ---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/Button.astro";
+import Card from "../components/Card.astro";
+import Section from "../components/Section.astro";
 
+const title = "Verktøy og kunnskap for landeveissyklister";
+const description =
+	"FTP-kalkulator, treningssoner, w/kg og praktiske verktøy for mosjonister som vil sykle fortere med minst mulig bullshit.";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout {title} {description}>
+	<section
+		class="grid gap-6 md:grid-cols-[minmax(0,3fr)_minmax(0,2.3fr)] md:items-center"
+	>
+		<div
+			class="rounded-3xl border border-slate-600/60 bg-slate-900/80 p-6 shadow-xl shadow-black/50"
+		>
+			<div
+				class="mb-3 inline-flex items-center gap-2 rounded-full border border-slate-600/70 bg-slate-950/80 px-3 py-1 text-xs text-slate-300"
+			>
+        <span
+			class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_0_4px_rgba(52,211,153,0.4)]"
+		></span>
+				For mosjonister, ikke proffer
+			</div>
+
+			<h1
+				class="text-balance text-3xl font-semibold tracking-tight sm:text-4xl"
+			>
+				Sykkelverktøy og treningskunnskap på norsk
+			</h1>
+			<p class="mt-3 text-sm text-slate-300">
+				Landevei samler de viktigste kalkulatorene og enkle forklaringer på
+				hvordan du faktisk blir sterkere på sykkel – uten å drukne i
+				treningsguru-prat.
+			</p>
+
+			<div class="mt-6 flex flex-wrap gap-3 text-sm">
+				<Button href="/verktoy/ftp-kalkulator" variant="primary">
+					Gå til FTP-kalkulator
+				</Button>
+				<Button href="/trening/4-watt-per-kg" variant="ghost">
+					Les om veien til 4 W/kg
+				</Button>
+			</div>
+		</div>
+
+		<aside class="grid gap-3">
+			<Card as="div" title="Verktøy">
+				<p class="mt-1 text-xs text-slate-300">
+					Start med FTP og bygg videre med flere kalkulatorer etterhvert.
+				</p>
+				<div class="mt-2 flex flex-wrap gap-2">
+					<Button variant="chip">FTP → soner</Button>
+					<Button variant="chip">W/kg</Button>
+					<Button variant="chip">Klatretid</Button>
+				</div>
+			</Card>
+
+			<Card as="div" title="Filosofien">
+				<p class="mt-1 text-xs text-slate-300">
+					Kort, konkret og praktisk. Mindre synsing, mer struktur.
+				</p>
+				<div class="mt-2 flex flex-wrap gap-2">
+					<Button variant="chip">Z2</Button>
+					<Button variant="chip">Sweetspot</Button>
+					<Button variant="chip">VO₂max</Button>
+				</div>
+			</Card>
+		</aside>
+	</section>
+
+	<Section title="Hva finner du her?">
+		<div class="grid gap-4 md:grid-cols-3">
+			<Card title="Treningssoner på autopilot">
+				<p class="mt-1 text-xs text-slate-300">
+					Legg inn FTP og få soner i både watt og prosent. Ingen ad
+					hoc–Excelark, bare rett ut av boksen.
+				</p>
+			</Card>
+
+			<Card title="Enkle treningsforklaringer">
+				<p class="mt-1 text-xs text-slate-300">
+					Artikler som forklarer hva du faktisk bør gjøre på trening uten å
+					late som du skal kjøre WorldTour neste sesong.
+				</p>
+			</Card>
+
+			<Card title="Bygges ut over tid">
+				<p class="mt-1 text-xs text-slate-300">
+					Flere verktøy kommer etterhvert: klatretidskalkulator,
+					ernæringskalkulator og mer landeveis-nerding.
+				</p>
+			</Card>
+		</div>
+	</Section>
+</BaseLayout>

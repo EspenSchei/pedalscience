@@ -1,0 +1,74 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Card from "../../components/Card.astro";
+import Button from "../../components/Button.astro";
+import Section from "../../components/Section.astro";
+
+const title = "Sykkelverktøy";
+const description =
+    "Oversikt over FTP-kalkulator, klatretid, watt→hastighet og ernæringskalkulator for landeveissyklister.";
+---
+
+<BaseLayout {title} {description}>
+    <h1 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
+        Sykkelverktøy
+    </h1>
+    <p class="mt-2 text-sm text-slate-300">
+        Praktiske kalkulatorer for landeveis-mosjonister. Start med FTP, og bruk
+        de andre verktøyene til å planlegge klatringer, fart og ernæring.
+    </p>
+
+    <Section class="mt-6" title="Kalkulatorer">
+        <div class="grid gap-4 md:grid-cols-2">
+            <Card title="FTP-kalkulator">
+                <p class="mt-1 text-xs text-slate-300">
+                    Legg inn FTP og få treningssoner i watt og prosent. Perfekt
+                    utgangspunkt for strukturert trening.
+                </p>
+                <div class="mt-3">
+                    <Button href="/verktoy/ftp-kalkulator" variant="primary">
+                        Gå til FTP-kalkulator
+                    </Button>
+                </div>
+            </Card>
+
+            <Card title="Klatretids-kalkulator">
+                <p class="mt-1 text-xs text-slate-300">
+                    Beregn hvor lang tid du bruker opp en bakke basert på watt,
+                    totalvekt, lengde og stigning. Fin for å leke med “hva hvis jeg går
+                    ned 3 kg eller opp 20 W?”.
+                </p>
+                <div class="mt-3">
+                    <Button href="/verktoy/klatretid" variant="ghost">
+                        Beregn klatretid
+                    </Button>
+                </div>
+            </Card>
+
+            <Card title="Watt → hastighet">
+                <p class="mt-1 text-xs text-slate-300">
+                    Estimer fart på flatmark basert på watt, CdA, rullemotstand og
+                    totalvekt. Gir et realistisk bilde av hvor raskt du kan sykle på
+                    god asfalt.
+                </p>
+                <div class="mt-3">
+                    <Button href="/verktoy/watt-til-hastighet" variant="ghost">
+                        Beregn fart
+                    </Button>
+                </div>
+            </Card>
+
+            <Card title="Ernærings-kalkulator">
+                <p class="mt-1 text-xs text-slate-300">
+                    Foreslår hvor mye karbo du bør ta per time ut fra intensitet og
+                    varighet. Enkelt verktøy for å unngå å gå tom på lange turer.
+                </p>
+                <div class="mt-3">
+                    <Button href="/verktoy/ernaering" variant="ghost">
+                        Beregn karbopr behov
+                    </Button>
+                </div>
+            </Card>
+        </div>
+    </Section>
+</BaseLayout>

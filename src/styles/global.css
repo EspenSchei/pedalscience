@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Standard body */
+body {
+    @apply antialiased text-sm;
+}
+
+/* --------------------------------------------------
+   Typografi for artikler (markdown)
+   -------------------------------------------------- */
+
+.article-content {
+    @apply text-[0.98rem] leading-relaxed text-slate-200;
+}
+
+/* Overskrifter */
+.article-content h1 {
+    @apply text-4xl lg:text-5xl font-bold leading-tight mb-6 mt-2 text-slate-50;
+}
+
+.article-content h2 {
+    @apply text-2xl lg:text-3xl font-semibold leading-snug mt-10 mb-4 text-slate-50;
+}
+
+.article-content h3 {
+    @apply text-xl font-semibold leading-snug mt-8 mb-3 text-slate-50;
+}
+
+/* Avsnitt */
+.article-content p {
+    @apply my-3;
+}
+
+/* Lister */
+.article-content ul {
+    @apply list-disc pl-6 my-3;
+}
+
+.article-content ol {
+    @apply list-decimal pl-6 my-3;
+}
+
+.article-content li {
+    @apply my-1;
+}
+
+/* Lenker */
+.article-content a {
+    @apply text-sky-400 no-underline;
+}
+
+.article-content a:hover {
+    @apply text-sky-300;
+}
+
+/* Bold / strong */
+.article-content strong {
+    @apply font-semibold text-slate-50;
+}
+
+/* Blockquotes som små bokser */
+.article-content blockquote {
+    @apply border-l-2 border-sky-500/60 bg-slate-950/60 rounded-xl px-4 py-3 not-italic my-4 text-[0.95rem];
+}
+
+/* Kode */
+.article-content code {
+    @apply bg-slate-900 px-1.5 py-0.5 rounded text-[0.85rem];
+}
+
+.article-content pre {
+    @apply bg-slate-900 border border-slate-700 rounded-md p-3 text-xs overflow-x-auto my-4;
+}
+
+/* Horisontale linjer – skjul */
+.article-content hr {
+    @apply border-0 my-0;
+}
+
+/* --------------------------------------------------
+   Callout-bokser (NOTE/TIP/INFO/WARNING/SUCCESS)
+   Brukes som:
+   <div class="callout callout-tip">...</div>
+   -------------------------------------------------- */
+
+.article-content .callout {
+    @apply rounded-2xl px-4 py-3 my-4 text-[0.95rem] border-l-4;
+}
+
+.article-content .callout-title {
+    @apply text-[0.65rem] font-semibold tracking-[0.18em] uppercase mb-1 text-slate-300;
+}
+
+/* NOTE (nøytral blå) */
+.article-content .callout-note {
+    @apply border-sky-400/80 bg-sky-950/40;
+}
+
+/* TIP (grønn) */
+.article-content .callout-tip {
+    @apply border-emerald-400/80 bg-emerald-950/40;
+}
+
+/* INFO (cyan) */
+.article-content .callout-info {
+    @apply border-cyan-400/80 bg-cyan-950/40;
+}
+
+/* WARNING (gul/oransje) */
+.article-content .callout-warning {
+    @apply border-amber-400/90 bg-amber-950/40;
+}
+
+/* SUCCESS (grønn, lysere) */
+.article-content .callout-success {
+    @apply border-lime-400/80 bg-lime-950/40;
+}
+
+/* --------------------------------------------------
+   Økt-bokser
+   Brukes som:
+   <div class="session-box">...</div>
+   -------------------------------------------------- */
+
+.article-content .session-box {
+    @apply rounded-2xl border border-slate-700 bg-slate-950/70 px-4 py-3 my-4;
+}
+
+.article-content .session-title {
+    @apply text-sm font-semibold text-slate-100 mb-1;
+}
+
+.article-content .session-meta {
+    @apply text-[0.7rem] uppercase tracking-[0.16em] text-slate-400 mb-2;
+}
+
+.article-content .session-box ul {
+    @apply list-none pl-0 my-2;
+}
+
+.article-content .session-box li {
+    @apply my-1 text-xs;
+}
+
+/* --------------------------------------------------
+   Relaterte artikler-seksjon nederst
+   -------------------------------------------------- */
+
+.article-content .related-articles {
+    @apply mt-10 pt-6 border-t border-slate-800/80;
+}
+
+.article-content .related-title {
+    @apply text-xs font-semibold tracking-[0.2em] uppercase text-slate-400 mb-3;
+}
+
+.article-content .related-articles ul {
+    @apply list-none pl-0;
+}
+
+.article-content .related-articles li {
+    @apply my-1;
+}
+
+.article-content .related-articles a {
+    @apply text-slate-200 hover:text-sky-300;
+}

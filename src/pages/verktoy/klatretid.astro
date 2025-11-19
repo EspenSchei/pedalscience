@@ -1,0 +1,115 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/Button.astro";
+import Card from "../../components/Card.astro";
+
+const title = "Klatretids-kalkulator";
+const description =
+    "Beregn hvor lang tid du bruker på en bakke basert på watt, vekt, lengde og stigning.";
+---
+
+<BaseLayout {title} {description}>
+    <h1 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
+        Klatretids-kalkulator
+    </h1>
+
+    <p class="mt-2 text-sm text-slate-300">
+        Legg inn watt, totalvekt, lengde og stigning – få estimert tid og fart.
+        Kalkulatoren bruker en forenklet modell av gravitasjonskraften i motbakke.
+    </p>
+
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <div class="space-y-4">
+            <!-- WATT -->
+            <div class="space-y-1 text-sm">
+                <label for="watt" class="text-slate-200">Watt</label>
+                <input
+                        id="watt"
+                        type="number"
+                        value="250"
+                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 outline-none"
+                />
+            </div>
+
+            <!-- VEKT -->
+            <div class="space-y-1 text-sm">
+                <label for="weight" class="text-slate-200">Totalvekt (rytter + sykkel)</label>
+                <input
+                        id="weight"
+                        type="number"
+                        step="0.1"
+                        value="82"
+                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 outline-none"
+                />
+            </div>
+
+            <!-- LENGDE -->
+            <div class="space-y-1 text-sm">
+                <label for="length" class="text-slate-200">Lengde (meter)</label>
+                <input
+                        id="length"
+                        type="number"
+                        value="2000"
+                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 outline-none"
+                />
+            </div>
+
+            <!-- STIGNING -->
+            <div class="space-y-1 text-sm">
+                <label for="grade" class="text-slate-200">Stigning (%)</label>
+                <input
+                        id="grade"
+                        type="number"
+                        value="6"
+                        step="0.1"
+                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm text-slate-50 outline-none"
+                />
+            </div>
+
+            <Button id="calcBtn" variant="primary">Beregn klatretid</Button>
+        </div>
+
+        <Card title="Resultat">
+            <div id="result" class="text-sm text-slate-300">
+                Fyll inn data og trykk «Beregn».
+            </div>
+        </Card>
+    </div>
+
+    <script type="module">
+        const watt = document.getElementById("watt");
+        const weight = document.getElementById("weight");
+        const length = document.getElementById("length");
+        const grade = document.getElementById("grade");
+        const result = document.getElementById("result");
+
+        const g = 9.81;
+
+        function calc() {
+            const W = Number(watt.value);
+            const m = Number(weight.value);
+            const dist = Number(length.value);
+            const pct = Number(grade.value);
+
+            if (!W || !m || !dist) {
+                result.textContent = "Sjekk inputverdiene.";
+                return;
+            }
+
+            const theta = Math.atan(pct / 100);
+            const v = W / (m * g * Math.sin(theta)); // m/s
+            const time = dist / v;
+            const kmh = v * 3.6;
+
+            const min = Math.floor(time / 60);
+            const sec = Math.round(time % 60);
+
+            result.innerHTML = `
+        <p><strong>Estimert tid:</strong> ${min} min ${sec} sek</p>
+        <p><strong>Snittfart:</strong> ${kmh.toFixed(1)} km/t</p>
+      `;
+        }
+
+        document.getElementById("calcBtn").onclick = calc;
+    </script>
+</BaseLayout>

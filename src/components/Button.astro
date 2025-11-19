@@ -1,0 +1,45 @@
+---
+const {
+    href,
+    variant = "primary",
+    type = "button",
+    class: extraClass,
+    ...rest
+} = Astro.props;
+
+let base =
+    "inline-flex items-center justify-center gap-1 rounded-full px-4 py-2 text-sm transition shadow-lg";
+
+let variantClasses = "";
+
+if (variant === "primary") {
+    variantClasses =
+        "bg-sky-400 text-slate-950 shadow-sky-500/40 hover:bg-sky-300";
+} else if (variant === "ghost") {
+    variantClasses =
+        "border border-slate-600/70 bg-slate-950/80 text-slate-200 hover:bg-slate-900";
+} else if (variant === "chip") {
+    base =
+        "inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] border";
+    variantClasses =
+        "border-slate-700/70 bg-slate-900/80 text-slate-300";
+}
+---
+
+{href ? (
+<a
+        href={href}
+        class:list={[base, variantClasses, extraClass]}
+        {...rest}
+>
+    <slot/>
+</a>
+    ) : (
+<button
+        type={type}
+        class:list={[base, variantClasses, extraClass]}
+        {...rest}
+>
+    <slot/>
+</button>
+    )}

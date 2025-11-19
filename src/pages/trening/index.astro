@@ -1,0 +1,51 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Card from "../../components/Card.astro";
+import Button from "../../components/Button.astro";
+import Section from "../../components/Section.astro";
+
+const title = "Trening";
+const description =
+    "Artikler om hvordan du kan trene smartere på landeveien – med fokus på mosjonister, ikke proffer.";
+
+// Hent alle markdown-artikler i denne mappa (f.eks. 4-watt-per-kg.md)
+const articles = await Astro.glob("./*.md");
+
+// Sorter alfabetisk på tittel (ev. bytt til dato hvis du legger inn det senere)
+articles.sort((a, b) =>
+    (a.frontmatter.title || "").localeCompare(b.frontmatter.title || "")
+);
+---
+
+<BaseLayout {title} {description}>
+    <h1 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
+        Trening for landeveis-mosjonister
+    </h1>
+    <p class="mt-2 text-sm text-slate-300">
+        Enkle, ærlige artikler om hvordan du faktisk kan bli sterkere på sykkel – uten å måtte
+        trene som en proff. Fokus på struktur, volum og noen få nøkkeløkter.
+    </p>
+
+    <Section class="mt-6" title="Artikler">
+        {articles.length === 0 ? (
+                <p class="text-sm text-slate-300">
+                    Ingen artikler enda. Kommer snart.
+                </p>
+        ) : (
+                <div class="grid gap-4 md:grid-cols-2">
+                    {articles.map((article) => (
+                            <Card title={article.frontmatter.title}>
+                                <p class="mt-1 text-xs text-slate-300">
+                                    {article.frontmatter.description || "Les artikkelen"}
+                                </p>
+                                <div class="mt-3">
+                                    <Button href={article.url} variant="ghost">
+                                        Les artikkelen
+                                    </Button>
+                                </div>
+                            </Card>
+                    ))}
+                </div>
+        )}
+    </Section>
+</BaseLayout>

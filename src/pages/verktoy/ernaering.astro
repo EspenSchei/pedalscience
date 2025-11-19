@@ -1,0 +1,81 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/Button.astro";
+import Card from "../../components/Card.astro";
+import Breadcrumb from "../../components/Breadcrumb.astro";
+
+const title = "Ernærings-kalkulator";
+const description =
+    "Hvor mye karbohydrater du bør innta per time basert på intensitet.";
+---
+
+<BaseLayout {title} {description}>
+    <h1 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
+        Ernærings-kalkulator
+    </h1>
+
+    <p class="mt-2 text-sm text-slate-300">
+        Velg intensitet og varighet. Kalkulatoren foreslår hvor mye karbo per time
+        som fungerer best for typiske sykkeløkter.
+    </p>
+
+    <div class="mt-6 grid gap-6 md:grid-cols-2">
+        <div class="space-y-4">
+            <!-- Intensitet -->
+            <div class="space-y-1 text-sm">
+                <label class="text-slate-200">Intensitet</label>
+                <select id="zone"
+                        class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm">
+                    <option value="z2">Rolig (Z2)</option>
+                    <option value="z3">Tempo (Z3)</option>
+                    <option value="z4">Terskel (Z4)</option>
+                    <option value="z5">Hard (Z5/VO₂)</option>
+                </select>
+            </div>
+
+            <!-- Varighet -->
+            <div class="space-y-1 text-sm">
+                <label class="text-slate-200">Varighet (timer)</label>
+                <input id="hours" type="number" step="0.1" value="3"
+                       class="w-full rounded-xl border border-slate-700 bg-slate-950/80 px-3 py-2 text-sm" />
+            </div>
+
+            <Button id="calcBtn" variant="primary">Beregn behov</Button>
+        </div>
+
+        <Card title="Resultat">
+            <div id="result" class="text-sm text-slate-300">
+                Fyll inn data og trykk «Beregn».
+            </div>
+        </Card>
+    </div>
+
+    <script type="module">
+        const result = document.getElementById("result");
+
+        const intakePerZone = {
+            z2: [30, 45],
+            z3: [45, 60],
+            z4: [60, 75],
+            z5: [90, 110],
+        };
+
+        function calc() {
+            const zone = document.getElementById("zone").value;
+            const hours = Number(document.getElementById("hours").value);
+
+            const [minG, maxG] = intakePerZone[zone];
+            const totalMin = minG * hours;
+            const totalMax = maxG * hours;
+
+            result.innerHTML = `
+        <p><strong>Anbefalt karboinntak:</strong></p>
+        <p>${minG}–${maxG} g per time</p>
+        <p class="mt-2"><strong>Total mengde:</strong></p>
+        <p>${totalMin}–${totalMax} g</p>
+      `;
+        }
+
+        document.getElementById("calcBtn").onclick = calc;
+    </script>
+</BaseLayout>

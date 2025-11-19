@@ -1,0 +1,27 @@
+---
+const {
+    as = "section",
+    id,
+    title,
+    description,
+    class: extraClass,
+    ...rest
+} = Astro.props;
+const Tag = as;
+---
+
+<Tag id={id} {...rest} class:list={["mt-10", extraClass]}>
+    {title && (
+            <h2 class="text-lg font-semibold text-slate-100">
+                {title}
+            </h2>
+    )}
+    {description && (
+            <p class="mt-2 text-sm text-slate-300">
+                {description}
+            </p>
+    )}
+    <div class="mt-4">
+        <slot />
+    </div>
+</Tag>
