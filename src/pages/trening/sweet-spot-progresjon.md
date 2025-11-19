@@ -2,6 +2,9 @@
 layout: ../../layouts/ArticleLayout.astro
 title: Sweet Spot-progresjon for mosjonister
 description: Hvordan bygge sterk, bærekraftig FTP med smart sweet spot-trening – uten å sprenge seg selv.
+tags: ["Sweet Spot", "FTP", "Progresjon"]
+difficulty: "Nybegynner"
+updated: "2025-11-19"
 ---
 
 # ⚡ Sweet Spot-progresjon for mosjonister

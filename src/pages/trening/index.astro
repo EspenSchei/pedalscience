@@ -6,39 +6,156 @@ import Section from "../../components/Section.astro";
 
 const title = "Trening";
 const description =
-    "Artikler om hvordan du kan trene smartere på landeveien – med fokus på mosjonister, ikke proffer.";
+    "Artikler om hvordan du kan trene smartere på landeveien – med fokus på mosjonister som vil bli sterkere uten å leve som proffer.";
 
-// Hent alle markdown-artikler i denne mappa (f.eks. 4-watt-per-kg.md)
-const articles = await Astro.glob("./*.md");
+// Hent alle markdown-artikler i denne mappa
+const rawArticles = await Astro.glob("./*.md");
 
-// Sorter alfabetisk på tittel (ev. bytt til dato hvis du legger inn det senere)
-articles.sort((a, b) =>
-    (a.frontmatter.title || "").localeCompare(b.frontmatter.title || "")
+const WORDS_PER_MINUTE = 220;
+
+// Prioritet (lavt tall = vis først)
+const getPriority = (url: string) => {
+    switch (url) {
+        case "/trening/4-watt-per-kg":
+            return 1;
+        case "/trening/sweet-spot-progresjon":
+            return 2;
+        default:
+            return 99;
+    }
+};
+
+// Vanskelighetsgrad for sortering
+const difficultyOrder = (difficulty?: string) => {
+    switch ((difficulty ?? "").toLowerCase()) {
+        case "nybegynner":
+            return 1;
+        case "viderekommen":
+            return 2;
+        case "avansert":
+            return 3;
+        default:
+            return 2;
+    }
+};
+
+// Velg et lite ikon basert på første tag
+const iconForTags = (tags: string[] = []) => {
+    const first = (tags[0] ?? "").toLowerCase();
+    if (first.includes("ftp")) return "📊";
+    if (first.includes("sweet")) return "⚡";
+    if (first.includes("vo2")) return "🫁";
+    if (first.includes("z2")) return "🧊";
+    if (first.includes("base")) return "🏗️";
+    if (first.includes("klatr")) return "⛰️";
+    return "🚴‍♂️";
+};
+
+// Bygg artikkel-meta
+const articles = await Promise.all(
+    rawArticles.map(async (mod) => {
+        const frontmatter: any = mod.frontmatter ?? {};
+        const html = (await mod.compiledContent?.()) ?? "";
+        const text = html.replace(/<[^>]+>/g, " ");
+        const words = text.split(/\s+/).filter(Boolean).length;
+        const readingMinutes = words
+            ? Math.max(1, Math.round(words / WORDS_PER_MINUTE))
+            : undefined;
+
+        const tags: string[] = frontmatter.tags ?? [];
+        const difficulty: string | undefined = frontmatter.difficulty;
+        const updated: string | undefined = frontmatter.updated;
+
+        let updatedLabel: string | undefined = undefined;
+        if (updated) {
+            const d = new Date(updated);
+            if (!Number.isNaN(d.getTime())) {
+                updatedLabel = d.toLocaleDateString("nb-NO", {
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric",
+                });
+            }
+        }
+
+        const icon = iconForTags(tags);
+
+        return {
+            url: mod.url,
+            title: frontmatter.title ?? "Uten tittel",
+            description:
+                frontmatter.description ?? "Les artikkelen",
+            tags,
+            difficulty,
+            updated,
+            updatedLabel,
+            readingMinutes,
+            icon,
+            priority: getPriority(mod.url),
+        };
+    })
 );
+
+// Sorter artikler
+articles.sort((a, b) => {
+    if (a.priority !== b.priority) return a.priority - b.priority;
+    const da = difficultyOrder(a.difficulty);
+    const db = difficultyOrder(b.difficulty);
+    if (da !== db) return da - db;
+    return a.title.localeCompare(b.title, "nb");
+});
 ---
 
 <BaseLayout {title} {description}>
-    <h1 class="text-2xl font-semibold tracking-tight text-slate-50 sm:text-3xl">
-        Trening for landeveis-mosjonister
-    </h1>
-    <p class="mt-2 text-sm text-slate-300">
-        Enkle, ærlige artikler om hvordan du faktisk kan bli sterkere på sykkel – uten å måtte
-        trene som en proff. Fokus på struktur, volum og noen få nøkkeløkter.
-    </p>
+    <header class="mb-8">
+        <h1 class="text-3xl font-semibold tracking-tight text-slate-50 sm:text-4xl">
+            Trening for landeveis-mosjonister
+        </h1>
+        <p class="mt-3 max-w-2xl text-sm text-slate-300">
+            Enkle, ærlige artikler om hvordan du kan bli sterkere på sykkel – med smart belastning
+            og treningsøkter som faktisk lar seg gjennomføre i en vanlig uke.
+        </p>
+    </header>
 
-    <Section class="mt-6" title="Artikler">
-        {articles.length === 0 ? (
-                <p class="text-sm text-slate-300">
-                    Ingen artikler enda. Kommer snart.
-                </p>
-        ) : (
+    {articles.length > 0 ? (
+            <Section title="Artikler">
                 <div class="grid gap-4 md:grid-cols-2">
                     {articles.map((article) => (
-                            <Card title={article.frontmatter.title}>
+                            <Card title={`${article.icon} ${article.title}`}>
                                 <p class="mt-1 text-xs text-slate-300">
-                                    {article.frontmatter.description || "Les artikkelen"}
+                                    {article.description}
                                 </p>
-                                <div class="mt-3">
+
+                                {article.tags.length > 0 && (
+                                        <div class="mt-3 flex flex-wrap gap-1.5">
+                                            {article.tags.map((tag) => (
+                                                    <span
+                                                            class="inline-flex items-center rounded-full border border-slate-700 bg-slate-900/70 px-2 py-0.5 text-[0.65rem] uppercase tracking-[0.16em] text-slate-300"
+                                                    >
+                    {tag}
+                  </span>
+                                            ))}
+                                        </div>
+                                )}
+
+                                {(article.readingMinutes || article.updatedLabel) && (
+                                        <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.7rem] text-slate-400">
+                                            {article.readingMinutes && (
+                                                    <span>Lesetid: {article.readingMinutes} min</span>
+                                            )}
+                                            {article.updatedLabel && (
+                                                    <span>Oppdatert: {article.updatedLabel}</span>
+                                            )}
+                                            {article.difficulty && (
+                                                    <span>
+                    Nivå: {article.difficulty.charAt(0).toUpperCase() +
+                                                        article.difficulty.slice(1)}
+                  </span>
+                                            )}
+                                        </div>
+                                )}
+
+                                <div class="mt-4">
                                     <Button href={article.url} variant="ghost">
                                         Les artikkelen
                                     </Button>
@@ -46,6 +163,10 @@ articles.sort((a, b) =>
                             </Card>
                     ))}
                 </div>
-        )}
-    </Section>
+            </Section>
+    ) : (
+            <p class="text-sm text-slate-300">
+                Ingen artikler publisert enda. Kommer snart.
+            </p>
+    )}
 </BaseLayout>

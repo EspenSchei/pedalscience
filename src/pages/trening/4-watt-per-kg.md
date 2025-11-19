@@ -2,6 +2,9 @@
 layout: ../../layouts/ArticleLayout.astro
 title: Veien mot 4 W/kg
 description: En enkel, ærlig og praktisk guide for mosjonister som vil nærme seg den legendariske 4 W/kg-grensa.
+tags: ["FTP", "Treningsstruktur", "Z2", "VO₂max"]
+difficulty: "Nybegynner"
+updated: "2025-11-19"
 ---
 
 # 🚴‍♂️ Veien mot 4 W/kg
