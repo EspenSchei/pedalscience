@@ -1,98 +1,372 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Button from "../../components/Button.astro";
 import Card from "../../components/Card.astro";
 
-const title = "Watts → Speed";
+const title = "Watts → Speed Calculator";
 const description =
-    "Calculate speed on flat ground based on watts, CdA, rolling resistance, and weight.";
+    "Calculate your cycling speed on flat ground based on power output, aerodynamics, and rolling resistance using physics-based modeling.";
 ---
 
 <BaseLayout {title} {description}>
     <header class="mb-6">
         <h1 class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-            Watts → Speed
+            Watts → Speed Calculator
         </h1>
 
         <p class="mt-2 max-w-2xl text-sm text-slate-600">
-            Calculator based on the balance between air resistance and rolling resistance. A
-            realistic estimate for flat terrain.
+            How fast can you go for a given power output? This calculator uses the fundamental physics of cycling –
+            balancing your power against aerodynamic drag, rolling resistance, and gravity – to estimate your speed
+            on flat or graded terrain.
+        </p>
+        <p class="mt-2 max-w-2xl text-xs text-slate-500">
+            On flat ground at speeds above 25 km/h, aerodynamic drag accounts for 80–90% of the resistance you face.
+            This is why position and equipment aerodynamics matter so much for speed.
         </p>
     </header>
 
     <div class="mt-4 grid gap-6 md:grid-cols-2">
         <div class="space-y-4">
-            <!-- WATT -->
+            <!-- Power Input -->
             <div class="space-y-1 text-sm">
-                <label for="watt">Watts</label>
-                <input id="watt" type="number" value="250" class="w-full" />
+                <label for="power">Power (watts)</label>
+                <input id="power" type="number" value="200" step="5" min="50" max="500" class="w-full" />
+                <p class="form-help">
+                    Your sustained power output. Use your FTP for hour-long efforts, or lower for longer rides.
+                </p>
             </div>
 
-            <!-- CdA -->
+            <!-- Rider Position Preset -->
             <div class="space-y-1 text-sm">
-                <label for="cda">CdA</label>
-                <input id="cda" type="number" step="0.01" value="0.32" class="w-full" />
-                <p class="text-xs text-slate-500">Typical road bike: 0.25–0.35</p>
+                <label for="position">Riding position</label>
+                <select id="position" class="w-full">
+                    <option value="hoods">Hands on hoods (standard road)</option>
+                    <option value="drops">Hands in drops</option>
+                    <option value="aero">Aero bars / TT position</option>
+                    <option value="upright">Upright / leisure</option>
+                    <option value="custom">Custom CdA</option>
+                </select>
             </div>
 
-            <!-- WEIGHT -->
-            <div class="space-y-1 text-sm">
-                <label for="weight">Total weight (kg)</label>
-                <input id="weight" type="number" step="0.1" value="82" class="w-full" />
+            <!-- CdA (shown when custom) -->
+            <div id="cdaContainer" class="space-y-1 text-sm hidden">
+                <label for="cda">CdA (m²)</label>
+                <input id="cda" type="number" step="0.01" value="0.32" min="0.15" max="0.60" class="w-full" />
+                <p class="form-help">
+                    Coefficient of drag × frontal area. Pro TT: 0.20–0.22, Road hoods: 0.30–0.35, Upright: 0.40–0.50.
+                </p>
             </div>
 
-            <!-- Crr -->
+            <!-- Rider Weight -->
             <div class="space-y-1 text-sm">
+                <label for="riderWeight">Rider weight (kg)</label>
+                <input id="riderWeight" type="number" step="0.5" value="75" class="w-full" />
+            </div>
+
+            <!-- Bike Weight -->
+            <div class="space-y-1 text-sm">
+                <label for="bikeWeight">Bike + gear weight (kg)</label>
+                <input id="bikeWeight" type="number" step="0.5" value="8" class="w-full" />
+            </div>
+
+            <!-- Tire/Surface Preset -->
+            <div class="space-y-1 text-sm">
+                <label for="tireType">Tire / surface type</label>
+                <select id="tireType" class="w-full">
+                    <option value="race">Race tires on smooth road</option>
+                    <option value="training">Training tires on good road</option>
+                    <option value="rough">Any tires on rough road</option>
+                    <option value="gravel">Gravel / mixed surface</option>
+                    <option value="custom">Custom Crr</option>
+                </select>
+            </div>
+
+            <!-- Crr (shown when custom) -->
+            <div id="crrContainer" class="space-y-1 text-sm hidden">
                 <label for="crr">Rolling resistance (Crr)</label>
-                <input id="crr" type="number" step="0.0001" value="0.004" class="w-full" />
-                <p class="text-xs text-slate-500">Common tires: 0.0035–0.0050</p>
+                <input id="crr" type="number" step="0.0005" value="0.004" min="0.002" max="0.015" class="w-full" />
+                <p class="form-help">
+                    Race tires: 0.003–0.004, Training: 0.004–0.005, Rough roads: 0.006–0.008.
+                </p>
             </div>
 
-            <div class="form-actions">
-                <Button id="calcBtn" variant="primary">Calculate speed</Button>
+            <!-- Gradient -->
+            <div class="space-y-1 text-sm">
+                <label for="gradient">Road gradient (%)</label>
+                <input id="gradient" type="number" step="0.5" value="0" min="-10" max="10" class="w-full" />
+                <p class="form-help">
+                    0 = flat. Negative = downhill. For steep climbs (>3%), use the Climb Time calculator instead.
+                </p>
+            </div>
+
+            <!-- Wind -->
+            <div class="space-y-1 text-sm">
+                <label for="wind">Headwind (+) / Tailwind (-) km/h</label>
+                <input id="wind" type="number" step="1" value="0" min="-50" max="50" class="w-full" />
+                <p class="form-help">
+                    Positive = wind in your face, negative = wind at your back.
+                </p>
             </div>
         </div>
 
-        <Card title="Result">
-            <div id="result" class="text-sm text-slate-600">
-                Fill in data and click "Calculate".
-            </div>
-        </Card>
+        <div class="space-y-4">
+            <Card title="Results">
+                <div id="result" class="text-sm text-slate-600">
+                    Adjust the values to see your estimated speed.
+                </div>
+            </Card>
+
+            <Card title="Power Comparison">
+                <div id="powerTable" class="text-xs text-slate-600">
+                    <p class="text-slate-400">Results will show speeds at different power levels.</p>
+                </div>
+            </Card>
+
+            <Card title="CdA Reference">
+                <div class="text-xs text-slate-600 space-y-1">
+                    <p class="flex justify-between"><span>Pro TT position:</span> <span class="font-medium">0.20–0.22 m²</span></p>
+                    <p class="flex justify-between"><span>Aggressive drops:</span> <span class="font-medium">0.25–0.28 m²</span></p>
+                    <p class="flex justify-between"><span>Hoods position:</span> <span class="font-medium">0.30–0.35 m²</span></p>
+                    <p class="flex justify-between"><span>Relaxed / hoods high:</span> <span class="font-medium">0.35–0.40 m²</span></p>
+                    <p class="flex justify-between"><span>Upright / leisure:</span> <span class="font-medium">0.45–0.55 m²</span></p>
+                </div>
+            </Card>
+        </div>
     </div>
 
+    <Card class="mt-6" title="Understanding Cycling Speed">
+        <div class="text-xs text-slate-600 space-y-3">
+            <div class="grid gap-3 sm:grid-cols-2">
+                <div>
+                    <p class="font-semibold text-slate-800">Aerodynamic Drag</p>
+                    <p>Increases with the square of velocity. At 40 km/h, you need ~4× the power to overcome drag compared to 20 km/h.
+                    Your position and equipment are the biggest factors you can control.</p>
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-800">CdA (Drag Area)</p>
+                    <p>The product of drag coefficient (Cd) and frontal area (A). Reducing CdA by 10% can save
+                    significant power at race speeds – or go faster at the same power.</p>
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-800">Rolling Resistance</p>
+                    <p>Depends on tire type, pressure, road surface, and weight. At lower speeds (under 25 km/h),
+                    rolling resistance becomes a larger proportion of total resistance.</p>
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-800">Wind Effects</p>
+                    <p>A 15 km/h headwind at 30 km/h ground speed means you're pushing through 45 km/h of apparent wind –
+                    roughly doubling your aerodynamic drag compared to still air.</p>
+                </div>
+            </div>
+            <p class="text-slate-500 pt-2 border-t border-slate-100">
+                <strong>Physics:</strong> Power = velocity × (F_aero + F_rolling + F_gravity).
+                F_aero = ½ρCdAv², F_rolling = mgCrr, F_gravity = mg·sin(θ).
+                This calculator solves iteratively for velocity given power.
+            </p>
+        </div>
+    </Card>
+
     <script type="module">
-        const rho = 1.226; // air density
+        const rho = 1.225; // air density kg/m³ at sea level, 15°C
         const g = 9.81;
 
-        const watt = document.getElementById("watt");
-        const cda = document.getElementById("cda");
-        const weight = document.getElementById("weight");
-        const crr = document.getElementById("crr");
+        // Position presets (CdA values)
+        const positionCdA = {
+            hoods: 0.32,
+            drops: 0.28,
+            aero: 0.22,
+            upright: 0.45,
+        };
+
+        // Tire presets (Crr values)
+        const tireCrr = {
+            race: 0.003,
+            training: 0.0045,
+            rough: 0.006,
+            gravel: 0.008,
+        };
+
+        const powerInput = document.getElementById("power");
+        const positionSelect = document.getElementById("position");
+        const cdaContainer = document.getElementById("cdaContainer");
+        const cdaInput = document.getElementById("cda");
+        const riderWeightInput = document.getElementById("riderWeight");
+        const bikeWeightInput = document.getElementById("bikeWeight");
+        const tireSelect = document.getElementById("tireType");
+        const crrContainer = document.getElementById("crrContainer");
+        const crrInput = document.getElementById("crr");
+        const gradientInput = document.getElementById("gradient");
+        const windInput = document.getElementById("wind");
         const result = document.getElementById("result");
+        const powerTable = document.getElementById("powerTable");
 
-        function calc() {
-            const W = Number(watt.value);
-            const CdA = Number(cda.value);
-            const m = Number(weight.value);
-            const Crr = Number(crr.value);
-
-            // iterative solution
-            let v = 5;
-            for (let i = 0; i < 30; i++) {
-                const aero = 0.5 * rho * CdA * v * v;
-                const roll = m * g * Crr;
-                const v_new = W / (aero + roll);
-                v = 0.5 * (v + v_new);
+        // Show/hide custom CdA input
+        positionSelect.addEventListener("change", () => {
+            if (positionSelect.value === "custom") {
+                cdaContainer.classList.remove("hidden");
+            } else {
+                cdaContainer.classList.add("hidden");
+                cdaInput.value = positionCdA[positionSelect.value];
             }
+        });
 
-            const kmh = v * 3.6;
+        // Show/hide custom Crr input
+        tireSelect.addEventListener("change", () => {
+            if (tireSelect.value === "custom") {
+                crrContainer.classList.remove("hidden");
+            } else {
+                crrContainer.classList.add("hidden");
+                crrInput.value = tireCrr[tireSelect.value];
+            }
+        });
 
-            result.innerHTML = `
-        <p class="font-semibold text-slate-800">Speed:</p>
-        <p class="text-slate-900">${kmh.toFixed(1)} km/h</p>
-      `;
+        function getCdA() {
+            if (positionSelect.value === "custom") {
+                return Number(cdaInput.value);
+            }
+            return positionCdA[positionSelect.value] || 0.32;
         }
 
-        document.getElementById("calcBtn").onclick = calc;
+        function getCrr() {
+            if (tireSelect.value === "custom") {
+                return Number(crrInput.value);
+            }
+            return tireCrr[tireSelect.value] || 0.004;
+        }
+
+        function calculateSpeed(powerWatts, totalMass, CdA, Crr, gradientPct, headwindKmh) {
+            const gradient = gradientPct / 100;
+            const theta = Math.atan(gradient);
+            const headwindMs = headwindKmh / 3.6;
+
+            // Iterative solution for velocity
+            // Power = v * (F_gravity + F_rolling + F_aero)
+            // F_aero uses apparent wind speed (ground speed + headwind)
+
+            let v = 8; // initial guess m/s
+            for (let i = 0; i < 100; i++) {
+                const apparentWind = v + headwindMs;
+                const Fgravity = totalMass * g * Math.sin(theta);
+                const Frolling = totalMass * g * Crr * Math.cos(theta);
+                const Faero = 0.5 * rho * CdA * apparentWind * Math.abs(apparentWind);
+                const Ftotal = Fgravity + Frolling + Faero;
+
+                if (Ftotal <= 0) {
+                    // Tailwind/downhill exceeds resistance - speed would be very high
+                    v = 100 / 3.6; // cap at 100 km/h
+                    break;
+                }
+
+                const vNew = powerWatts / Ftotal;
+                const diff = Math.abs(vNew - v);
+                v = 0.7 * v + 0.3 * vNew;
+
+                if (diff < 0.001) break;
+            }
+
+            return v;
+        }
+
+        function formatSpeed(v) {
+            const kmh = v * 3.6;
+            return kmh.toFixed(1);
+        }
+
+        function calc() {
+            const power = Number(powerInput.value);
+            const riderMass = Number(riderWeightInput.value);
+            const bikeMass = Number(bikeWeightInput.value);
+            const totalMass = riderMass + bikeMass;
+            const CdA = getCdA();
+            const Crr = getCrr();
+            const gradient = Number(gradientInput.value);
+            const headwind = Number(windInput.value);
+
+            if (!power || power <= 0 || !totalMass) {
+                result.innerHTML = `<p class="text-amber-600">Please check your input values.</p>`;
+                return;
+            }
+
+            const velocity = calculateSpeed(power, totalMass, CdA, Crr, gradient, headwind);
+            const speedKmh = velocity * 3.6;
+
+            // Calculate power breakdown at this speed
+            const apparentWindMs = velocity + (headwind / 3.6);
+            const theta = Math.atan(gradient / 100);
+            const Fgravity = totalMass * g * Math.sin(theta);
+            const Frolling = totalMass * g * Crr * Math.cos(theta);
+            const Faero = 0.5 * rho * CdA * apparentWindMs * Math.abs(apparentWindMs);
+
+            const powerAero = Faero * velocity;
+            const powerRolling = Frolling * velocity;
+            const powerGravity = Fgravity * velocity;
+            const totalPower = powerAero + powerRolling + powerGravity;
+
+            const aeroPercent = Math.round((powerAero / totalPower) * 100);
+            const rollingPercent = Math.round((powerRolling / totalPower) * 100);
+            const gravityPercent = Math.round((powerGravity / totalPower) * 100);
+
+            let windNote = "";
+            if (headwind > 0) {
+                windNote = `<p class="text-xs text-slate-500 mt-1">With ${headwind} km/h headwind</p>`;
+            } else if (headwind < 0) {
+                windNote = `<p class="text-xs text-slate-500 mt-1">With ${Math.abs(headwind)} km/h tailwind</p>`;
+            }
+
+            let gradientNote = "";
+            if (gradient > 0) {
+                gradientNote = `<p class="text-xs text-slate-500 mt-1">${gradient}% uphill grade</p>`;
+            } else if (gradient < 0) {
+                gradientNote = `<p class="text-xs text-slate-500 mt-1">${Math.abs(gradient)}% downhill grade</p>`;
+            }
+
+            result.innerHTML = `
+                <p class="font-semibold text-slate-800">Estimated speed:</p>
+                <p class="text-2xl text-slate-900 font-bold">${speedKmh.toFixed(1)} km/h</p>
+                ${windNote}
+                ${gradientNote}
+                
+                <div class="mt-4">
+                    <p class="font-semibold text-slate-800 text-xs mb-2">Power breakdown:</p>
+                    <div class="flex h-4 rounded-full overflow-hidden text-[0.6rem] font-medium">
+                        <div class="bg-blue-400 flex items-center justify-center text-white" style="width: ${aeroPercent}%">${aeroPercent > 10 ? aeroPercent + '%' : ''}</div>
+                        <div class="bg-green-400 flex items-center justify-center text-white" style="width: ${rollingPercent}%">${rollingPercent > 10 ? rollingPercent + '%' : ''}</div>
+                        ${gravityPercent !== 0 ? `<div class="bg-orange-400 flex items-center justify-center text-white" style="width: ${Math.abs(gravityPercent)}%">${Math.abs(gravityPercent) > 10 ? Math.abs(gravityPercent) + '%' : ''}</div>` : ''}
+                    </div>
+                    <div class="flex justify-between text-[0.65rem] text-slate-500 mt-1">
+                        <span>🌬️ Aero: ${Math.round(powerAero)}W</span>
+                        <span>🛞 Rolling: ${Math.round(powerRolling)}W</span>
+                        ${gradient !== 0 ? `<span>⛰️ Gravity: ${Math.round(powerGravity)}W</span>` : ''}
+                    </div>
+                </div>
+                
+                <p class="mt-3 text-xs text-slate-500">
+                    CdA: ${CdA.toFixed(2)} m² | Crr: ${Crr.toFixed(4)} | Total mass: ${totalMass.toFixed(1)} kg
+                </p>
+            `;
+
+            // Power comparison table
+            const powerLevels = [150, 175, 200, 225, 250, 275, 300, 350];
+            let tableHtml = `<div class="grid grid-cols-2 gap-x-4 gap-y-1">`;
+            powerLevels.forEach(p => {
+                const v = calculateSpeed(p, totalMass, CdA, Crr, gradient, headwind);
+                const isCurrentPower = Math.abs(p - power) < 10;
+                tableHtml += `
+                    <span class="${isCurrentPower ? 'font-semibold text-slate-900' : ''}">${p} W:</span>
+                    <span class="${isCurrentPower ? 'font-semibold text-slate-900' : ''}">${formatSpeed(v)} km/h</span>
+                `;
+            });
+            tableHtml += `</div>`;
+            powerTable.innerHTML = tableHtml;
+        }
+
+        // Auto-calculate on change
+        [powerInput, positionSelect, cdaInput, riderWeightInput, bikeWeightInput,
+         tireSelect, crrInput, gradientInput, windInput].forEach(el => {
+            el.addEventListener("change", calc);
+            el.addEventListener("input", calc);
+        });
+
+        // Initialize
+        calc();
     </script>
 </BaseLayout>

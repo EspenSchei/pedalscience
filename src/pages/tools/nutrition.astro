@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Button from "../../components/Button.astro";
 import Card from "../../components/Card.astro";
 
 const title = "Nutrition Calculator";
@@ -72,18 +71,12 @@ const description =
                     Your gut can be trained! Start lower and gradually increase intake over weeks.
                 </p>
             </div>
-
-            <div class="form-actions">
-                <Button id="calcBtn" variant="primary">
-                    Calculate needs
-                </Button>
-            </div>
         </div>
 
         <div class="space-y-4">
             <Card title="Recommendation">
                 <div id="result" class="text-sm text-slate-600">
-                    Fill in your ride details and click "Calculate".
+                    Adjust your ride details to see recommendations.
                 </div>
             </Card>
 
@@ -218,11 +211,14 @@ const description =
             result.innerHTML = recommendation;
         }
 
-        document.getElementById("calcBtn").onclick = calc;
-
         // Auto-calculate on change
         ["activity", "hours", "weight", "gutTraining"].forEach(id => {
-            document.getElementById(id).onchange = calc;
+            const el = document.getElementById(id);
+            el.addEventListener("change", calc);
+            el.addEventListener("input", calc);
         });
+
+        // Initialize
+        calc();
     </script>
 </BaseLayout>

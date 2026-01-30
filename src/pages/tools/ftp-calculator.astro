@@ -1,6 +1,5 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Button from "../../components/Button.astro";
 import Card from "../../components/Card.astro";
 
 const title = "FTP Calculator";
@@ -84,18 +83,12 @@ const description =
                     Different models suit different training philosophies.
                 </p>
             </div>
-
-            <div class="form-actions">
-                <Button id="calcBtn" type="button" variant="primary">
-                    Calculate zones
-                </Button>
-            </div>
         </div>
 
         <div class="space-y-4">
             <Card title="Summary">
                 <div id="summaryText" class="text-sm text-slate-600">
-                    Enter your power data and click "Calculate zones".
+                    Adjust your power data to see your training zones.
                 </div>
             </Card>
 
@@ -170,7 +163,6 @@ const description =
         const powerHelp = document.getElementById("powerHelp");
         const weightInput = document.getElementById("weightInput");
         const zoneModel = document.getElementById("zoneModel");
-        const calcBtn = document.getElementById("calcBtn");
         const zonesGrid = document.getElementById("zonesGrid");
         const summaryText = document.getElementById("summaryText");
 
@@ -322,11 +314,10 @@ const description =
             renderZones(ftp, model);
         }
 
-        calcBtn.addEventListener("click", handleCalc);
-
         // Auto-calculate on change
         [testType, powerInput, weightInput, zoneModel].forEach(el => {
             el.addEventListener("change", handleCalc);
+            el.addEventListener("input", handleCalc);
         });
 
         handleCalc();

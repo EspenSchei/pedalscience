@@ -1,11 +1,10 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Button from "../../components/Button.astro";
 import Card from "../../components/Card.astro";
 
 const title = "Climb Time Calculator";
 const description =
-    "Calculate how long it takes to climb a hill based on watts, weight, distance, and gradient.";
+    "Estimate your climbing time based on power, weight, gradient, and distance. Includes VAM calculation and famous climb comparisons.";
 ---
 
 <BaseLayout {title} {description}>
@@ -15,109 +14,381 @@ const description =
         </h1>
 
         <p class="mt-2 max-w-2xl text-sm text-slate-600">
-            Enter watts, total weight, distance, and gradient – get estimated time and speed.
-            The calculator uses a simplified model of gravitational force on climbs.
+            Climbing performance is determined by your power-to-weight ratio (W/kg) and the gradient of the climb.
+            This calculator estimates your time using physics-based modeling, accounting for gravity, rolling resistance,
+            and aerodynamic drag – though on steep climbs, gravity dominates.
+        </p>
+        <p class="mt-2 max-w-2xl text-xs text-slate-500">
+            The calculator also shows your VAM (Velocità Ascensionale Media) – the vertical meters climbed per hour,
+            a key metric used to compare climbing performances across different gradients.
         </p>
     </header>
 
     <div class="mt-4 grid gap-6 md:grid-cols-2">
         <div class="space-y-4">
-            <!-- WATT -->
+            <!-- Power Input Mode -->
             <div class="space-y-1 text-sm">
-                <label for="watt">Watts</label>
+                <label for="powerMode">Power input</label>
+                <select id="powerMode" class="w-full">
+                    <option value="watts">Watts (absolute power)</option>
+                    <option value="wkg">W/kg (power-to-weight ratio)</option>
+                </select>
+            </div>
+
+            <!-- WATT / W/kg -->
+            <div class="space-y-1 text-sm">
+                <label for="power" id="powerLabel">Power (watts)</label>
                 <input
-                        id="watt"
+                        id="power"
                         type="number"
                         value="250"
+                        step="1"
+                        class="w-full"
+                />
+                <p id="powerHelp" class="form-help">
+                    Your sustained climbing power. Use your FTP or a realistic climbing effort.
+                </p>
+            </div>
+
+            <!-- RIDER WEIGHT -->
+            <div class="space-y-1 text-sm">
+                <label for="riderWeight">Rider weight (kg)</label>
+                <input
+                        id="riderWeight"
+                        type="number"
+                        step="0.1"
+                        value="75"
                         class="w-full"
                 />
             </div>
 
-            <!-- WEIGHT -->
+            <!-- BIKE WEIGHT -->
             <div class="space-y-1 text-sm">
-                <label for="weight">Total weight (rider + bike)</label>
+                <label for="bikeWeight">Bike + gear weight (kg)</label>
                 <input
-                        id="weight"
+                        id="bikeWeight"
                         type="number"
                         step="0.1"
-                        value="82"
+                        value="8"
                         class="w-full"
                 />
+                <p class="form-help">
+                    Include bike, shoes, bottles, etc. Road bikes: 7–9 kg, with gear: 8–12 kg.
+                </p>
+            </div>
+
+            <!-- CLIMB PRESET OR CUSTOM -->
+            <div class="space-y-1 text-sm">
+                <label for="climbPreset">Famous climb or custom</label>
+                <select id="climbPreset" class="w-full">
+                    <option value="custom">Custom climb</option>
+                    <optgroup label="Tour de France">
+                        <option value="alpe">Alpe d'Huez (13.8 km, 8.1%)</option>
+                        <option value="ventoux">Mont Ventoux - Bédoin (21.5 km, 7.5%)</option>
+                        <option value="tourmalet">Col du Tourmalet (17.1 km, 7.3%)</option>
+                        <option value="galibier">Col du Galibier (18.1 km, 6.9%)</option>
+                    </optgroup>
+                    <optgroup label="Giro d'Italia">
+                        <option value="mortirolo">Mortirolo (12.4 km, 10.5%)</option>
+                        <option value="zoncolan">Monte Zoncolan (10.1 km, 11.9%)</option>
+                        <option value="stelvio">Passo dello Stelvio (24.3 km, 7.1%)</option>
+                    </optgroup>
+                    <optgroup label="Other Famous Climbs">
+                        <option value="angliru">Alto de l'Angliru (12.5 km, 9.8%)</option>
+                        <option value="sa-calobra">Sa Calobra (9.4 km, 7.1%)</option>
+                    </optgroup>
+                </select>
             </div>
 
             <!-- DISTANCE -->
             <div class="space-y-1 text-sm">
-                <label for="length">Distance (meters)</label>
+                <label for="distance">Distance (km)</label>
                 <input
-                        id="length"
+                        id="distance"
                         type="number"
-                        value="2000"
+                        value="10"
+                        step="0.1"
+                        min="0.1"
                         class="w-full"
                 />
             </div>
 
             <!-- GRADIENT -->
             <div class="space-y-1 text-sm">
-                <label for="grade">Gradient (%)</label>
+                <label for="gradient">Average gradient (%)</label>
                 <input
-                        id="grade"
+                        id="gradient"
                         type="number"
-                        value="6"
+                        value="7"
                         step="0.1"
+                        min="1"
+                        max="25"
                         class="w-full"
                 />
-            </div>
-
-            <div class="form-actions">
-                <Button id="calcBtn" variant="primary">
-                    Calculate climb time
-                </Button>
+                <p class="form-help">
+                    Typical categories: 4–6% moderate, 7–9% hard, 10%+ very steep.
+                </p>
             </div>
         </div>
 
-        <Card title="Result">
-            <div id="result" class="text-sm text-slate-600">
-                Fill in data and click "Calculate".
-            </div>
-        </Card>
+        <div class="space-y-4">
+            <Card title="Results">
+                <div id="result" class="text-sm text-slate-600">
+                    Adjust the values to see your estimated climb time.
+                </div>
+            </Card>
+
+            <Card title="VAM Reference">
+                <div class="text-xs text-slate-600 space-y-1">
+                    <p class="flex justify-between"><span>Recreational:</span> <span class="font-medium">600–900 m/hr</span></p>
+                    <p class="flex justify-between"><span>Trained amateur:</span> <span class="font-medium">900–1100 m/hr</span></p>
+                    <p class="flex justify-between"><span>Strong amateur:</span> <span class="font-medium">1100–1300 m/hr</span></p>
+                    <p class="flex justify-between"><span>Elite/Cat 1:</span> <span class="font-medium">1300–1500 m/hr</span></p>
+                    <p class="flex justify-between"><span>Professional:</span> <span class="font-medium">1500–1800+ m/hr</span></p>
+                </div>
+                <p class="text-[0.65rem] text-slate-400 mt-2">
+                    VAM varies with gradient – higher gradients typically produce higher VAM values.
+                </p>
+            </Card>
+
+            <Card title="What-If Analysis">
+                <div id="whatif" class="text-xs text-slate-600 space-y-1">
+                    <p class="text-slate-400">Results will show how weight and power changes affect your time.</p>
+                </div>
+            </Card>
+        </div>
     </div>
 
+    <Card class="mt-6" title="Understanding Climbing Performance">
+        <div class="text-xs text-slate-600 space-y-3">
+            <div class="grid gap-3 sm:grid-cols-2">
+                <div>
+                    <p class="font-semibold text-slate-800">Power-to-Weight (W/kg)</p>
+                    <p>The most important metric for climbing. A 70kg rider at 280W (4.0 W/kg) will climb faster than
+                    an 80kg rider at 300W (3.75 W/kg), despite lower absolute power.</p>
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-800">VAM (Vertical Ascent Speed)</p>
+                    <p>Meters of elevation gained per hour. Allows comparison across different climbs.
+                    Pro climbers on major climbs typically hit 1600–1800 m/hr.</p>
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-800">Gradient Effects</p>
+                    <p>On steep gradients (>8%), aerodynamic drag becomes negligible – it's almost purely
+                    about fighting gravity. On shallower gradients, aero still matters.</p>
+                </div>
+                <div>
+                    <p class="font-semibold text-slate-800">Weight Savings</p>
+                    <p>Losing 1 kg (rider or bike) typically saves 1–2 seconds per kilometer at 7–8% gradient for
+                    a 250W rider. The steeper the climb, the more weight matters.</p>
+                </div>
+            </div>
+            <p class="text-slate-500 pt-2 border-t border-slate-100">
+                <strong>Note:</strong> This calculator uses a simplified physics model. Real-world times depend on
+                road surface, wind, temperature, variable gradients, and pacing strategy. Times are estimates only.
+            </p>
+        </div>
+    </Card>
+
     <script type="module">
-        const watt = document.getElementById("watt");
-        const weight = document.getElementById("weight");
-        const length = document.getElementById("length");
-        const grade = document.getElementById("grade");
+        const powerMode = document.getElementById("powerMode");
+        const powerInput = document.getElementById("power");
+        const powerLabel = document.getElementById("powerLabel");
+        const powerHelp = document.getElementById("powerHelp");
+        const riderWeight = document.getElementById("riderWeight");
+        const bikeWeight = document.getElementById("bikeWeight");
+        const climbPreset = document.getElementById("climbPreset");
+        const distanceInput = document.getElementById("distance");
+        const gradientInput = document.getElementById("gradient");
         const result = document.getElementById("result");
+        const whatif = document.getElementById("whatif");
 
         const g = 9.81;
+        const rho = 1.225; // air density kg/m³
+        const CdA = 0.35; // typical climbing position
+        const Crr = 0.004; // rolling resistance
+
+        // Famous climbs database [distance km, avg gradient %]
+        const climbs = {
+            alpe: { name: "Alpe d'Huez", distance: 13.8, gradient: 8.1 },
+            ventoux: { name: "Mont Ventoux (Bédoin)", distance: 21.5, gradient: 7.5 },
+            tourmalet: { name: "Col du Tourmalet", distance: 17.1, gradient: 7.3 },
+            galibier: { name: "Col du Galibier", distance: 18.1, gradient: 6.9 },
+            mortirolo: { name: "Mortirolo", distance: 12.4, gradient: 10.5 },
+            zoncolan: { name: "Monte Zoncolan", distance: 10.1, gradient: 11.9 },
+            stelvio: { name: "Passo dello Stelvio", distance: 24.3, gradient: 7.1 },
+            angliru: { name: "Alto de l'Angliru", distance: 12.5, gradient: 9.8 },
+            "sa-calobra": { name: "Sa Calobra", distance: 9.4, gradient: 7.1 },
+        };
+
+        // Update power label based on mode
+        powerMode.addEventListener("change", () => {
+            if (powerMode.value === "wkg") {
+                powerLabel.textContent = "Power (W/kg)";
+                powerInput.value = "3.5";
+                powerInput.step = "0.1";
+                powerHelp.textContent = "Your power-to-weight ratio. Recreational: 2–3, trained: 3–4, strong: 4–5.";
+            } else {
+                powerLabel.textContent = "Power (watts)";
+                powerInput.value = "250";
+                powerInput.step = "1";
+                powerHelp.textContent = "Your sustained climbing power. Use your FTP or a realistic climbing effort.";
+            }
+        });
+
+        // Update fields when preset is selected
+        climbPreset.addEventListener("change", () => {
+            const preset = climbPreset.value;
+            if (preset !== "custom" && climbs[preset]) {
+                distanceInput.value = climbs[preset].distance;
+                gradientInput.value = climbs[preset].gradient;
+            }
+        });
+
+        function formatTime(seconds) {
+            const hrs = Math.floor(seconds / 3600);
+            const mins = Math.floor((seconds % 3600) / 60);
+            const secs = Math.round(seconds % 60);
+
+            if (hrs > 0) {
+                return `${hrs}h ${mins}m ${secs}s`;
+            }
+            return `${mins}m ${secs}s`;
+        }
+
+        function calculateClimbTime(powerWatts, totalMass, distanceM, gradientPct) {
+            const gradient = gradientPct / 100;
+            const theta = Math.atan(gradient);
+
+            // Forces: gravity, rolling resistance, aero drag
+            // P = v * (m*g*sin(θ) + m*g*Crr*cos(θ) + 0.5*ρ*CdA*v²)
+            // Solve iteratively for v
+
+            let v = 3; // initial guess m/s
+            for (let i = 0; i < 50; i++) {
+                const Fgravity = totalMass * g * Math.sin(theta);
+                const Frolling = totalMass * g * Crr * Math.cos(theta);
+                const Faero = 0.5 * rho * CdA * v * v;
+                const Ftotal = Fgravity + Frolling + Faero;
+                const vNew = powerWatts / Ftotal;
+                v = 0.7 * v + 0.3 * vNew; // damped iteration
+            }
+
+            const timeSeconds = distanceM / v;
+            const speedKmh = v * 3.6;
+            const elevationGain = distanceM * Math.sin(theta);
+            const vam = (elevationGain / timeSeconds) * 3600; // m/hr
+
+            return { timeSeconds, speedKmh, elevationGain, vam, velocity: v };
+        }
 
         function calc() {
-            const W = Number(watt.value);
-            const m = Number(weight.value);
-            const dist = Number(length.value);
-            const pct = Number(grade.value);
+            const mode = powerMode.value;
+            const riderMass = Number(riderWeight.value);
+            const bikeMass = Number(bikeWeight.value);
+            const totalMass = riderMass + bikeMass;
+            const distanceKm = Number(distanceInput.value);
+            const distanceM = distanceKm * 1000;
+            const gradientPct = Number(gradientInput.value);
 
-            if (!W || !m || !dist) {
-                result.textContent = "Check input values.";
+            let powerWatts;
+            if (mode === "wkg") {
+                const wkg = Number(powerInput.value);
+                powerWatts = wkg * riderMass;
+            } else {
+                powerWatts = Number(powerInput.value);
+            }
+
+            if (!powerWatts || !totalMass || !distanceM || !gradientPct) {
+                result.innerHTML = `<p class="text-amber-600">Please check your input values.</p>`;
                 return;
             }
 
-            const theta = Math.atan(pct / 100);
-            const v = W / (m * g * Math.sin(theta)); // m/s
-            const time = dist / v;
-            const kmh = v * 3.6;
+            if (gradientPct < 1) {
+                result.innerHTML = `<p class="text-amber-600">This calculator is designed for climbs (gradient ≥ 1%). Use the Watts → Speed calculator for flat terrain.</p>`;
+                return;
+            }
 
-            const min = Math.floor(time / 60);
-            const sec = Math.round(time % 60);
+            const { timeSeconds, speedKmh, elevationGain, vam } = calculateClimbTime(powerWatts, totalMass, distanceM, gradientPct);
+
+            const wkg = powerWatts / riderMass;
+            const preset = climbPreset.value;
+            const climbName = preset !== "custom" && climbs[preset] ? climbs[preset].name : "this climb";
+
+            // Determine VAM category
+            let vamCategory = "";
+            if (vam < 600) vamCategory = "Casual pace";
+            else if (vam < 900) vamCategory = "Recreational";
+            else if (vam < 1100) vamCategory = "Trained amateur";
+            else if (vam < 1300) vamCategory = "Strong amateur";
+            else if (vam < 1500) vamCategory = "Elite level";
+            else vamCategory = "Pro level 🔥";
 
             result.innerHTML = `
-        <p class="font-semibold text-slate-800">Estimated time:</p>
-        <p class="text-slate-900">${min} min ${sec} sec</p>
-        <p class="mt-3 font-semibold text-slate-800">Average speed:</p>
-        <p class="text-slate-900">${kmh.toFixed(1)} km/h</p>
-      `;
+                <p class="font-semibold text-slate-800">Estimated time for ${climbName}:</p>
+                <p class="text-2xl text-slate-900 font-bold">${formatTime(timeSeconds)}</p>
+                
+                <div class="mt-4 grid grid-cols-2 gap-2 text-xs">
+                    <div>
+                        <p class="text-slate-500">Average speed</p>
+                        <p class="font-medium text-slate-800">${speedKmh.toFixed(1)} km/h</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-500">Elevation gain</p>
+                        <p class="font-medium text-slate-800">${Math.round(elevationGain)} m</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-500">VAM</p>
+                        <p class="font-medium text-slate-800">${Math.round(vam)} m/hr</p>
+                    </div>
+                    <div>
+                        <p class="text-slate-500">Level</p>
+                        <p class="font-medium text-slate-800">${vamCategory}</p>
+                    </div>
+                </div>
+                
+                <p class="mt-3 text-xs text-slate-500">
+                    Power: ${Math.round(powerWatts)} W (${wkg.toFixed(2)} W/kg) | Total weight: ${totalMass.toFixed(1)} kg
+                </p>
+            `;
+
+            // What-if analysis
+            const scenarios = [
+                { label: "-2 kg rider weight", riderDelta: -2, powerDelta: 0 },
+                { label: "-1 kg bike weight", bikeDelta: -1, powerDelta: 0 },
+                { label: "+10 W power", riderDelta: 0, powerDelta: 10 },
+                { label: "+20 W power", riderDelta: 0, powerDelta: 20 },
+            ];
+
+            let whatifHtml = "";
+            scenarios.forEach(s => {
+                const newRiderMass = riderMass + (s.riderDelta || 0);
+                const newBikeMass = bikeMass + (s.bikeDelta || 0);
+                const newTotalMass = newRiderMass + newBikeMass;
+                const newPower = powerWatts + (s.powerDelta || 0);
+
+                const newResult = calculateClimbTime(newPower, newTotalMass, distanceM, gradientPct);
+                const timeDiff = newResult.timeSeconds - timeSeconds;
+                const sign = timeDiff < 0 ? "" : "+";
+
+                whatifHtml += `
+                    <p class="flex justify-between">
+                        <span>${s.label}:</span>
+                        <span class="font-medium ${timeDiff < 0 ? 'text-green-600' : 'text-red-600'}">${sign}${Math.round(timeDiff)}s (${formatTime(newResult.timeSeconds)})</span>
+                    </p>
+                `;
+            });
+
+            whatif.innerHTML = whatifHtml;
         }
 
-        document.getElementById("calcBtn").onclick = calc;
+        // Auto-calculate on change
+        [powerMode, powerInput, riderWeight, bikeWeight, climbPreset, distanceInput, gradientInput].forEach(el => {
+            el.addEventListener("change", calc);
+            el.addEventListener("input", calc);
+        });
+
+        // Initialize
+        calc();
     </script>
 </BaseLayout>
