@@ -2,116 +2,322 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Card from "../components/Card.astro";
 import Button from "../components/Button.astro";
-import Section from "../components/Section.astro";
 
-const title = "Home";
+const title = "Pedal Science";
 const description =
-	"Cycling tools and training knowledge – for recreational road cyclists who want to get stronger without training like pros.";
+	"Free cycling tools and training guides for recreational road cyclists. Calculate training zones, estimate climb times, and train smarter.";
 ---
 
 <BaseLayout {title} {description}>
-	<div class="mt-4 grid gap-4 md:grid-cols-[minmax(0,2fr)_minmax(0,1.4fr)] md:items-stretch">
-		<!-- HERO -->
-		<section
-			class="relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-md sm:p-8"
-		>
-			<div class="absolute inset-0 pointer-events-none">
-				<div class="absolute -right-32 -top-32 h-64 w-64 rounded-full bg-sky-100"></div>
-				<div class="absolute -left-24 -bottom-24 h-56 w-56 rounded-full bg-emerald-50"></div>
-			</div>
+	<!-- HERO SECTION -->
+	<header class="relative mb-12 overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-8 text-white shadow-2xl sm:p-12 lg:p-16">
+		<!-- Background decorations -->
+		<div class="absolute inset-0 overflow-hidden">
+			<div class="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-sky-500/20 blur-3xl"></div>
+			<div class="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-emerald-500/20 blur-3xl"></div>
+			<div class="absolute right-1/4 top-1/2 h-64 w-64 rounded-full bg-orange-500/10 blur-3xl"></div>
+		</div>
 
-			<div class="relative space-y-4">
-				<div class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[0.7rem] font-medium text-emerald-700">
-					<span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-					<span>For recreational cyclists, not pros</span>
+		<!-- Grid pattern overlay -->
+		<div class="absolute inset-0 opacity-5">
+			<svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+				<defs>
+					<pattern id="hero-grid" width="8" height="8" patternUnits="userSpaceOnUse">
+						<path d="M 8 0 L 0 0 0 8" fill="none" stroke="white" stroke-width="0.3"/>
+					</pattern>
+				</defs>
+				<rect width="100" height="100" fill="url(#hero-grid)" />
+			</svg>
+		</div>
+
+		<div class="relative flex flex-col lg:flex-row lg:items-center lg:gap-12">
+			<div class="flex-1 space-y-6">
+				<div class="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-medium backdrop-blur-sm">
+					<span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+					For recreational cyclists, not pros
 				</div>
 
-				<h1 class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
-					Cycling tools and training knowledge
+				<h1 class="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+					Train smarter.<br/>
+					<span class="bg-gradient-to-r from-sky-400 to-emerald-400 bg-clip-text text-transparent">Ride faster.</span>
 				</h1>
 
-				<p class="max-w-xl text-sm text-slate-600">
-					Road Cycling brings together practical calculators and simple explanations for how
-					you can actually get stronger on the bike – without drowning in coach guru talk.
+				<p class="max-w-xl text-lg text-slate-300">
+					Free, science-based cycling tools and training guides.
+					No accounts, no ads – just what works for riders who want real results.
 				</p>
 
-				<div class="flex flex-wrap gap-3 pt-1">
-					<Button href="/tools/ftp-calculator">
-						Go to FTP Calculator
+				<div class="flex flex-wrap gap-4 pt-2">
+					<Button href="/tools" variant="primary">
+						Explore Tools
 					</Button>
-					<Button href="/training/4-watt-per-kg" variant="ghost">
-						Read about the road to 4 W/kg
+					<Button href="/training" variant="ghost">
+						Read Training Guides
 					</Button>
+				</div>
+
+				<!-- Stats row -->
+				<div class="flex flex-wrap gap-8 pt-4 text-sm">
+					<div>
+						<p class="text-2xl font-bold text-white">4</p>
+						<p class="text-slate-400">Free Calculators</p>
+					</div>
+					<div>
+						<p class="text-2xl font-bold text-white">2</p>
+						<p class="text-slate-400">Training Guides</p>
+					</div>
+					<div>
+						<p class="text-2xl font-bold text-white">100%</p>
+						<p class="text-slate-400">Science-Based</p>
+					</div>
 				</div>
 			</div>
-		</section>
 
-		<!-- SIDEKORT -->
-		<div class="flex flex-col gap-4">
-			<Card title="Tools">
-				<p class="mt-1 text-xs text-slate-500">
-					Calculate your training zones, estimate climb times, convert watts to speed, and plan your nutrition for long rides.
-				</p>
-				<div class="mt-3 flex flex-wrap gap-2 text-[0.75rem] text-slate-700">
-					<a href="/tools/ftp-calculator" class="underline-offset-2 hover:underline">
-						FTP → zones
-					</a>
-					<span>•</span>
-					<a href="/tools/climb-time" class="underline-offset-2 hover:underline">
-						Climb time
-					</a>
-					<span>•</span>
-					<a href="/tools/watts-to-speed" class="underline-offset-2 hover:underline">
-						Watts → speed
-					</a>
-					<span>•</span>
-					<a href="/tools/nutrition" class="underline-offset-2 hover:underline">
-						Nutrition
-					</a>
+			<!-- Hero illustration -->
+			<div class="mt-8 hidden lg:mt-0 lg:block lg:w-80">
+				<div class="relative">
+					<div class="absolute inset-0 rounded-3xl bg-gradient-to-br from-sky-500/20 to-emerald-500/20 blur-2xl"></div>
+					<div class="relative rounded-3xl bg-white/5 p-8 backdrop-blur-sm border border-white/10">
+						<div class="text-center">
+							<div class="text-8xl mb-4">🚴‍♂️</div>
+							<div class="space-y-2 text-sm">
+								<div class="flex justify-between text-slate-400">
+									<span>FTP</span>
+									<span class="text-white font-medium">280W</span>
+								</div>
+								<div class="flex justify-between text-slate-400">
+									<span>W/kg</span>
+									<span class="text-emerald-400 font-medium">4.0</span>
+								</div>
+								<div class="flex justify-between text-slate-400">
+									<span>Zone 4</span>
+									<span class="text-sky-400 font-medium">266-294W</span>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
-			</Card>
+			</div>
+		</div>
+	</header>
 
-			<Card title="Philosophy">
-				<p class="mt-1 text-xs text-slate-500">
-					Short, concrete and practical. Less speculation, more structure. No pro setups for
-					people with full-time jobs.
-				</p>
-				<div class="mt-3 flex flex-wrap gap-2 text-[0.75rem] text-slate-700">
-					<span>Z2</span>
-					<span>•</span>
-					<span>Sweet spot</span>
-					<span>•</span>
-					<span>VO₂max</span>
-					<span>•</span>
-					<span>Structure</span>
+	<!-- TOOLS SECTION -->
+	<section class="mb-12">
+		<div class="flex items-center justify-between mb-6">
+			<div>
+				<h2 class="text-2xl font-bold text-slate-900">Cycling Calculators</h2>
+				<p class="mt-1 text-sm text-slate-600">Physics-based tools for training and performance</p>
+			</div>
+			<a href="/tools" class="text-sm font-medium text-sky-600 hover:text-sky-700 hidden sm:inline-flex items-center gap-1">
+				View all tools
+				<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+				</svg>
+			</a>
+		</div>
+
+		<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+			<!-- FTP Calculator -->
+			<a href="/tools/ftp-calculator" class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:shadow-lg hover:border-sky-200 hover:-translate-y-1">
+				<div class="absolute right-0 top-0 h-24 w-24 translate-x-6 -translate-y-6 rounded-full bg-gradient-to-br from-sky-100 to-sky-200 opacity-50 transition-transform group-hover:scale-150"></div>
+				<div class="relative">
+					<div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-sky-600 text-white shadow-lg shadow-sky-500/30">
+						<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900 group-hover:text-sky-600 transition-colors">FTP Calculator</h3>
+					<p class="mt-1 text-xs text-slate-500">Training zones from your FTP</p>
 				</div>
-			</Card>
+			</a>
+
+			<!-- Climb Time -->
+			<a href="/tools/climb-time" class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:shadow-lg hover:border-orange-200 hover:-translate-y-1">
+				<div class="absolute right-0 top-0 h-24 w-24 translate-x-6 -translate-y-6 rounded-full bg-gradient-to-br from-orange-100 to-orange-200 opacity-50 transition-transform group-hover:scale-150"></div>
+				<div class="relative">
+					<div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30">
+						<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900 group-hover:text-orange-600 transition-colors">Climb Time</h3>
+					<p class="mt-1 text-xs text-slate-500">Predict times on any climb</p>
+				</div>
+			</a>
+
+			<!-- Watts to Speed -->
+			<a href="/tools/watts-to-speed" class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:shadow-lg hover:border-emerald-200 hover:-translate-y-1">
+				<div class="absolute right-0 top-0 h-24 w-24 translate-x-6 -translate-y-6 rounded-full bg-gradient-to-br from-emerald-100 to-emerald-200 opacity-50 transition-transform group-hover:scale-150"></div>
+				<div class="relative">
+					<div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/30">
+						<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900 group-hover:text-emerald-600 transition-colors">Watts → Speed</h3>
+					<p class="mt-1 text-xs text-slate-500">Power to speed conversion</p>
+				</div>
+			</a>
+
+			<!-- Nutrition -->
+			<a href="/tools/nutrition" class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition-all hover:shadow-lg hover:border-purple-200 hover:-translate-y-1">
+				<div class="absolute right-0 top-0 h-24 w-24 translate-x-6 -translate-y-6 rounded-full bg-gradient-to-br from-purple-100 to-purple-200 opacity-50 transition-transform group-hover:scale-150"></div>
+				<div class="relative">
+					<div class="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg shadow-purple-500/30">
+						<svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900 group-hover:text-purple-600 transition-colors">Nutrition</h3>
+					<p class="mt-1 text-xs text-slate-500">Carb intake for long rides</p>
+				</div>
+			</a>
 		</div>
-	</div>
+	</section>
 
-	<!-- UNDERSEKSJONER -->
-	<Section title="What will you find here?" class="mt-8">
-		<div class="grid gap-4 md:grid-cols-3">
-			<Card title="Training zones on autopilot">
-				<p class="mt-1 text-xs text-slate-500">
-					Enter your FTP and get zones in both watts and percentage. No ad hoc Excel sheets,
-					just straight out of the box.
-				</p>
-			</Card>
-
-			<Card title="Simple training explanations">
-				<p class="mt-1 text-xs text-slate-500">
-					Articles that explain what you should actually do in training – without pretending
-					you're going to race WorldTour next season.
-				</p>
-			</Card>
-
-			<Card title="Expanding over time">
-				<p class="mt-1 text-xs text-slate-500">
-					More tools and articles coming: climb time, nutrition,
-					watts → speed, and more road cycling nerdery.
-				</p>
-			</Card>
+	<!-- TRAINING ARTICLES SECTION -->
+	<section class="mb-12">
+		<div class="flex items-center justify-between mb-6">
+			<div>
+				<h2 class="text-2xl font-bold text-slate-900">Training Guides</h2>
+				<p class="mt-1 text-sm text-slate-600">Science-backed advice for real-world cyclists</p>
+			</div>
+			<a href="/training" class="text-sm font-medium text-emerald-600 hover:text-emerald-700 hidden sm:inline-flex items-center gap-1">
+				View all articles
+				<svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+					<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+				</svg>
+			</a>
 		</div>
-	</Section>
+
+		<div class="grid gap-6 md:grid-cols-2">
+			<!-- Featured Article 1 -->
+			<a href="/training/4-watt-per-kg" class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+				<div class="absolute inset-0 bg-gradient-to-br from-sky-500/5 to-emerald-500/5"></div>
+				<div class="relative p-6">
+					<div class="flex items-center gap-2 mb-3">
+						<span class="inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
+							Beginner
+						</span>
+						<span class="text-xs text-slate-500">10 min read</span>
+					</div>
+					<h3 class="text-xl font-bold text-slate-900 group-hover:text-emerald-600 transition-colors">
+						The Road to 4 W/kg
+					</h3>
+					<p class="mt-2 text-sm text-slate-600 line-clamp-2">
+						A practical, science-based guide for recreational cyclists who want to reach the 4 W/kg threshold with smart training.
+					</p>
+					<div class="mt-4 flex items-center gap-2">
+						<span class="rounded-full bg-slate-100 px-2 py-0.5 text-[0.65rem] font-medium text-slate-600">FTP</span>
+						<span class="rounded-full bg-slate-100 px-2 py-0.5 text-[0.65rem] font-medium text-slate-600">Polarized</span>
+						<span class="rounded-full bg-slate-100 px-2 py-0.5 text-[0.65rem] font-medium text-slate-600">Zone 2</span>
+					</div>
+					<div class="mt-4 inline-flex items-center text-sm font-medium text-emerald-600 group-hover:text-emerald-700">
+						Read article
+						<svg class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+						</svg>
+					</div>
+				</div>
+			</a>
+
+			<!-- Featured Article 2 -->
+			<a href="/training/sweet-spot-progression" class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all hover:shadow-xl hover:-translate-y-1">
+				<div class="absolute inset-0 bg-gradient-to-br from-orange-500/5 to-yellow-500/5"></div>
+				<div class="relative p-6">
+					<div class="flex items-center gap-2 mb-3">
+						<span class="inline-flex items-center rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-700">
+							Beginner
+						</span>
+						<span class="text-xs text-slate-500">12 min read</span>
+					</div>
+					<h3 class="text-xl font-bold text-slate-900 group-hover:text-orange-600 transition-colors">
+						Sweet Spot Training Guide
+					</h3>
+					<p class="mt-2 text-sm text-slate-600 line-clamp-2">
+						A complete guide to sweet spot training – the time-efficient way to build FTP and endurance without excessive fatigue.
+					</p>
+					<div class="mt-4 flex items-center gap-2">
+						<span class="rounded-full bg-slate-100 px-2 py-0.5 text-[0.65rem] font-medium text-slate-600">Sweet Spot</span>
+						<span class="rounded-full bg-slate-100 px-2 py-0.5 text-[0.65rem] font-medium text-slate-600">FTP</span>
+						<span class="rounded-full bg-slate-100 px-2 py-0.5 text-[0.65rem] font-medium text-slate-600">Progression</span>
+					</div>
+					<div class="mt-4 inline-flex items-center text-sm font-medium text-orange-600 group-hover:text-orange-700">
+						Read article
+						<svg class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+						</svg>
+					</div>
+				</div>
+			</a>
+		</div>
+	</section>
+
+	<!-- WHY LANDEVEI SECTION -->
+	<section class="mb-12">
+		<div class="rounded-3xl bg-gradient-to-br from-slate-50 to-slate-100 p-8 sm:p-12">
+			<div class="text-center mb-8">
+				<h2 class="text-2xl font-bold text-slate-900">Why Pedal Science?</h2>
+				<p class="mt-2 text-sm text-slate-600">Built by cyclists, for cyclists who have lives outside of cycling</p>
+			</div>
+
+			<div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+				<div class="rounded-2xl bg-white p-6 shadow-sm">
+					<div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-sky-100 text-sky-600">
+						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900">Science-Based</h3>
+					<p class="mt-2 text-sm text-slate-600">
+						All tools and guides are based on peer-reviewed research from Seiler, Coggan, Jeukendrup, and others.
+					</p>
+				</div>
+
+				<div class="rounded-2xl bg-white p-6 shadow-sm">
+					<div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-emerald-100 text-emerald-600">
+						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900">Time-Efficient</h3>
+					<p class="mt-2 text-sm text-slate-600">
+						Designed for cyclists training 5-10 hours per week. No pro-volume assumptions here.
+					</p>
+				</div>
+
+				<div class="rounded-2xl bg-white p-6 shadow-sm">
+					<div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-orange-100 text-orange-600">
+						<svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+						</svg>
+					</div>
+					<h3 class="font-semibold text-slate-900">100% Free</h3>
+					<p class="mt-2 text-sm text-slate-600">
+						No accounts, no paywalls, no ads. Just useful tools and honest training advice.
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- CTA SECTION -->
+	<section class="rounded-3xl bg-gradient-to-r from-slate-900 to-slate-800 p-8 text-center text-white sm:p-12">
+		<h2 class="text-2xl font-bold sm:text-3xl">Ready to get faster?</h2>
+		<p class="mt-3 text-slate-300 max-w-xl mx-auto">
+			Start with the FTP Calculator to dial in your training zones, then explore our guides to structure your training.
+		</p>
+		<div class="mt-6 flex flex-wrap justify-center gap-4">
+			<Button href="/tools/ftp-calculator" variant="primary">
+				Start with FTP Calculator
+			</Button>
+			<Button href="/training/4-watt-per-kg" variant="ghost">
+				Read: The Road to 4 W/kg
+			</Button>
+		</div>
+	</section>
 </BaseLayout>
+
+
+
+

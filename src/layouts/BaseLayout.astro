@@ -4,12 +4,17 @@ import Breadcrumb from "../components/Breadcrumb.astro";
 import Button from "../components/Button.astro";
 
 const {
-    title = "Road Cycling",
-    description = "Tools and knowledge for road cyclists",
+    title = "Pedal Science",
+    description = "Free cycling tools and training guides for recreational road cyclists",
 } = Astro.props;
 
 const year = new Date().getFullYear();
 const pathname = Astro.url.pathname;
+
+// Build the page title
+const pageTitle = title === "Pedal Science"
+    ? "Pedal Science - Free Cycling Tools & Training Guides"
+    : `${title} | Pedal Science`;
 
 /* -------------------------------------------------------
    BREADCRUMB LOGIC
@@ -60,14 +65,38 @@ if (breadcrumbItems) {
 <html lang="en" class="scroll-smooth">
 <head>
     <meta charset="utf-8" />
-    <title>{title} | Road Cycling</title>
+    <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content="https://pedalscience.com/og-image.png" />
+    <meta property="og:site_name" content="Pedal Science" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={Astro.url.href} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content="https://pedalscience.com/og-image.png" />
+
+    <!-- Additional SEO -->
+    <meta name="author" content="Pedal Science" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={Astro.url.href} />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#0f172a" />
+
     {breadcrumbJson && (
-        <script type="application/ld+json">
-        {JSON.stringify(breadcrumbJson)}
-      </script>
+        <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJson)} />
     )}
 </head>
 
@@ -83,7 +112,7 @@ if (breadcrumbItems) {
                 href="/"
                 class="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700"
         >
-            Road Cycling
+            Pedal Science
         </a>
 
         <nav class="flex gap-2 text-sm">
@@ -138,7 +167,7 @@ if (breadcrumbItems) {
         class="border-t border-slate-200 bg-slate-50 text-xs text-slate-500"
 >
     <div class="mx-auto max-w-5xl px-4 py-4 sm:px-6">
-        © {year} Road Cycling – for recreational cyclists and nerds 🚴‍♂️
+        © {year} Pedal Science – free cycling tools and training guides 🚴‍♂️
     </div>
 </footer>
 </body>
