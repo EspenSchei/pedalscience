@@ -5,7 +5,7 @@ import Card from "../../components/Card.astro";
 
 const title = "Nutrition Calculator";
 const description =
-    "How many carbohydrates you should consume per hour based on intensity and duration.";
+    "Science-based carbohydrate intake recommendations for cycling based on activity type, intensity, and duration.";
 ---
 
 <BaseLayout {title} {description}>
@@ -15,31 +15,61 @@ const description =
         </h1>
 
         <p class="mt-2 max-w-2xl text-sm text-slate-600">
-            Select intensity and duration. The calculator suggests how many carbs per hour
-            work well for typical cycling sessions.
+            Fueling properly during rides is crucial for performance and recovery. This calculator
+            provides carbohydrate intake recommendations based on current sports nutrition science,
+            including research from Asker Jeukendrup and the 2022 IOC consensus on nutrition for athletes.
+        </p>
+        <p class="mt-2 max-w-2xl text-xs text-slate-500">
+            Modern research shows trained athletes can absorb up to 90–120g of carbs per hour when using
+            multiple transportable carbohydrates (glucose + fructose in ~2:1 ratio). Your gut can be trained
+            to tolerate higher intakes over time.
         </p>
     </header>
 
     <div class="mt-4 grid gap-6 md:grid-cols-2">
         <div class="space-y-4">
-            <!-- Intensity -->
+            <!-- Activity Type -->
             <div class="space-y-1 text-sm">
-                <label for="zone">Intensity</label>
-                <select id="zone" class="w-full">
-                    <option value="z2">Easy (Z2)</option>
-                    <option value="z3">Tempo (Z3)</option>
-                    <option value="z4">Threshold (Z4)</option>
-                    <option value="z5">Hard (Z5/VO₂)</option>
+                <label for="activity">Activity Type</label>
+                <select id="activity" class="w-full">
+                    <option value="easy">Easy ride / Recovery</option>
+                    <option value="endurance">Endurance ride / Long Z2</option>
+                    <option value="group">Group ride / Mixed intensity</option>
+                    <option value="granfondo">Gran Fondo / Sportive</option>
+                    <option value="race">Race / Time trial</option>
+                    <option value="interval">Interval session / Hard training</option>
                 </select>
             </div>
 
             <!-- Duration -->
             <div class="space-y-1 text-sm">
                 <label for="hours">Duration (hours)</label>
-                <input id="hours" type="number" step="0.1" value="3" class="w-full" />
+                <input id="hours" type="number" step="0.5" value="3" min="0.5" max="12" class="w-full" />
                 <p class="form-help">
-                    Round to the nearest half hour if unsure – it's better to have a bit
-                    too much than too little.
+                    For rides under 60–90 minutes at moderate intensity, water alone is usually sufficient.
+                </p>
+            </div>
+
+            <!-- Body Weight (optional) -->
+            <div class="space-y-1 text-sm">
+                <label for="weight">Body weight (kg) – optional</label>
+                <input id="weight" type="number" step="1" value="" placeholder="e.g. 70" class="w-full" />
+                <p class="form-help">
+                    Used for personalized recommendations. Leave empty for general guidelines.
+                </p>
+            </div>
+
+            <!-- Gut Training Level -->
+            <div class="space-y-1 text-sm">
+                <label for="gutTraining">Gut training level</label>
+                <select id="gutTraining" class="w-full">
+                    <option value="beginner">Beginner – new to fueling during rides</option>
+                    <option value="intermediate" selected>Intermediate – comfortable with 40–60g/hr</option>
+                    <option value="advanced">Advanced – trained gut, tolerates 60–90g/hr</option>
+                    <option value="elite">Elite – can handle 90–120g/hr</option>
+                </select>
+                <p class="form-help">
+                    Your gut can be trained! Start lower and gradually increase intake over weeks.
                 </p>
             </div>
 
@@ -50,39 +80,149 @@ const description =
             </div>
         </div>
 
-        <Card title="Result">
-            <div id="result" class="text-sm text-slate-600">
-                Fill in data and click "Calculate".
-            </div>
-        </Card>
+        <div class="space-y-4">
+            <Card title="Recommendation">
+                <div id="result" class="text-sm text-slate-600">
+                    Fill in your ride details and click "Calculate".
+                </div>
+            </Card>
+
+            <Card title="Practical Tips">
+                <div id="tips" class="text-xs text-slate-600 space-y-2">
+                    <p>• <strong>Multiple transporters:</strong> Use products with glucose + fructose for better absorption at high intake rates.</p>
+                    <p>• <strong>Start early:</strong> Begin fueling within the first 30 minutes of longer rides.</p>
+                    <p>• <strong>Practice:</strong> Always test your nutrition strategy in training, never on race day.</p>
+                    <p>• <strong>Hydration:</strong> Don't forget electrolytes, especially sodium, on hot days or long efforts.</p>
+                </div>
+            </Card>
+        </div>
     </div>
+
+    <Card class="mt-6" title="The Science Behind the Numbers">
+        <div class="text-xs text-slate-600 space-y-2">
+            <p>
+                <strong>Why carbs matter:</strong> During high-intensity exercise, your body primarily burns carbohydrates.
+                Muscle glycogen stores are limited (~400–500g), and blood glucose needs to be maintained for both muscles and brain function.
+            </p>
+            <p>
+                <strong>Absorption limits:</strong> The intestine can absorb ~60g/hr of glucose alone via the SGLT1 transporter.
+                Adding fructose (which uses the GLUT5 transporter) allows absorption of up to 90–120g/hr in trained individuals.
+            </p>
+            <p>
+                <strong>References:</strong> Jeukendrup, A. (2014). A step towards personalized sports nutrition.
+                Sports Medicine. | IOC Consensus Statement on Sports Nutrition (2022). | Thomas et al. (2016).
+                Position of the Academy of Nutrition and Dietetics.
+            </p>
+        </div>
+    </Card>
 
     <script type="module">
         const result = document.getElementById("result");
 
-        const intakePerZone = {
-            z2: [30, 45],
-            z3: [45, 60],
-            z4: [60, 75],
-            z5: [90, 110],
+        // Base carb needs per hour by activity type [min, max] g/hr
+        const activityIntake = {
+            easy: { base: [0, 30], description: "Easy/recovery rides" },
+            endurance: { base: [30, 60], description: "Endurance rides" },
+            group: { base: [40, 70], description: "Group rides" },
+            granfondo: { base: [60, 90], description: "Gran Fondo/Sportive" },
+            race: { base: [80, 120], description: "Racing" },
+            interval: { base: [50, 80], description: "Interval training" },
         };
 
+        // Gut training multipliers
+        const gutMultiplier = {
+            beginner: 0.6,
+            intermediate: 0.8,
+            advanced: 1.0,
+            elite: 1.2,
+        };
+
+        // Duration adjustments - longer rides need more consistent fueling
+        function getDurationFactor(hours) {
+            if (hours <= 1) return 0.5; // Short rides need less
+            if (hours <= 2) return 0.8;
+            if (hours <= 4) return 1.0;
+            if (hours <= 6) return 1.1; // Longer rides: slightly higher to prevent bonk
+            return 1.15; // Very long rides: glycogen depletion risk
+        }
+
         function calc() {
-            const zone = document.getElementById("zone").value;
+            const activity = document.getElementById("activity").value;
             const hours = Number(document.getElementById("hours").value) || 0;
+            const weight = document.getElementById("weight").value ? Number(document.getElementById("weight").value) : null;
+            const gutLevel = document.getElementById("gutTraining").value;
 
-            const [minG, maxG] = intakePerZone[zone];
-            const totalMin = minG * hours;
-            const totalMax = maxG * hours;
+            if (hours <= 0) {
+                result.innerHTML = `<p class="text-amber-600">Please enter a valid duration.</p>`;
+                return;
+            }
 
-            result.innerHTML = `
-        <p class="font-semibold text-slate-800">Recommended carb intake:</p>
-        <p class="text-slate-900">${minG}–${maxG} g per hour</p>
-        <p class="mt-3 font-semibold text-slate-800">Total amount:</p>
-        <p class="text-slate-900">${totalMin}–${totalMax} g</p>
-      `;
+            const activityData = activityIntake[activity];
+            const gutFactor = gutMultiplier[gutLevel];
+            const durationFactor = getDurationFactor(hours);
+
+            // Calculate adjusted intake
+            let minG = Math.round(activityData.base[0] * gutFactor * durationFactor);
+            let maxG = Math.round(activityData.base[1] * gutFactor * durationFactor);
+
+            // Cap at physiological limits based on gut training
+            const maxAbsorption = gutLevel === "elite" ? 120 : gutLevel === "advanced" ? 90 : gutLevel === "intermediate" ? 60 : 45;
+            maxG = Math.min(maxG, maxAbsorption);
+            minG = Math.min(minG, maxG);
+
+            // For very short rides, minimal fueling needed
+            if (hours < 1) {
+                minG = 0;
+                maxG = Math.min(maxG, 30);
+            }
+
+            const totalMin = Math.round(minG * hours);
+            const totalMax = Math.round(maxG * hours);
+
+            // Weight-based recommendation if provided
+            let weightNote = "";
+            if (weight && weight > 0) {
+                const lowPerKg = (minG / weight).toFixed(1);
+                const highPerKg = (maxG / weight).toFixed(1);
+                weightNote = `<p class="mt-2 text-slate-500">That's approximately ${lowPerKg}–${highPerKg} g/kg/hr for your weight.</p>`;
+            }
+
+            // Build recommendation
+            let recommendation = "";
+
+            if (hours <= 1 && activity === "easy") {
+                recommendation = `
+                    <p class="font-semibold text-slate-800">Recommendation:</p>
+                    <p class="text-slate-900">Water only is likely sufficient for this short, easy ride.</p>
+                    <p class="mt-2 text-slate-500">Consider 20–30g carbs if you're training fasted or feeling low on energy.</p>
+                `;
+            } else if (hours <= 1.5 && (activity === "easy" || activity === "endurance")) {
+                recommendation = `
+                    <p class="font-semibold text-slate-800">Recommendation:</p>
+                    <p class="text-slate-900">${minG}–${maxG} g per hour</p>
+                    <p class="mt-2 text-slate-500">For rides under 90 minutes at moderate intensity, fueling is optional but can help if glycogen stores are low.</p>
+                `;
+            } else {
+                recommendation = `
+                    <p class="font-semibold text-slate-800">Recommended intake:</p>
+                    <p class="text-lg text-slate-900 font-medium">${minG}–${maxG} g per hour</p>
+                    ${weightNote}
+                    <p class="mt-3 font-semibold text-slate-800">Total for ${hours}h ${activityData.description.toLowerCase()}:</p>
+                    <p class="text-lg text-slate-900 font-medium">${totalMin}–${totalMax} g carbohydrates</p>
+                    <p class="mt-3 text-slate-500 text-xs">
+                        ${maxG >= 60 ? "At this intake rate, use products with multiple carb sources (glucose + fructose) for optimal absorption." : "Single carb sources (gels, bananas, etc.) work well at this intake rate."}
+                    </p>
+                `;
+            }
+
+            result.innerHTML = recommendation;
         }
 
         document.getElementById("calcBtn").onclick = calc;
+
+        // Auto-calculate on change
+        ["activity", "hours", "weight", "gutTraining"].forEach(id => {
+            document.getElementById(id).onchange = calc;
+        });
     </script>
 </BaseLayout>
