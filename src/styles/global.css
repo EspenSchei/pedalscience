@@ -80,6 +80,39 @@ body {
 }
 
 /* --------------------------------------------------
+   Tables in articles
+   -------------------------------------------------- */
+
+.article-content table {
+    @apply w-full my-6 text-sm border-collapse;
+}
+
+.article-content thead {
+    @apply bg-slate-100;
+}
+
+.article-content th {
+    @apply text-left font-semibold text-slate-900 px-4 py-3 border-b-2 border-slate-200;
+}
+
+.article-content td {
+    @apply px-4 py-3 border-b border-slate-100 text-slate-700;
+}
+
+.article-content tbody tr:hover {
+    @apply bg-slate-50;
+}
+
+.article-content tbody tr:last-child td {
+    @apply border-b-0;
+}
+
+/* Highlight bold cells in tables */
+.article-content td strong {
+    @apply text-slate-900;
+}
+
+/* --------------------------------------------------
    Callout-bokser (NOTE/TIP/INFO/WARNING/SUCCESS)
    -------------------------------------------------- */
 
