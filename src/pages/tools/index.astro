@@ -1,74 +1,209 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import Card from "../../components/Card.astro";
 import Button from "../../components/Button.astro";
-import Section from "../../components/Section.astro";
 
-const title = "Tools";
+const title = "Cycling Tools";
 const description =
-    "Practical calculators for recreational road cyclists. Start with FTP, and use the other tools to plan climbs, speed, and nutrition.";
+    "Free, science-based calculators for cyclists. Calculate training zones, estimate climb times, predict speeds, and plan your nutrition.";
 ---
 
 <BaseLayout {title} {description}>
-    <header class="mb-8">
-        <h1 class="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-            Cycling Tools
-        </h1>
-        <p class="mt-3 max-w-2xl text-sm text-slate-600">
-            Practical calculators for recreational road cyclists. Start with FTP, and use the other
-            tools to plan climbs, speed, and nutrition.
-        </p>
+    <!-- Hero Section -->
+    <header class="relative mb-12 overflow-hidden rounded-3xl bg-gradient-to-br from-sky-600 via-sky-700 to-indigo-800 p-8 text-white shadow-xl sm:p-12">
+        <div class="absolute inset-0 opacity-10">
+            <svg class="h-full w-full" viewBox="0 0 100 100" preserveAspectRatio="none">
+                <defs>
+                    <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                        <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" stroke-width="0.5"/>
+                    </pattern>
+                </defs>
+                <rect width="100" height="100" fill="url(#grid)" />
+            </svg>
+        </div>
+        <div class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/10 blur-3xl"></div>
+        <div class="absolute -bottom-32 -left-32 h-80 w-80 rounded-full bg-sky-400/20 blur-3xl"></div>
+
+        <div class="relative">
+            <div class="inline-flex items-center gap-2 rounded-full bg-white/20 px-3 py-1 text-xs font-medium backdrop-blur-sm">
+                <span class="h-2 w-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                Free & Open Source
+            </div>
+
+            <h1 class="mt-4 text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
+                Cycling Calculators
+            </h1>
+            <p class="mt-4 max-w-2xl text-lg text-sky-100">
+                Physics-based tools built for cyclists who want to understand the numbers behind their performance.
+                No accounts, no ads – just pure cycling science.
+            </p>
+
+            <div class="mt-6 flex flex-wrap gap-3 text-sm">
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 backdrop-blur-sm">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    Science-based
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 backdrop-blur-sm">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+                    Instant results
+                </span>
+                <span class="inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 backdrop-blur-sm">
+                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>
+                    Fully customizable
+                </span>
+            </div>
+        </div>
     </header>
 
-    <Section title="Calculators">
-        <div class="grid gap-4 md:grid-cols-2">
-            <Card title="FTP Calculator">
-                <p class="mt-1 text-xs text-slate-600">
-                    Enter your FTP and get training zones in watts and percentage. Perfect starting point for
-                    structured training.
-                </p>
-                <div class="mt-4">
-                    <Button href="/tools/ftp-calculator">
-                        Go to FTP Calculator
-                    </Button>
-                </div>
-            </Card>
+    <!-- Tools Grid -->
+    <div class="grid gap-6 md:grid-cols-2">
+        <!-- FTP Calculator -->
+        <a href="/tools/ftp-calculator" class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-lg hover:border-sky-200 hover:-translate-y-1">
+            <div class="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br from-sky-100 to-sky-200 opacity-50 transition-transform group-hover:scale-150"></div>
 
-            <Card title="Climb Time Calculator">
-                <p class="mt-1 text-xs text-slate-600">
-                    Calculate how long it takes to climb a hill based on watts, total weight, distance,
-                    and gradient. Great for "what if I lose 3 kg or gain 20 W?".
-                </p>
-                <div class="mt-4">
-                    <Button href="/tools/climb-time" variant="ghost">
-                        Calculate climb time
-                    </Button>
+            <div class="relative">
+                <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-sky-600 text-white shadow-lg shadow-sky-500/30">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
                 </div>
-            </Card>
 
-            <Card title="Watts → Speed">
-                <p class="mt-1 text-xs text-slate-600">
-                    Estimate speed on flat ground based on watts, CdA, rolling resistance, and total weight. Gives a
-                    realistic picture of how fast you can ride on good asphalt.
+                <h2 class="text-xl font-semibold text-slate-900 group-hover:text-sky-600 transition-colors">
+                    FTP Calculator
+                </h2>
+                <p class="mt-2 text-sm text-slate-600 leading-relaxed">
+                    Calculate your Functional Threshold Power and get personalized training zones using the Coggan,
+                    Polarized, or Sweet Spot models. Supports 20-min, 8-min, and ramp test protocols.
                 </p>
-                <div class="mt-4">
-                    <Button href="/tools/watts-to-speed" variant="ghost">
-                        Calculate speed
-                    </Button>
-                </div>
-            </Card>
 
-            <Card title="Nutrition Calculator">
-                <p class="mt-1 text-xs text-slate-600">
-                    Suggests how many carbs you should consume per hour based on intensity and duration. Simple
-                    tool to avoid bonking on long rides.
-                </p>
-                <div class="mt-4">
-                    <Button href="/tools/nutrition" variant="ghost">
-                        Calculate carb needs
-                    </Button>
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">7 Power Zones</span>
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">W/kg Analysis</span>
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">Multiple Models</span>
                 </div>
-            </Card>
+
+                <div class="mt-4 inline-flex items-center text-sm font-medium text-sky-600 group-hover:text-sky-700">
+                    Open calculator
+                    <svg class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- Climb Time Calculator -->
+        <a href="/tools/climb-time" class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-lg hover:border-orange-200 hover:-translate-y-1">
+            <div class="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br from-orange-100 to-orange-200 opacity-50 transition-transform group-hover:scale-150"></div>
+
+            <div class="relative">
+                <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/30">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                    </svg>
+                </div>
+
+                <h2 class="text-xl font-semibold text-slate-900 group-hover:text-orange-600 transition-colors">
+                    Climb Time Calculator
+                </h2>
+                <p class="mt-2 text-sm text-slate-600 leading-relaxed">
+                    Predict your time on any climb – from local hills to iconic climbs like Alpe d'Huez and Mont Ventoux.
+                    Includes VAM calculation and what-if analysis for weight and power changes.
+                </p>
+
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">Famous Climbs</span>
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">VAM Metrics</span>
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">What-If Analysis</span>
+                </div>
+
+                <div class="mt-4 inline-flex items-center text-sm font-medium text-orange-600 group-hover:text-orange-700">
+                    Open calculator
+                    <svg class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- Watts to Speed Calculator -->
+        <a href="/tools/watts-to-speed" class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-lg hover:border-emerald-200 hover:-translate-y-1">
+            <div class="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br from-emerald-100 to-emerald-200 opacity-50 transition-transform group-hover:scale-150"></div>
+
+            <div class="relative">
+                <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-600 text-white shadow-lg shadow-emerald-500/30">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                </div>
+
+                <h2 class="text-xl font-semibold text-slate-900 group-hover:text-emerald-600 transition-colors">
+                    Watts → Speed
+                </h2>
+                <p class="mt-2 text-sm text-slate-600 leading-relaxed">
+                    See how fast you can go at a given power output. Accounts for aerodynamic drag, rolling resistance,
+                    gradient, and wind. Visualizes your power breakdown between aero and rolling losses.
+                </p>
+
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">Aero Positions</span>
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">Wind Effects</span>
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">Power Breakdown</span>
+                </div>
+
+                <div class="mt-4 inline-flex items-center text-sm font-medium text-emerald-600 group-hover:text-emerald-700">
+                    Open calculator
+                    <svg class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+        </a>
+
+        <!-- Nutrition Calculator -->
+        <a href="/tools/nutrition" class="group relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all hover:shadow-lg hover:border-purple-200 hover:-translate-y-1">
+            <div class="absolute right-0 top-0 h-32 w-32 translate-x-8 -translate-y-8 rounded-full bg-gradient-to-br from-purple-100 to-purple-200 opacity-50 transition-transform group-hover:scale-150"></div>
+
+            <div class="relative">
+                <div class="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 text-white shadow-lg shadow-purple-500/30">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                    </svg>
+                </div>
+
+                <h2 class="text-xl font-semibold text-slate-900 group-hover:text-purple-600 transition-colors">
+                    Nutrition Calculator
+                </h2>
+                <p class="mt-2 text-sm text-slate-600 leading-relaxed">
+                    Plan your carbohydrate intake based on the latest sports science from Jeukendrup and the IOC.
+                    Tailored recommendations for different ride types – from easy spins to race day fueling.
+                </p>
+
+                <div class="mt-4 flex flex-wrap gap-2">
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">Activity Types</span>
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">Gut Training</span>
+                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">Science-Based</span>
+                </div>
+
+                <div class="mt-4 inline-flex items-center text-sm font-medium text-purple-600 group-hover:text-purple-700">
+                    Open calculator
+                    <svg class="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                </div>
+            </div>
+        </a>
+    </div>
+
+    <!-- Bottom CTA -->
+    <div class="mt-12 rounded-2xl border border-slate-200 bg-gradient-to-r from-slate-50 to-slate-100 p-6 text-center sm:p-8">
+        <h2 class="text-lg font-semibold text-slate-900">Looking for training guidance?</h2>
+        <p class="mt-2 text-sm text-slate-600">
+            Check out our training articles for practical advice on reaching your cycling goals.
+        </p>
+        <div class="mt-4">
+            <Button href="/training" variant="ghost">
+                Browse training articles →
+            </Button>
         </div>
-    </Section>
+    </div>
 </BaseLayout>
+
