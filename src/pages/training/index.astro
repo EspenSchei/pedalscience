@@ -4,42 +4,42 @@ import Card from "../../components/Card.astro";
 import Button from "../../components/Button.astro";
 import Section from "../../components/Section.astro";
 
-const title = "Trening";
+const title = "Training";
 const description =
-    "Artikler om hvordan du kan trene smartere på landeveien – med fokus på mosjonister som vil bli sterkere uten å leve som proffer.";
+    "Articles on how to train smarter on the road – focused on recreational cyclists who want to get stronger without living like pros.";
 
-// Hent alle markdown-artikler i denne mappa
+// Get all markdown articles in this folder
 const rawArticles = await Astro.glob("./*.md");
 
 const WORDS_PER_MINUTE = 220;
 
-// Prioritet (lavt tall = vis først)
+// Priority (low number = show first)
 const getPriority = (url: string) => {
     switch (url) {
-        case "/trening/4-watt-per-kg":
+        case "/training/4-watt-per-kg":
             return 1;
-        case "/trening/sweet-spot-progresjon":
+        case "/training/sweet-spot-progression":
             return 2;
         default:
             return 99;
     }
 };
 
-// Vanskelighetsgrad for sortering
+// Difficulty order for sorting
 const difficultyOrder = (difficulty?: string) => {
     switch ((difficulty ?? "").toLowerCase()) {
-        case "nybegynner":
+        case "beginner":
             return 1;
-        case "viderekommen":
+        case "intermediate":
             return 2;
-        case "avansert":
+        case "advanced":
             return 3;
         default:
             return 2;
     }
 };
 
-// Velg et lite ikon basert på første tag
+// Choose a small icon based on first tag
 const iconForTags = (tags: string[] = []) => {
     const first = (tags[0] ?? "").toLowerCase();
     if (first.includes("ftp")) return "📊";
@@ -47,11 +47,11 @@ const iconForTags = (tags: string[] = []) => {
     if (first.includes("vo2")) return "🫁";
     if (first.includes("z2")) return "🧊";
     if (first.includes("base")) return "🏗️";
-    if (first.includes("klatr")) return "⛰️";
+    if (first.includes("climb")) return "⛰️";
     return "🚴‍♂️";
 };
 
-// Bygg artikkel-meta
+// Build article meta
 const articles = await Promise.all(
     rawArticles.map(async (mod) => {
         const frontmatter: any = mod.frontmatter ?? {};
@@ -70,7 +70,7 @@ const articles = await Promise.all(
         if (updated) {
             const d = new Date(updated);
             if (!Number.isNaN(d.getTime())) {
-                updatedLabel = d.toLocaleDateString("nb-NO", {
+                updatedLabel = d.toLocaleDateString("en-US", {
                     day: "numeric",
                     month: "long",
                     year: "numeric",
@@ -82,9 +82,9 @@ const articles = await Promise.all(
 
         return {
             url: mod.url,
-            title: frontmatter.title ?? "Uten tittel",
+            title: frontmatter.title ?? "Untitled",
             description:
-                frontmatter.description ?? "Les artikkelen",
+                frontmatter.description ?? "Read the article",
             tags,
             difficulty,
             updated,
@@ -96,29 +96,29 @@ const articles = await Promise.all(
     })
 );
 
-// Sorter artikler
+// Sort articles
 articles.sort((a, b) => {
     if (a.priority !== b.priority) return a.priority - b.priority;
     const da = difficultyOrder(a.difficulty);
     const db = difficultyOrder(b.difficulty);
     if (da !== db) return da - db;
-    return a.title.localeCompare(b.title, "nb");
+    return a.title.localeCompare(b.title, "en");
 });
 ---
 
 <BaseLayout {title} {description}>
     <header class="mb-8">
         <h1 class="text-3xl font-semibold tracking-tight text-slate-900 sm:text-4xl">
-            Trening for landeveis-mosjonister
+            Training for Recreational Road Cyclists
         </h1>
         <p class="mt-3 max-w-2xl text-sm text-slate-600">
-            Enkle, ærlige artikler om hvordan du kan bli sterkere på sykkel – med smart belastning
-            og treningsøkter som faktisk lar seg gjennomføre i en vanlig uke.
+            Simple, honest articles about how you can get stronger on the bike – with smart loading
+            and training sessions that can actually fit into a normal week.
         </p>
     </header>
 
     {articles.length > 0 ? (
-            <Section title="Artikler">
+            <Section title="Articles">
                 <div class="grid gap-4 md:grid-cols-2">
                     {articles.map((article) => (
                             <Card title={`${article.icon} ${article.title}`}>
@@ -141,14 +141,14 @@ articles.sort((a, b) => {
                                 {(article.readingMinutes || article.updatedLabel) && (
                                         <div class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.7rem] text-slate-500">
                                             {article.readingMinutes && (
-                                                    <span>Lesetid: {article.readingMinutes} min</span>
+                                                    <span>Reading time: {article.readingMinutes} min</span>
                                             )}
                                             {article.updatedLabel && (
-                                                    <span>Oppdatert: {article.updatedLabel}</span>
+                                                    <span>Updated: {article.updatedLabel}</span>
                                             )}
                                             {article.difficulty && (
                                                     <span>
-                    Nivå:{" "}
+                    Level:{" "}
                                                         {article.difficulty.charAt(0).toUpperCase() +
                                                             article.difficulty.slice(1)}
                   </span>
@@ -158,7 +158,7 @@ articles.sort((a, b) => {
 
                                 <div class="mt-4">
                                     <Button href={article.url} variant="ghost">
-                                        Les artikkelen
+                                        Read article
                                     </Button>
                                 </div>
                             </Card>
@@ -167,7 +167,7 @@ articles.sort((a, b) => {
             </Section>
     ) : (
             <p class="text-sm text-slate-600">
-                Ingen artikler publisert enda. Kommer snart.
+                No articles published yet. Coming soon.
             </p>
     )}
 </BaseLayout>

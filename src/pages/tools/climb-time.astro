@@ -3,20 +3,20 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/Button.astro";
 import Card from "../../components/Card.astro";
 
-const title = "Klatretids-kalkulator";
+const title = "Climb Time Calculator";
 const description =
-    "Beregn hvor lang tid du bruker på en bakke basert på watt, vekt, lengde og stigning.";
+    "Calculate how long it takes to climb a hill based on watts, weight, distance, and gradient.";
 ---
 
 <BaseLayout {title} {description}>
     <header class="mb-6">
         <h1 class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-            Klatretids-kalkulator
+            Climb Time Calculator
         </h1>
 
         <p class="mt-2 max-w-2xl text-sm text-slate-600">
-            Legg inn watt, totalvekt, lengde og stigning – få estimert tid og fart.
-            Kalkulatoren bruker en forenklet modell av gravitasjonskraften i motbakke.
+            Enter watts, total weight, distance, and gradient – get estimated time and speed.
+            The calculator uses a simplified model of gravitational force on climbs.
         </p>
     </header>
 
@@ -24,7 +24,7 @@ const description =
         <div class="space-y-4">
             <!-- WATT -->
             <div class="space-y-1 text-sm">
-                <label for="watt">Watt</label>
+                <label for="watt">Watts</label>
                 <input
                         id="watt"
                         type="number"
@@ -33,9 +33,9 @@ const description =
                 />
             </div>
 
-            <!-- VEKT -->
+            <!-- WEIGHT -->
             <div class="space-y-1 text-sm">
-                <label for="weight">Totalvekt (rytter + sykkel)</label>
+                <label for="weight">Total weight (rider + bike)</label>
                 <input
                         id="weight"
                         type="number"
@@ -45,9 +45,9 @@ const description =
                 />
             </div>
 
-            <!-- LENGDE -->
+            <!-- DISTANCE -->
             <div class="space-y-1 text-sm">
-                <label for="length">Lengde (meter)</label>
+                <label for="length">Distance (meters)</label>
                 <input
                         id="length"
                         type="number"
@@ -56,9 +56,9 @@ const description =
                 />
             </div>
 
-            <!-- STIGNING -->
+            <!-- GRADIENT -->
             <div class="space-y-1 text-sm">
-                <label for="grade">Stigning (%)</label>
+                <label for="grade">Gradient (%)</label>
                 <input
                         id="grade"
                         type="number"
@@ -70,14 +70,14 @@ const description =
 
             <div class="form-actions">
                 <Button id="calcBtn" variant="primary">
-                    Beregn klatretid
+                    Calculate climb time
                 </Button>
             </div>
         </div>
 
-        <Card title="Resultat">
+        <Card title="Result">
             <div id="result" class="text-sm text-slate-600">
-                Fyll inn data og trykk «Beregn».
+                Fill in data and click "Calculate".
             </div>
         </Card>
     </div>
@@ -98,7 +98,7 @@ const description =
             const pct = Number(grade.value);
 
             if (!W || !m || !dist) {
-                result.textContent = "Sjekk inputverdiene.";
+                result.textContent = "Check input values.";
                 return;
             }
 
@@ -111,10 +111,10 @@ const description =
             const sec = Math.round(time % 60);
 
             result.innerHTML = `
-        <p class="font-semibold text-slate-800">Estimert tid:</p>
-        <p class="text-slate-900">${min} min ${sec} sek</p>
-        <p class="mt-3 font-semibold text-slate-800">Snittfart:</p>
-        <p class="text-slate-900">${kmh.toFixed(1)} km/t</p>
+        <p class="font-semibold text-slate-800">Estimated time:</p>
+        <p class="text-slate-900">${min} min ${sec} sec</p>
+        <p class="mt-3 font-semibold text-slate-800">Average speed:</p>
+        <p class="text-slate-900">${kmh.toFixed(1)} km/h</p>
       `;
         }
 

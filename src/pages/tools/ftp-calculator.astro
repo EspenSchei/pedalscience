@@ -3,26 +3,26 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/Button.astro";
 import Card from "../../components/Card.astro";
 
-const title = "FTP-kalkulator";
+const title = "FTP Calculator";
 const description =
-    "Beregn treningssoner i watt og prosent av FTP, samt W/kg, på noen sekunder.";
+    "Calculate training zones in watts and percentage of FTP, as well as W/kg, in seconds.";
 ---
 
 <BaseLayout {title} {description}>
     <header class="mb-6">
         <h1 class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-            FTP-kalkulator
+            FTP Calculator
         </h1>
         <p class="mt-2 max-w-2xl text-sm text-slate-600">
-            Legg inn FTP i watt (eller resultatet fra en 20-minutters test), og få forslag til
-            treningssoner basert på klassisk Coggan-modell. Du kan også legge inn vekt for å se W/kg.
+            Enter your FTP in watts (or the result from a 20-minute test), and get suggested
+            training zones based on the classic Coggan model. You can also enter weight to see W/kg.
         </p>
     </header>
 
     <div class="mt-4 grid gap-6 md:grid-cols-2">
         <div class="space-y-4">
             <div class="space-y-1 text-sm">
-                <label for="ftpInput">FTP (watt)</label>
+                <label for="ftpInput">FTP (watts)</label>
                 <input
                         id="ftpInput"
                         type="number"
@@ -33,12 +33,12 @@ const description =
                         class="w-full"
                 />
                 <p class="form-help">
-                    Hvis du bare har 20-minutters test: ta snittwatt × 0,95 og legg inn her.
+                    If you only have a 20-minute test: take average watts × 0.95 and enter here.
                 </p>
             </div>
 
             <div class="space-y-1 text-sm">
-                <label for="weightInput">Vekt (kg) – valgfritt</label>
+                <label for="weightInput">Weight (kg) – optional</label>
                 <input
                         id="weightInput"
                         type="number"
@@ -49,30 +49,30 @@ const description =
                         class="w-full"
                 />
                 <p class="form-help">
-                    Brukes kun til å regne ut W/kg. Hopper over hvis du lar feltet stå tomt.
+                    Only used to calculate W/kg. Leave empty to skip.
                 </p>
             </div>
 
             <div class="form-actions">
                 <Button id="calcBtn" type="button" variant="primary">
-                    Beregn soner
+                    Calculate zones
                 </Button>
             </div>
         </div>
 
-        <Card as="div" id="summaryBox" class="h-fit" title="Oppsummering">
+        <Card as="div" id="summaryBox" class="h-fit" title="Summary">
             <p id="summaryText" class="mt-1 text-xs text-slate-600">
-                Legg inn FTP (og gjerne vekt), og trykk «Beregn soner».
+                Enter FTP (and optionally weight), and click "Calculate zones".
             </p>
         </Card>
     </div>
 
-    <Card as="div" id="zonesBox" class="mt-6" title="Treningssoner (basert på FTP)">
+    <Card as="div" id="zonesBox" class="mt-6" title="Training Zones (based on FTP)">
         <div
                 id="zonesGrid"
                 class="mt-3 grid gap-2 text-xs text-slate-700 sm:grid-cols-2 lg:grid-cols-3"
         >
-            <!-- fylles av JavaScript -->
+            <!-- filled by JavaScript -->
         </div>
     </Card>
 
@@ -101,17 +101,17 @@ const description =
             };
 
             return {
-                z1: { name: "Sone 1 – Restitusjon", range: [null, pct.z1[1] * ftp] },
+                z1: { name: "Zone 1 – Recovery", range: [null, pct.z1[1] * ftp] },
                 z2: {
-                    name: "Sone 2 – Rolig/langtur",
+                    name: "Zone 2 – Endurance",
                     range: [pct.z2[0] * ftp, pct.z2[1] * ftp],
                 },
-                z3: { name: "Sone 3 – Tempo", range: [pct.z3[0] * ftp, pct.z3[1] * ftp] },
-                z4: { name: "Sone 4 – Terskel", range: [pct.z4[0] * ftp, pct.z4[1] * ftp] },
-                z5: { name: "Sone 5 – VO₂max", range: [pct.z5[0] * ftp, pct.z5[1] * ftp] },
-                z6: { name: "Sone 6 – Anaerob", range: [pct.z6[0] * ftp, pct.z6[1] * ftp] },
+                z3: { name: "Zone 3 – Tempo", range: [pct.z3[0] * ftp, pct.z3[1] * ftp] },
+                z4: { name: "Zone 4 – Threshold", range: [pct.z4[0] * ftp, pct.z4[1] * ftp] },
+                z5: { name: "Zone 5 – VO₂max", range: [pct.z5[0] * ftp, pct.z5[1] * ftp] },
+                z6: { name: "Zone 6 – Anaerobic", range: [pct.z6[0] * ftp, pct.z6[1] * ftp] },
                 z7: {
-                    name: "Sone 7 – Sprint/neuromuskulær",
+                    name: "Zone 7 – Sprint/Neuromuscular",
                     range: [pct.z7[0] * ftp, null],
                 },
             };
@@ -140,7 +140,7 @@ const description =
                 div.innerHTML = `
           <div class="font-semibold text-slate-900">${zone.name}</div>
           <div class="text-slate-800">${formatRange(min, max)}</div>
-          <div class="text-[0.7rem] text-slate-500">${pctText} av FTP</div>
+          <div class="text-[0.7rem] text-slate-500">${pctText} of FTP</div>
         `;
                 zonesGrid.appendChild(div);
             });
@@ -152,7 +152,7 @@ const description =
             const weight = weightVal === "" ? null : Number(weightVal);
 
             if (!ftp || ftp <= 0) {
-                summaryText.textContent = "Legg inn en gyldig FTP-verdi i watt.";
+                summaryText.textContent = "Enter a valid FTP value in watts.";
                 zonesGrid.innerHTML = "";
                 return;
             }
@@ -160,7 +160,7 @@ const description =
             let summary = `FTP: ${ftp} W`;
             if (weight && weight > 0) {
                 const wkg = ftp / weight;
-                summary += ` (${wkg.toFixed(2)} W/kg ved ${weight.toFixed(1)} kg)`;
+                summary += ` (${wkg.toFixed(2)} W/kg at ${weight.toFixed(1)} kg)`;
             }
 
             summaryText.textContent = summary;

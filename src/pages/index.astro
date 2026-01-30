@@ -4,9 +4,9 @@ import Card from "../components/Card.astro";
 import Button from "../components/Button.astro";
 import Section from "../components/Section.astro";
 
-const title = "Hjem";
+const title = "Home";
 const description =
-	"Sykkelverktøy og treningskunnskap på norsk – for landeveis-mosjonister som vil bli sterkere uten å trene som proffer.";
+	"Cycling tools and training knowledge – for recreational road cyclists who want to get stronger without training like pros.";
 ---
 
 <BaseLayout {title} {description}>
@@ -23,24 +23,24 @@ const description =
 			<div class="relative space-y-4">
 				<div class="inline-flex items-center gap-2 rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-[0.7rem] font-medium text-emerald-700">
 					<span class="h-2 w-2 rounded-full bg-emerald-500"></span>
-					<span>For mosjonister, ikke proffer</span>
+					<span>For recreational cyclists, not pros</span>
 				</div>
 
 				<h1 class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl md:text-4xl">
-					Sykkelverktøy og treningskunnskap på norsk
+					Cycling tools and training knowledge
 				</h1>
 
 				<p class="max-w-xl text-sm text-slate-600">
-					Landevei samler praktiske kalkulatorer og enkle forklaringer på hvordan
-					du faktisk blir sterkere på sykkel – uten å drukne i trener-guru-prat.
+					Road Cycling brings together practical calculators and simple explanations for how
+					you can actually get stronger on the bike – without drowning in coach guru talk.
 				</p>
 
 				<div class="flex flex-wrap gap-3 pt-1">
 					<Button href="/verktoy/ftp-kalkulator">
-						Gå til FTP-kalkulator
+						Go to FTP Calculator
 					</Button>
 					<Button href="/trening/4-watt-per-kg" variant="ghost">
-						Les om veien til 4 W/kg
+						Read about the road to 4 W/kg
 					</Button>
 				</div>
 			</div>
@@ -48,33 +48,33 @@ const description =
 
 		<!-- SIDEKORT -->
 		<div class="flex flex-col gap-4">
-			<Card title="Verktøy">
+			<Card title="Tools">
 				<p class="mt-1 text-xs text-slate-500">
-					Start med FTP og bygg videre med flere kalkulatorer etter hvert.
+					Start with FTP and build from there with more calculators over time.
 				</p>
 				<div class="mt-3 flex flex-wrap gap-2 text-[0.75rem] text-slate-700">
-					<a href="/verktoy/ftp-kalkulator" class="underline-offset-2 hover:underline">
-						FTP → soner
+					<a href="/tools/ftp-calculator" class="underline-offset-2 hover:underline">
+						FTP → zones
 					</a>
 					<span>•</span>
-					<a href="/verktoy/klatretid" class="underline-offset-2 hover:underline">
-						Klatretid
+					<a href="/tools/climb-time" class="underline-offset-2 hover:underline">
+						Climb time
 					</a>
 					<span>•</span>
-					<a href="/verktoy/watt-til-hastighet" class="underline-offset-2 hover:underline">
-						Watt → fart
+					<a href="/tools/watts-to-speed" class="underline-offset-2 hover:underline">
+						Watts → speed
 					</a>
 					<span>•</span>
-					<a href="/verktoy/ernaering" class="underline-offset-2 hover:underline">
-						Ernæring
+					<a href="/tools/nutrition" class="underline-offset-2 hover:underline">
+						Nutrition
 					</a>
 				</div>
 			</Card>
 
-			<Card title="Filosofien">
+			<Card title="Philosophy">
 				<p class="mt-1 text-xs text-slate-500">
-					Kort, konkret og praktisk. Mindre synsing, mer struktur. Ingen proff-opplegg for folk
-					med fulltidsjobb.
+					Short, concrete and practical. Less speculation, more structure. No pro setups for
+					people with full-time jobs.
 				</p>
 				<div class="mt-3 flex flex-wrap gap-2 text-[0.75rem] text-slate-700">
 					<span>Z2</span>
@@ -83,33 +83,33 @@ const description =
 					<span>•</span>
 					<span>VO₂max</span>
 					<span>•</span>
-					<span>Struktur</span>
+					<span>Structure</span>
 				</div>
 			</Card>
 		</div>
 	</div>
 
 	<!-- UNDERSEKSJONER -->
-	<Section title="Hva finner du her?" class="mt-8">
+	<Section title="What will you find here?" class="mt-8">
 		<div class="grid gap-4 md:grid-cols-3">
-			<Card title="Treningssoner på autopilot">
+			<Card title="Training zones on autopilot">
 				<p class="mt-1 text-xs text-slate-500">
-					Legg inn FTP og få soner i både watt og prosent. Ingen ad hoc–Excelark,
-					bare rett ut av boksen.
+					Enter your FTP and get zones in both watts and percentage. No ad hoc Excel sheets,
+					just straight out of the box.
 				</p>
 			</Card>
 
-			<Card title="Enkle treningsforklaringer">
+			<Card title="Simple training explanations">
 				<p class="mt-1 text-xs text-slate-500">
-					Artikler som forklarer hva du faktisk bør gjøre på trening – uten å late
-					som om du skal kjøre WorldTour neste sesong.
+					Articles that explain what you should actually do in training – without pretending
+					you're going to race WorldTour next season.
 				</p>
 			</Card>
 
-			<Card title="Bygges ut over tid">
+			<Card title="Expanding over time">
 				<p class="mt-1 text-xs text-slate-500">
-					Flere verktøy og artikler kommer etter hvert: klatretid, ernæring,
-					watt → fart, og mer landeveis-nerding.
+					More tools and articles coming: climb time, nutrition,
+					watts → speed, and more road cycling nerdery.
 				</p>
 			</Card>
 		</div>

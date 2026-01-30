@@ -3,20 +3,20 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/Button.astro";
 import Card from "../../components/Card.astro";
 
-const title = "Watt → hastighet";
+const title = "Watts → Speed";
 const description =
-    "Beregn hastighet på flatmark basert på watt, CdA, rullemotstand og vekt.";
+    "Calculate speed on flat ground based on watts, CdA, rolling resistance, and weight.";
 ---
 
 <BaseLayout {title} {description}>
     <header class="mb-6">
         <h1 class="text-2xl font-semibold tracking-tight text-slate-900 sm:text-3xl">
-            Watt → hastighet
+            Watts → Speed
         </h1>
 
         <p class="mt-2 max-w-2xl text-sm text-slate-600">
-            Kalkulator basert på balanse mellom luftmotstand og rullemotstand. Et
-            realistisk estimat for flat løype.
+            Calculator based on the balance between air resistance and rolling resistance. A
+            realistic estimate for flat terrain.
         </p>
     </header>
 
@@ -24,7 +24,7 @@ const description =
         <div class="space-y-4">
             <!-- WATT -->
             <div class="space-y-1 text-sm">
-                <label for="watt">Watt</label>
+                <label for="watt">Watts</label>
                 <input id="watt" type="number" value="250" class="w-full" />
             </div>
 
@@ -32,36 +32,36 @@ const description =
             <div class="space-y-1 text-sm">
                 <label for="cda">CdA</label>
                 <input id="cda" type="number" step="0.01" value="0.32" class="w-full" />
-                <p class="text-xs text-slate-500">Typisk landevei: 0.25–0.35</p>
+                <p class="text-xs text-slate-500">Typical road bike: 0.25–0.35</p>
             </div>
 
-            <!-- VEKT -->
+            <!-- WEIGHT -->
             <div class="space-y-1 text-sm">
-                <label for="weight">Totalvekt (kg)</label>
+                <label for="weight">Total weight (kg)</label>
                 <input id="weight" type="number" step="0.1" value="82" class="w-full" />
             </div>
 
             <!-- Crr -->
             <div class="space-y-1 text-sm">
-                <label for="crr">Rullemotstand (Crr)</label>
+                <label for="crr">Rolling resistance (Crr)</label>
                 <input id="crr" type="number" step="0.0001" value="0.004" class="w-full" />
-                <p class="text-xs text-slate-500">Vanlige dekk: 0.0035–0.0050</p>
+                <p class="text-xs text-slate-500">Common tires: 0.0035–0.0050</p>
             </div>
 
             <div class="form-actions">
-                <Button id="calcBtn" variant="primary">Beregn fart</Button>
+                <Button id="calcBtn" variant="primary">Calculate speed</Button>
             </div>
         </div>
 
-        <Card title="Resultat">
+        <Card title="Result">
             <div id="result" class="text-sm text-slate-600">
-                Fyll inn data og trykk «Beregn».
+                Fill in data and click "Calculate".
             </div>
         </Card>
     </div>
 
     <script type="module">
-        const rho = 1.226; // lufttetthet
+        const rho = 1.226; // air density
         const g = 9.81;
 
         const watt = document.getElementById("watt");
@@ -76,7 +76,7 @@ const description =
             const m = Number(weight.value);
             const Crr = Number(crr.value);
 
-            // iterativ løsning
+            // iterative solution
             let v = 5;
             for (let i = 0; i < 30; i++) {
                 const aero = 0.5 * rho * CdA * v * v;
@@ -88,8 +88,8 @@ const description =
             const kmh = v * 3.6;
 
             result.innerHTML = `
-        <p class="font-semibold text-slate-800">Fart:</p>
-        <p class="text-slate-900">${kmh.toFixed(1)} km/t</p>
+        <p class="font-semibold text-slate-800">Speed:</p>
+        <p class="text-slate-900">${kmh.toFixed(1)} km/h</p>
       `;
         }
 

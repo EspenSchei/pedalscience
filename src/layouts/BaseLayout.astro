@@ -4,33 +4,33 @@ import Breadcrumb from "../components/Breadcrumb.astro";
 import Button from "../components/Button.astro";
 
 const {
-    title = "Landevei",
-    description = "Verktøy og kunnskap for landeveissyklister",
+    title = "Road Cycling",
+    description = "Tools and knowledge for road cyclists",
 } = Astro.props;
 
 const year = new Date().getFullYear();
 const pathname = Astro.url.pathname;
 
 /* -------------------------------------------------------
-   BREADCRUMB LOGIKK
+   BREADCRUMB LOGIC
 ------------------------------------------------------- */
 
 let breadcrumbItems = null;
 let isToolDetail = false;
 
-if (pathname.startsWith("/verktoy/") && pathname !== "/verktoy") {
+if (pathname.startsWith("/tools/") && pathname !== "/tools") {
     isToolDetail = true;
     breadcrumbItems = [
-        { label: "Hjem", href: "/" },
-        { label: "Verktøy", href: "/verktoy" },
+        { label: "Home", href: "/" },
+        { label: "Tools", href: "/tools" },
         { label: title },
     ];
 }
 
-if (pathname.startsWith("/trening/") && pathname !== "/trening") {
+if (pathname.startsWith("/training/") && pathname !== "/training") {
     breadcrumbItems = [
-        { label: "Hjem", href: "/" },
-        { label: "Trening", href: "/trening" },
+        { label: "Home", href: "/" },
+        { label: "Training", href: "/training" },
         { label: title },
     ];
 }
@@ -57,10 +57,10 @@ if (breadcrumbItems) {
 ---
 
 <!DOCTYPE html>
-<html lang="no" class="scroll-smooth">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="utf-8" />
-    <title>{title} | Landevei</title>
+    <title>{title} | Road Cycling</title>
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -83,7 +83,7 @@ if (breadcrumbItems) {
                 href="/"
                 class="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700"
         >
-            Landevei
+            Road Cycling
         </a>
 
         <nav class="flex gap-2 text-sm">
@@ -91,25 +91,25 @@ if (breadcrumbItems) {
                     href="/"
                     class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
             >
-                Hjem
+                Home
             </a>
             <a
-                    href="/verktoy"
+                    href="/tools"
                     class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
             >
-                Verktøy
+                Tools
             </a>
             <a
-                    href="/trening"
+                    href="/training"
                     class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
             >
-                Trening
+                Training
             </a>
         </nav>
     </div>
 </header>
 
-<!-- INNHOLD -->
+<!-- CONTENT -->
 <main class="py-8">
     <div class="mx-auto max-w-5xl px-4 sm:px-6">
         {breadcrumbItems && (
@@ -118,11 +118,11 @@ if (breadcrumbItems) {
                     {isToolDetail && (
                             <div class="mb-4">
                                 <Button
-                                        href="/verktoy"
+                                        href="/tools"
                                         variant="ghost"
                                         class="px-3 py-1 text-xs"
                                 >
-                                    ← Tilbake til verktøy
+                                    ← Back to tools
                                 </Button>
                             </div>
                     )}
@@ -138,7 +138,7 @@ if (breadcrumbItems) {
         class="border-t border-slate-200 bg-slate-50 text-xs text-slate-500"
 >
     <div class="mx-auto max-w-5xl px-4 py-4 sm:px-6">
-        © {year} Landevei.no – for mosjonister og nerder 🚴‍♂️
+        © {year} Road Cycling – for recreational cyclists and nerds 🚴‍♂️
     </div>
 </footer>
 </body>
