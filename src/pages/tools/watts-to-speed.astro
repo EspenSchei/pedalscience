@@ -121,6 +121,27 @@ const description =
                 </div>
             </Card>
 
+            <Card title="Power Comparison">
+                <div id="powerTable" class="text-xs text-slate-600 min-h-[140px]">
+                    <div class="opacity-60">
+                        <div class="grid grid-cols-2 gap-x-4 gap-y-1">
+                            <span>Power (W)</span>
+                            <span>Speed (km/h)</span>
+                            <span>—</span>
+                            <span>—</span>
+                            <span>—</span>
+                            <span>—</span>
+                            <span>—</span>
+                            <span>—</span>
+                            <span>—</span>
+                            <span>—</span>
+                            <span>—</span>
+                            <span>—</span>
+                        </div>
+                    </div>
+                </div>
+            </Card>
+
             <Card title="How to use this result">
                 <ul class="text-sm text-slate-600 list-disc pl-5 space-y-1">
                     <li>Compare different positions to see how CdA changes speed at the same power.</li>
@@ -130,12 +151,6 @@ const description =
                 <p class="mt-3 text-sm">
                     <a class="text-emerald-600 hover:text-emerald-700" href="/training/4-watt-per-kg">Read: The Road to 4 W/kg →</a>
                 </p>
-            </Card>
-
-            <Card title="Power Comparison">
-                <div id="powerTable" class="text-xs text-slate-600">
-                    <p class="text-slate-400">Results will show speeds at different power levels.</p>
-                </div>
             </Card>
 
             <Card title="CdA Reference">
@@ -296,6 +311,98 @@ const description =
             return kmh.toFixed(1);
         }
 
+        function buildComparisonRows(power) {
+            const levels = [
+                power - 100,
+                power - 50,
+                power,
+                power + 50,
+                power + 100,
+            ]
+                .map((p) => Math.max(100, Math.round(p / 5) * 5))
+                .filter((p, idx, arr) => arr.indexOf(p) === idx)
+                .sort((a, b) => a - b);
+
+            return levels.map((p) => ({
+                power: p,
+                isCurrent: Math.abs(p - power) < 1,
+            }));
+        }
+
+        function renderComparisonTable(rows, totalMass, CdA, Crr, gradient, headwind) {
+            const header = `
+                <div class="grid grid-cols-2 gap-x-4 gap-y-1 font-semibold text-slate-700">
+                    <span>Power (W)</span>
+                    <span>Speed (km/h)</span>
+                </div>
+            `;
+
+            const computed = rows.map((row) => {
+                const v = calculateSpeed(row.power, totalMass, CdA, Crr, gradient, headwind);
+                const speed = Number(formatSpeed(v));
+                return { ...row, speed };
+            });
+
+            const body = computed
+                .map((row) => {
+                    const value = row.speed.toFixed(1);
+                    const highlight = row.isCurrent ? "font-semibold text-slate-900" : "";
+                    const marker = row.isCurrent ? " *" : "";
+                    return `
+                        <div class="grid grid-cols-2 gap-x-4 gap-y-1">
+                            <span class="${highlight}">${row.power}${marker}</span>
+                            <span class="${highlight}">${value}</span>
+                        </div>
+                    `;
+                })
+                .join("");
+
+            const note = `<p class="mt-2 text-[0.65rem] text-slate-500">* Your selected power</p>`;
+
+            const chart = renderLineChart(computed);
+
+            return `<div class="space-y-2">${chart}${header}${body}${note}</div>`;
+        }
+
+        function renderLineChart(points) {
+            const width = 320;
+            const height = 140;
+            const padding = 20;
+            const minX = Math.min(...points.map((p) => p.power));
+            const maxX = Math.max(...points.map((p) => p.power));
+            const minY = Math.min(...points.map((p) => p.speed));
+            const maxY = Math.max(...points.map((p) => p.speed));
+
+            const xScale = (x) =>
+                padding + ((x - minX) / (maxX - minX || 1)) * (width - padding * 2);
+            const yScale = (y) =>
+                height - padding - ((y - minY) / (maxY - minY || 1)) * (height - padding * 2);
+
+            const path = points
+                .map((p, i) => `${i === 0 ? "M" : "L"} ${xScale(p.power).toFixed(1)} ${yScale(p.speed).toFixed(1)}`)
+                .join(" ");
+
+            const dots = points
+                .map((p) => {
+                    const cx = xScale(p.power).toFixed(1);
+                    const cy = yScale(p.speed).toFixed(1);
+                    const r = p.isCurrent ? 4 : 3;
+                    const fill = p.isCurrent ? "#10b981" : "#0ea5e9";
+                    return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="${fill}"></circle>`;
+                })
+                .join("");
+
+            return `
+                <div class="overflow-x-auto">
+                    <svg viewBox="0 0 ${width} ${height}" class="w-full min-w-[280px]">
+                        <rect x="0" y="0" width="${width}" height="${height}" fill="transparent"></rect>
+                        <path d="${path}" fill="none" stroke="#38bdf8" stroke-width="2"></path>
+                        ${dots}
+                    </svg>
+                </div>
+            `;
+        }
+
         function calc() {
             const power = Number(powerInput.value);
             const riderMass = Number(riderWeightInput.value);
@@ -369,19 +476,8 @@ const description =
                 </p>
             `;
 
-            // Power comparison table
-            const powerLevels = [150, 175, 200, 225, 250, 275, 300, 350];
-            let tableHtml = `<div class="grid grid-cols-2 gap-x-4 gap-y-1">`;
-            powerLevels.forEach(p => {
-                const v = calculateSpeed(p, totalMass, CdA, Crr, gradient, headwind);
-                const isCurrentPower = Math.abs(p - power) < 10;
-                tableHtml += `
-                    <span class="${isCurrentPower ? 'font-semibold text-slate-900' : ''}">${p} W:</span>
-                    <span class="${isCurrentPower ? 'font-semibold text-slate-900' : ''}">${formatSpeed(v)} km/h</span>
-                `;
-            });
-            tableHtml += `</div>`;
-            powerTable.innerHTML = tableHtml;
+            const rows = buildComparisonRows(power);
+            powerTable.innerHTML = renderComparisonTable(rows, totalMass, CdA, Crr, gradient, headwind);
         }
 
         // Auto-calculate on change
