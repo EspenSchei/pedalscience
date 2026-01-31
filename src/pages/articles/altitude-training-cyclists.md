@@ -4,7 +4,7 @@ title: Altitude Training for Cyclists - What It Really Improves
 description: A clear guide to altitude training - what changes in the body, how it affects performance, and whether it is worth it for cyclists.
 tags: ["Altitude Training", "Hemoglobin", "Endurance", "Cycling Science"]
 difficulty: "Intermediate"
-updated: "2026-01-31"
+updated: "2025-12-23"
 ---
 
 # Altitude Training for Cyclists: What It Really Improves

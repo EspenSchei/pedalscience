@@ -4,7 +4,7 @@ title: Sleep and Cycling Performance - What the Research Actually Shows
 description: A practical guide to how sleep affects power, endurance, and recovery in cyclists, plus what to prioritize when sleep is limited.
 tags: ["Sleep", "Recovery", "Performance", "Cycling Science"]
 difficulty: "Beginner"
-updated: "2026-01-31"
+updated: "2026-01-22"
 ---
 
 # Sleep and Cycling Performance: What the Research Actually Shows

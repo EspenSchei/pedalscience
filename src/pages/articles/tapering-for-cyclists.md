@@ -4,7 +4,7 @@ title: Tapering for Cycling Races - How to Rest Without Getting Slower
 description: A practical tapering guide based on endurance research - how much to reduce volume, what to keep, and when you should start.
 tags: ["Tapering", "Race Prep", "Peak Performance", "Recovery"]
 difficulty: "Beginner"
-updated: "2026-01-31"
+updated: "2025-12-28"
 ---
 
 # Tapering for Cycling Races: How to Rest Without Getting Slower

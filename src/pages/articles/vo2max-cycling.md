@@ -4,7 +4,7 @@ title: What Is VO2max (and How to Improve It for Cycling)
 description: A clear, practical guide to VO2max - what it measures, what actually limits it, and the training that reliably moves the needle for cyclists.
 tags: ["VO2max", "Intervals", "Aerobic Capacity", "Cycling Science"]
 difficulty: "Beginner"
-updated: "2026-01-31"
+updated: "2025-12-10"
 ---
 
 # What Is VO2max (and How to Improve It for Cycling)

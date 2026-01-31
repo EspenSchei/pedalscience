@@ -4,7 +4,7 @@ title: Strength Training for Cyclists - Does It Actually Help?
 description: A clear look at what heavy strength training does (and does not) do for cycling performance, based on the latest evidence.
 tags: ["Strength Training", "Cycling Performance", "Power", "Injury Prevention"]
 difficulty: "Beginner"
-updated: "2026-01-31"
+updated: "2026-01-09"
 ---
 
 # Strength Training for Cyclists: Does It Actually Help?

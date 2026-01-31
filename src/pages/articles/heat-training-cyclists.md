@@ -4,7 +4,7 @@ title: Heat Training for Cyclists - When It Helps and When It Doesn't
 description: A practical, science-based guide to heat acclimation and heat training for cycling performance and hot-weather racing.
 tags: ["Heat Training", "Acclimation", "Endurance", "Cycling Science"]
 difficulty: "Intermediate"
-updated: "2026-01-31"
+updated: "2025-12-02"
 ---
 
 # Heat Training for Cyclists: When It Helps and When It Doesn't

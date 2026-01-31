@@ -14,10 +14,12 @@ const WORDS_PER_MINUTE = 220;
 // Priority (low number = show first)
 const getPriority = (url: string) => {
     switch (url) {
-        case "/articles/vo2max-cycling":
+        case "/articles/what-is-ftp":
             return 1;
-        case "/articles/polarized-vs-pyramidal":
+        case "/articles/vo2max-cycling":
             return 2;
+        case "/articles/polarized-vs-pyramidal":
+            return 3;
         default:
             return 99;
     }
@@ -98,6 +100,11 @@ const articles = await Promise.all(
 // Sort articles
 articles.sort((a, b) => {
     if (a.priority !== b.priority) return a.priority - b.priority;
+    if (a.priority === 99 && b.priority === 99) {
+        const da = a.updated ? new Date(a.updated).getTime() : 0;
+        const db = b.updated ? new Date(b.updated).getTime() : 0;
+        if (da !== db) return db - da;
+    }
     const da = difficultyOrder(a.difficulty);
     const db = difficultyOrder(b.difficulty);
     if (da !== db) return da - db;

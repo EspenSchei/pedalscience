@@ -4,7 +4,7 @@ title: Polarized vs Pyramidal vs Sweet Spot - What Works Best for Cyclists?
 description: A practical, evidence-based comparison of the three most popular intensity distributions and how to choose the right one for your volume.
 tags: ["Polarized", "Pyramidal", "Sweet Spot", "Training Distribution"]
 difficulty: "Beginner"
-updated: "2026-01-31"
+updated: "2026-01-15"
 ---
 
 # Polarized vs Pyramidal vs Sweet Spot: What Works Best for Cyclists?

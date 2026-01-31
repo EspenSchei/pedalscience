@@ -40,6 +40,14 @@ if (pathname.startsWith("/training/") && pathname !== "/training") {
     ];
 }
 
+if (pathname.startsWith("/articles/") && pathname !== "/articles") {
+    breadcrumbItems = [
+        { label: "Home", href: "/" },
+        { label: "Articles", href: "/articles" },
+        { label: title },
+    ];
+}
+
 /* -------------------------------------------------------
    SEO: Schema.org BreadcrumbList
 ------------------------------------------------------- */
@@ -74,6 +82,15 @@ if (breadcrumbItems) {
     gtag('config', 'G-GC1DZTCCPP');
     </script>
     <meta charset="utf-8" />
+    <script is:inline>
+        (() => {
+            const stored = localStorage.getItem("theme");
+            const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+            const mode = stored === "dark" || stored === "light" ? stored : (prefersDark ? "dark" : "light");
+            document.documentElement.dataset.theme = mode;
+            document.documentElement.classList.toggle("dark", mode === "dark");
+        })();
+    </script>
     <title>{pageTitle}</title>
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -109,46 +126,57 @@ if (breadcrumbItems) {
     )}
 </head>
 
-<body class="min-h-screen bg-slate-50 text-slate-900">
+<body class="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100">
 <!-- HEADER / NAV -->
 <header
-        class="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur shadow-sm"
+        class="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur shadow-sm dark:border-slate-800 dark:bg-slate-900/80"
 >
     <div
-            class="mx-auto flex max-w-5xl items-center justify-between px-4 py-3 sm:px-6"
+            class="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:px-6"
     >
         <a
                 href="/"
-                class="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700"
+                class="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
         >
             Pedal Science
         </a>
 
-        <nav class="flex gap-2 text-sm">
+        <nav class="flex flex-wrap items-center gap-2 text-sm sm:justify-end">
             <a
                     href="/"
-                    class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             >
                 Home
             </a>
             <a
                     href="/tools"
-                    class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             >
                 Tools
             </a>
             <a
                     href="/training"
-                    class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             >
                 Training
             </a>
             <a
                     href="/articles"
-                    class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                    class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             >
                 Articles
             </a>
+            <button
+                    type="button"
+                    id="themeToggle"
+                    class="ml-1 inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                    aria-label="Toggle night mode"
+            >
+                <svg id="themeIcon" class="h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 3a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm6.36 2.64a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 1 1-1.41 1.41l-1.42-1.41a1 1 0 0 1 0-1.42ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm8 3a1 1 0 0 1 1 1v0a1 1 0 0 1-1 1h-2a1 1 0 1 1 0-2h2Zm-3.22 6.36a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.41 1.41l-1.42-1.42a1 1 0 0 1 0-1.41ZM12 18a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1Zm-6.36-2.64a1 1 0 0 1 1.41 0 1 1 0 0 1 0 1.41L5.64 19.2a1 1 0 1 1-1.41-1.41l1.41-1.41Zm-2.64-4.36a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm2.64-6.36a1 1 0 0 1 1.41 0l1.42 1.41A1 1 0 0 1 7.64 8.1L6.22 6.68a1 1 0 0 1 0-1.41Z" fill="currentColor"/>
+                </svg>
+                <span id="themeLabel">Day</span>
+            </button>
         </nav>
     </div>
 </header>
@@ -179,11 +207,31 @@ if (breadcrumbItems) {
 
 <!-- FOOTER -->
 <footer
-        class="border-t border-slate-200 bg-slate-50 text-xs text-slate-500"
+        class="border-t border-slate-200 bg-slate-50 text-xs text-slate-500 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-400"
 >
     <div class="mx-auto max-w-5xl px-4 py-4 sm:px-6">
         © {year} Pedal Science – free cycling tools and training guides 🚴‍♂️
     </div>
 </footer>
+<script is:inline>
+    (() => {
+        const toggle = document.getElementById("themeToggle");
+        if (!toggle) return;
+        const label = document.getElementById("themeLabel");
+        const applyTheme = (dark) => {
+            document.documentElement.classList.toggle("dark", dark);
+            if (label) label.textContent = dark ? "Night" : "Day";
+        };
+        const isDark = document.documentElement.dataset.theme === "dark";
+        applyTheme(isDark);
+        toggle.addEventListener("click", () => {
+            const nextDark = !document.documentElement.classList.contains("dark");
+            const nextMode = nextDark ? "dark" : "light";
+            localStorage.setItem("theme", nextMode);
+            document.documentElement.dataset.theme = nextMode;
+            applyTheme(nextDark);
+        });
+    })();
+</script>
 </body>
 </html>

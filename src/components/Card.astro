@@ -4,12 +4,12 @@ const { title, class: extraClass = "" } = Astro.props as {
     class?: string;
 };
 
-const classes = `rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm ${extraClass}`.trim();
+const classes = `rounded-2xl border border-slate-200 bg-white p-4 sm:p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 ${extraClass}`.trim();
 ---
 
 <div class={classes}>
     {title && (
-            <h2 class="text-sm font-semibold tracking-tight text-slate-900">
+            <h2 class="text-sm font-semibold tracking-tight text-slate-900 dark:text-slate-100">
                 {title}
             </h2>
     )}

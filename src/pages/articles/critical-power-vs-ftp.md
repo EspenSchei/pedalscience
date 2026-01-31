@@ -4,7 +4,7 @@ title: Critical Power vs FTP - What Is the Difference (and Why It Matters)?
 description: CP and FTP are often treated as the same, but they are not. Here is what each measures and how to use them in training.
 tags: ["Critical Power", "FTP", "Pacing", "Training Zones"]
 difficulty: "Beginner"
-updated: "2026-01-31"
+updated: "2026-01-05"
 ---
 
 # Critical Power vs FTP: What Is the Difference (and Why It Matters)?
