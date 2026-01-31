@@ -15,4 +15,28 @@ const {
             <a href="#top" class="text-slate-600 hover:text-slate-900">↑ Back to top</a>
         </div>
     </article>
+    <button
+            id="backToTopFloating"
+            class="fixed bottom-5 right-5 hidden items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-2 text-xs font-medium text-slate-700 shadow-sm hover:bg-slate-100 sm:bottom-6 sm:right-6"
+            aria-label="Back to top"
+            type="button"
+    >
+        ↑ Top
+    </button>
+    <script is:inline>
+        (() => {
+            const btn = document.getElementById("backToTopFloating");
+            if (!btn) return;
+            const toggle = () => {
+                const scrolled = window.scrollY || document.documentElement.scrollTop || 0;
+                const docHeight = document.documentElement.scrollHeight || document.body.scrollHeight || 0;
+                const show = docHeight > 0 && scrolled / docHeight > 0.3;
+                btn.classList.toggle("hidden", !show);
+                btn.classList.toggle("flex", show);
+            };
+            toggle();
+            window.addEventListener("scroll", toggle, { passive: true });
+            btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
+        })();
+    </script>
 </BaseLayout>

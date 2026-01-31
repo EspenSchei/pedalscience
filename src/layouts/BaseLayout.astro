@@ -14,7 +14,9 @@ const pathname = Astro.url.pathname;
 // Build the page title
 const pageTitle = title === "Pedal Science"
     ? "Pedal Science - Free Cycling Tools & Training Guides"
-    : `${title} | Pedal Science`;
+    : title.includes("|")
+        ? title
+        : `${title} | Pedal Science`;
 
 /* -------------------------------------------------------
    BREADCRUMB LOGIC
@@ -131,17 +133,28 @@ if (breadcrumbItems) {
 <header
         class="sticky top-0 z-20 border-b border-slate-200 bg-white/90 backdrop-blur shadow-sm dark:border-slate-800 dark:bg-slate-900/80"
 >
-    <div
-            class="mx-auto flex max-w-5xl flex-col gap-3 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:gap-0 sm:px-6"
-    >
-        <a
-                href="/"
-                class="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-        >
-            Pedal Science
-        </a>
+    <div class="mx-auto max-w-5xl px-4 py-3 sm:px-6">
+        <div class="flex items-center justify-between">
+            <a
+                    href="/"
+                    class="inline-flex items-center rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
+            >
+                Pedal Science
+            </a>
+            <button
+                    type="button"
+                    id="themeToggle"
+                    class="inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
+                    aria-label="Toggle night mode"
+            >
+                <svg id="themeIcon" class="h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 3a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm6.36 2.64a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 1 1-1.41 1.41l-1.42-1.41a1 1 0 0 1 0-1.42ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm8 3a1 1 0 0 1 1 1v0a1 1 0 0 1-1 1h-2a1 1 0 1 1 0-2h2Zm-3.22 6.36a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.41 1.41l-1.42-1.42a1 1 0 0 1 0-1.41ZM12 18a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1Zm-6.36-2.64a1 1 0 0 1 1.41 0 1 1 0 0 1 0 1.41L5.64 19.2a1 1 0 1 1-1.41-1.41l1.41-1.41Zm-2.64-4.36a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm2.64-6.36a1 1 0 0 1 1.41 0l1.42 1.41A1 1 0 0 1 7.64 8.1L6.22 6.68a1 1 0 0 1 0-1.41Z" fill="currentColor"/>
+                </svg>
+                <span id="themeLabel">Day</span>
+            </button>
+        </div>
 
-        <nav class="flex flex-wrap items-center gap-2 text-sm sm:justify-end">
+        <nav class="mt-2 flex flex-wrap items-center gap-2 text-sm sm:mt-0 sm:justify-end sm:absolute sm:left-1/2 sm:-translate-x-1/2 sm:top-1/2 sm:-translate-y-1/2">
             <a
                     href="/"
                     class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
@@ -166,17 +179,6 @@ if (breadcrumbItems) {
             >
                 Articles
             </a>
-            <button
-                    type="button"
-                    id="themeToggle"
-                    class="ml-1 inline-flex items-center gap-2 rounded-full border border-slate-300 bg-white px-3 py-1 text-xs font-medium text-slate-700 hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:bg-slate-800"
-                    aria-label="Toggle night mode"
-            >
-                <svg id="themeIcon" class="h-4 w-4" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 3a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0V4a1 1 0 0 1 1-1Zm6.36 2.64a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 1 1-1.41 1.41l-1.42-1.41a1 1 0 0 1 0-1.42ZM12 8a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm8 3a1 1 0 0 1 1 1v0a1 1 0 0 1-1 1h-2a1 1 0 1 1 0-2h2Zm-3.22 6.36a1 1 0 0 1 1.41 0l1.42 1.42a1 1 0 0 1-1.41 1.41l-1.42-1.42a1 1 0 0 1 0-1.41ZM12 18a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1Zm-6.36-2.64a1 1 0 0 1 1.41 0 1 1 0 0 1 0 1.41L5.64 19.2a1 1 0 1 1-1.41-1.41l1.41-1.41Zm-2.64-4.36a1 1 0 0 1 1-1h2a1 1 0 1 1 0 2H4a1 1 0 0 1-1-1Zm2.64-6.36a1 1 0 0 1 1.41 0l1.42 1.41A1 1 0 0 1 7.64 8.1L6.22 6.68a1 1 0 0 1 0-1.41Z" fill="currentColor"/>
-                </svg>
-                <span id="themeLabel">Day</span>
-            </button>
         </nav>
     </div>
 </header>

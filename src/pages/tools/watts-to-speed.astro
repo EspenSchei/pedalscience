@@ -2,9 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Card from "../../components/Card.astro";
 
-const title = "Watts → Speed Calculator";
+const title = "Watts to Speed Calculator | PedalScience";
 const description =
-    "Calculate your cycling speed on flat ground based on power output, aerodynamics, and rolling resistance using physics-based modeling.";
+    "Estimate cycling speed from power using aerodynamics, rolling resistance, and gradient.";
 ---
 
 <BaseLayout {title} {description}>
@@ -23,6 +23,12 @@ const description =
             This is why position and equipment aerodynamics matter so much for speed.
         </p>
     </header>
+
+    <Card class="mb-6" title="What this calculator does">
+        <p class="text-sm text-slate-600">
+            Estimate your cycling speed from power using a simple physics model (aero drag, rolling resistance, and gradient).
+        </p>
+    </Card>
 
     <div class="mt-4 grid gap-6 md:grid-cols-2">
         <div class="space-y-4">
@@ -113,6 +119,17 @@ const description =
                 <div id="result" class="text-sm text-slate-600">
                     Adjust the values to see your estimated speed.
                 </div>
+            </Card>
+
+            <Card title="How to use this result">
+                <ul class="text-sm text-slate-600 list-disc pl-5 space-y-1">
+                    <li>Compare different positions to see how CdA changes speed at the same power.</li>
+                    <li>Use the speed estimate to set pacing targets for solo efforts or time trials.</li>
+                    <li>If your speed feels off, check rolling resistance and wind inputs first.</li>
+                </ul>
+                <p class="mt-3 text-sm">
+                    <a class="text-emerald-600 hover:text-emerald-700" href="/training/4-watt-per-kg">Read: The Road to 4 W/kg →</a>
+                </p>
             </Card>
 
             <Card title="Power Comparison">

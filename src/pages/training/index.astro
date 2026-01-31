@@ -2,9 +2,9 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/Button.astro";
 
-const title = "Training Articles";
+const title = "Cycling Training Guides | PedalScience";
 const description =
-    "Practical training guides for recreational road cyclists. Learn how to structure your training, build FTP, and get stronger without overtraining.";
+    "Evidence-based training guides for amateur cyclists: FTP, sweet spot, VO2max, pacing, and endurance.";
 
 // Get all markdown articles in this folder
 const rawArticles = await Astro.glob("./*.md");
@@ -154,6 +154,17 @@ articles.sort((a, b) => {
         </div>
     </header>
 
+    <!-- Quick CTA -->
+    <div class="mb-10 rounded-2xl border border-emerald-200 bg-emerald-50 p-5 text-sm text-emerald-900">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div>
+                <p class="font-semibold">Start here: Calculate your training zones</p>
+                <p class="text-emerald-800">Get your FTP and dial in your zones before you follow a plan.</p>
+            </div>
+            <Button href="/tools/ftp-calculator" variant="subtle">Open FTP Calculator →</Button>
+        </div>
+    </div>
+
     {articles.length > 0 ? (
         <>
             <!-- Featured Article (first one) -->
@@ -167,7 +178,7 @@ articles.sort((a, b) => {
                                     ⭐ Featured
                                 </span>
                                 {articles[0].difficulty && (
-                                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">
+                                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600 dark:bg-slate-600 dark:text-white dark:border dark:border-slate-400/40">
                                         {articles[0].difficulty.charAt(0).toUpperCase() + articles[0].difficulty.slice(1)}
                                     </span>
                                 )}
@@ -183,7 +194,7 @@ articles.sort((a, b) => {
 
                             <div class="mt-4 flex flex-wrap gap-2">
                                 {articles[0].tags.map((tag) => (
-                                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600">
+                                    <span class="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-medium text-slate-600 dark:bg-slate-600 dark:text-white dark:border dark:border-slate-400/40">
                                         {tag}
                                     </span>
                                 ))}
@@ -239,7 +250,7 @@ articles.sort((a, b) => {
                                     </div>
 
                                     {article.difficulty && (
-                                        <span class={`rounded-full px-2.5 py-0.5 text-xs font-medium ${article.colors.text} bg-slate-100`}>
+                                        <span class={`rounded-full px-2.5 py-0.5 text-xs font-medium ${article.colors.text} bg-slate-100 dark:bg-slate-600 dark:text-white dark:border dark:border-slate-400/40`}>
                                             {article.difficulty.charAt(0).toUpperCase() + article.difficulty.slice(1)}
                                         </span>
                                     )}
@@ -255,7 +266,7 @@ articles.sort((a, b) => {
 
                                 <div class="mt-3 flex flex-wrap gap-1.5">
                                     {article.tags.slice(0, 3).map((tag) => (
-                                        <span class="rounded-full bg-slate-100 px-2 py-0.5 text-[0.65rem] font-medium text-slate-600">
+                                        <span class="rounded-full bg-slate-100 px-2 py-0.5 text-[0.65rem] font-medium text-slate-600 dark:bg-slate-600 dark:text-white dark:border dark:border-slate-400/40">
                                             {tag}
                                         </span>
                                     ))}
@@ -306,4 +317,3 @@ articles.sort((a, b) => {
         </div>
     </div>
 </BaseLayout>
-

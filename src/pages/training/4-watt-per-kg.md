@@ -1,17 +1,17 @@
 ---
 layout: ../../layouts/ArticleLayout.astro
-title: The Road to 4 W/kg
-description: A practical, science-based guide for recreational cyclists who want to reach the 4 W/kg threshold with smart training and realistic time investment.
+title: How to Reach 4 W/kg FTP | PedalScience
+description: A realistic, science-based plan to improve FTP and reach 4 W/kg as an amateur cyclist.
 tags: ["FTP", "Training Structure", "Zone 2", "VO₂max", "Polarized Training"]
 difficulty: "Beginner"
 updated: "2026-01-30"
 ---
 
-# 🚴‍♂️ The Road to 4 W/kg
+# How to Reach 4 W/kg FTP
 
 4 W/kg has become a milestone in the cycling community – a marker of "serious" fitness that opens up new terrain and group ride possibilities. But is it realistic for someone with a job, family, and limited training time?
 
-**The answer is yes** – with the right approach. This guide is based on current sports science, including research from Stephen Seiler on polarized training and the importance of low-intensity volume.
+**The answer is yes** – with the right approach. This guide is based on current sports science, including research from Stephen Seiler on polarized training and the importance of low-intensity volume. For a deeper dive, see **[Polarized vs Pyramidal vs Sweet Spot](/articles/polarized-vs-pyramidal)**.
 
 <div class="callout callout-tip">
   <p class="callout-title">KEY INSIGHT</p>
@@ -31,6 +31,7 @@ Your power-to-weight ratio is simply **FTP ÷ body weight**:
 | 85 kg  | 340 W |
 
 Use our **[FTP Calculator](/tools/ftp-calculator)** to see your current W/kg and training zones.
+If you want to explore the full toolkit, **[see all calculators](/tools)**.
 
 <div class="callout callout-info">
   <p class="callout-title">PERSPECTIVE</p>
@@ -39,7 +40,7 @@ Use our **[FTP Calculator](/tools/ftp-calculator)** to see your current W/kg and
 
 ## 📊 The science of training distribution
 
-Research by Seiler (2010) and others has shown that elite endurance athletes typically follow a **polarized** training distribution:
+Research by Seiler (2010) and others has shown that elite endurance athletes typically follow a **polarized** training distribution. If you want to compare models, read **[Polarized vs Pyramidal vs Sweet Spot](/articles/polarized-vs-pyramidal)**:
 
 > **The 80/20 principle:**
 > - **~80% low intensity** (Zone 1-2, easy conversation possible)

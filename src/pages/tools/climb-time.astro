@@ -24,6 +24,12 @@ const description =
         </p>
     </header>
 
+    <Card class="mb-6" title="What this calculator does">
+        <p class="text-sm text-slate-600">
+            Estimates your climb time from power, weight, distance, and gradient using a simple physics model.
+        </p>
+    </Card>
+
     <div class="mt-4 grid gap-6 md:grid-cols-2">
         <div class="space-y-4">
             <!-- Power Input Mode -->
@@ -136,6 +142,17 @@ const description =
                 <div id="result" class="text-sm text-slate-600">
                     Adjust the values to see your estimated climb time.
                 </div>
+            </Card>
+
+            <Card title="How to use this result">
+                <ul class="text-sm text-slate-600 list-disc pl-5 space-y-1">
+                    <li>Use the time estimate to pace long climbs or compare different power targets.</li>
+                    <li>Test how small weight changes affect your time on steep gradients.</li>
+                    <li>Use the same inputs to compare famous climbs to your local routes.</li>
+                </ul>
+                <p class="mt-3 text-sm">
+                    <a class="text-emerald-600 hover:text-emerald-700" href="/training/4-watt-per-kg">Read: The Road to 4 W/kg →</a>
+                </p>
             </Card>
 
             <Card title="VAM Reference">
