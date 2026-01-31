@@ -21,25 +21,25 @@ body {
 }
 
 .article-content h2 {
-    @apply text-2xl lg:text-3xl font-semibold leading-snug mt-10 mb-4 text-slate-900;
+    @apply text-2xl lg:text-3xl font-semibold leading-snug mt-12 mb-5 text-slate-900;
 }
 
 .article-content h3 {
-    @apply text-xl font-semibold leading-snug mt-8 mb-3 text-slate-900;
+    @apply text-xl font-semibold leading-snug mt-9 mb-4 text-slate-900;
 }
 
 /* Avsnitt */
 .article-content p {
-    @apply my-3;
+    @apply my-4;
 }
 
 /* Lister */
 .article-content ul {
-    @apply list-disc pl-6 my-3;
+    @apply list-disc pl-6 my-4;
 }
 
 .article-content ol {
-    @apply list-decimal pl-6 my-3;
+    @apply list-decimal pl-6 my-4;
 }
 
 .article-content li {
@@ -62,7 +62,7 @@ body {
 
 /* Blockquotes som små bokser */
 .article-content blockquote {
-    @apply border-l-2 border-sky-200 bg-sky-50 rounded-xl px-4 py-3 not-italic my-4 text-[0.95rem] text-slate-800;
+    @apply border-l-2 border-sky-200 bg-sky-50 rounded-xl px-4 py-3 not-italic my-5 text-[0.95rem] text-slate-800;
 }
 
 /* Kode */
@@ -71,7 +71,7 @@ body {
 }
 
 .article-content pre {
-    @apply bg-slate-900 text-slate-50 rounded-md p-3 text-xs overflow-x-auto my-4;
+    @apply bg-slate-900 text-slate-50 rounded-md p-3 text-xs overflow-x-auto my-5;
 }
 
 /* Horisontale linjer – skjul */
@@ -84,7 +84,7 @@ body {
    -------------------------------------------------- */
 
 .article-content table {
-    @apply w-full my-6 text-sm border-collapse;
+    @apply w-full my-7 text-sm border-collapse;
 }
 
 .article-content thead {
@@ -117,7 +117,7 @@ body {
    -------------------------------------------------- */
 
 .article-content .callout {
-    @apply rounded-2xl px-4 py-3 my-4 text-[0.95rem] border-l-4;
+    @apply rounded-2xl px-4 py-3 my-5 text-[0.95rem] border-l-4;
 }
 
 .article-content .callout-title {
@@ -154,7 +154,7 @@ body {
    -------------------------------------------------- */
 
 .article-content .session-box {
-    @apply rounded-2xl border border-slate-200 bg-white px-4 py-3 my-4 shadow-sm;
+    @apply rounded-2xl border border-slate-200 bg-white px-4 py-3 my-5 shadow-sm;
 }
 
 .article-content .session-title {
