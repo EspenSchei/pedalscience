@@ -14,10 +14,12 @@ const WORDS_PER_MINUTE = 220;
 // Priority (low number = show first)
 const getPriority = (url: string) => {
     switch (url) {
-        case "/training/4-watt-per-kg":
+        case "/training/cycling-training-zones":
             return 1;
-        case "/training/sweet-spot-progression":
+        case "/training/4-watt-per-kg":
             return 2;
+        case "/training/sweet-spot-progression":
+            return 3;
         default:
             return 99;
     }

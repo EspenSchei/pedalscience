@@ -82,7 +82,7 @@ High-intensity sessions alone are not enough. You need steady aerobic volume to 
 
 Below is a practical setup that balances what the research supports with what real riders can recover from. VO₂max intervals are typically performed at **110-120% of FTP** with interval durations of **2-5 minutes**. The key is to limit frequency to **1-2 sessions per week** to avoid excessive fatigue that interferes with recovery and other training.
 
-This approach supports [long-term performance goals like reaching 4 W/kg](/training/4-watt-per-kg) by raising your aerobic ceiling while maintaining a sustainable training load. [Critical Power and W′ modeling](/tools/critical-power-wprime) can also be used to prescribe VO₂max intervals based on a rider's sustainable ceiling and finite work capacity.
+VO₂max sessions work best when your overall intensity distribution is [anchored by training zones](/training/cycling-training-zones). This approach supports [long-term performance goals like reaching 4 W/kg](/training/4-watt-per-kg) by raising your aerobic ceiling while maintaining a sustainable training load. [Critical Power and W′ modeling](/tools/critical-power-wprime) can also be used to prescribe VO₂max intervals based on a rider's sustainable ceiling and finite work capacity.
 
 <div class="callout callout-tip">
   <p class="callout-title">Practical tip</p>
