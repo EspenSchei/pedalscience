@@ -1,0 +1,777 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Card from "../../components/Card.astro";
+
+const title = "Critical Power & W′ Calculator";
+const description = "Calculate Critical Power (CP) and W′ using 2- or multi-point models. Visualize your power-duration curve, work-time relationship, and W′ depletion with interactive graphs.";
+const canonical = "https://pedalscience.com/tools/critical-power-wprime";
+---
+
+<BaseLayout {title} {description} {canonical}>
+    <header class="mb-6">
+        <h1 class="text-2xl font-semibold tracking-tight text-slate-900 dark:text-slate-100 sm:text-3xl">
+            Critical Power & W′ Calculator
+        </h1>
+        <p class="mt-2 max-w-2xl text-sm text-slate-600 dark:text-slate-400">
+            Estimate your sustainable power ceiling and finite work capacity above it using evidence-based performance modeling.
+        </p>
+    </header>
+
+    <Card class="mb-6" title="About this calculator">
+        <p class="text-sm text-slate-600 dark:text-slate-400">
+            Critical Power (CP) represents the highest power output you can sustain without continuous fatigue accumulation,
+            while W′ describes your finite capacity for work performed above CP. Together, they provide a powerful framework
+            for understanding high-intensity cycling performance.
+        </p>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-400">
+            This calculator estimates CP and W′ from maximal efforts and visualizes your power–duration relationship to help
+            you design smarter intervals and pacing strategies.
+        </p>
+    </Card>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+        <!-- Input Section -->
+        <div class="space-y-4">
+            <!-- Mode Selector -->
+            <div class="space-y-2">
+                <label class="text-sm font-semibold text-slate-800 dark:text-slate-200">Calculation method</label>
+                <div class="flex gap-2">
+                    <button
+                        id="mode-simple"
+                        class="flex-1 rounded-xl border-2 border-sky-500 bg-sky-50 dark:bg-sky-900/30 px-4 py-2 text-sm font-medium text-sky-700 dark:text-sky-300 transition-all"
+                    >
+                        Two maximal efforts (simple)
+                    </button>
+                    <button
+                        id="mode-advanced"
+                        class="flex-1 rounded-xl border-2 border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 transition-all hover:border-slate-300 dark:hover:border-slate-600"
+                    >
+                        Multiple maximal efforts (advanced)
+                    </button>
+                </div>
+                <p class="text-xs text-slate-500 dark:text-slate-400">
+                    Use two well-paced, maximal efforts of different durations, or multiple efforts for a more robust model fit.
+                </p>
+            </div>
+
+            <!-- Efforts Container -->
+            <div id="efforts-container" class="space-y-3">
+                <!-- Effort rows will be inserted here -->
+            </div>
+
+            <!-- Add Effort Button (hidden in simple mode) -->
+            <button
+                id="add-effort"
+                class="hidden w-full rounded-xl border-2 border-dashed border-slate-300 dark:border-slate-600 px-4 py-2 text-sm font-medium text-slate-500 dark:text-slate-400 transition-all hover:border-sky-400 hover:text-sky-600 dark:hover:border-sky-500 dark:hover:text-sky-400"
+            >
+                + Add effort
+            </button>
+
+            <!-- Error Messages -->
+            <div id="error-message" class="hidden rounded-xl bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-800 px-4 py-2 text-sm text-red-700 dark:text-red-300">
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex gap-3 pt-2">
+                <button
+                    id="calculate-btn"
+                    class="flex-1 rounded-xl bg-sky-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all hover:bg-sky-700 focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2"
+                >
+                    Calculate
+                </button>
+                <button
+                    id="reset-btn"
+                    class="rounded-xl border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-800 px-4 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-400 transition-all hover:bg-slate-50 dark:hover:bg-slate-700"
+                >
+                    Reset
+                </button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="space-y-4">
+            <div id="results-container" class="hidden space-y-4">
+                <!-- Result Cards -->
+                <div class="grid gap-4 sm:grid-cols-2">
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-sky-50 to-sky-100 dark:from-sky-900/30 dark:to-sky-800/30 p-4 shadow-sm">
+                        <div class="text-xs font-medium uppercase tracking-wider text-sky-600 dark:text-sky-400">Critical Power</div>
+                        <div id="cp-value" class="mt-1 text-3xl font-bold text-slate-900 dark:text-slate-100">— W</div>
+                        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">Estimated sustainable power ceiling</div>
+                    </div>
+                    <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-amber-50 to-amber-100 dark:from-amber-900/30 dark:to-amber-800/30 p-4 shadow-sm">
+                        <div class="text-xs font-medium uppercase tracking-wider text-amber-600 dark:text-amber-400">W′ (W prime)</div>
+                        <div id="wprime-value" class="mt-1 text-3xl font-bold text-slate-900 dark:text-slate-100">— kJ</div>
+                        <div class="mt-1 text-xs text-slate-500 dark:text-slate-400">Finite work capacity above CP</div>
+                    </div>
+                </div>
+
+                <!-- Model Fit (Advanced mode only) -->
+                <div id="model-fit-container" class="hidden rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <div class="text-xs font-medium uppercase tracking-wider text-slate-500 dark:text-slate-400">Model fit</div>
+                            <div id="r-squared" class="mt-1 text-xl font-bold text-slate-900 dark:text-slate-100">R² = —</div>
+                        </div>
+                        <div id="model-warning" class="hidden rounded-lg bg-amber-50 dark:bg-amber-900/30 px-3 py-1 text-xs text-amber-700 dark:text-amber-300">
+                            Low model fit — consider adding more maximal efforts
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Copy Results Button -->
+                <button
+                    id="copy-btn"
+                    class="w-full rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-400 transition-all hover:bg-slate-50 dark:hover:bg-slate-700"
+                >
+                    📋 Copy results
+                </button>
+
+                <!-- Model Equation -->
+                <div class="rounded-xl bg-slate-100 dark:bg-slate-800 px-4 py-3 font-mono text-sm text-slate-700 dark:text-slate-300">
+                    <span class="text-slate-500 dark:text-slate-400">Model equation:</span> P(t) = CP + W′ / t
+                </div>
+            </div>
+
+            <!-- Placeholder when no results -->
+            <div id="results-placeholder" class="flex h-64 items-center justify-center rounded-2xl border-2 border-dashed border-slate-200 dark:border-slate-700">
+                <p class="text-sm text-slate-400 dark:text-slate-500">Enter efforts and click Calculate to see results</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Graphs Section -->
+    <div id="graphs-section" class="mt-8 hidden space-y-6">
+        <!-- Power-Duration Curve -->
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Power–Duration Relationship</h3>
+            <p class="mb-4 text-xs text-slate-500 dark:text-slate-400">Predicted power output across durations based on the Critical Power model.</p>
+            <div class="h-64 w-full">
+                <canvas id="power-duration-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Work-Time Linear Model -->
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Work–Time Linear Fit</h3>
+            <p class="mb-4 text-xs text-slate-500 dark:text-slate-400">Linear relationship between total work and time used to derive CP and W′.</p>
+            <div class="h-64 w-full">
+                <canvas id="work-time-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- W' Depletion Simulation -->
+        <div class="rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 p-4 shadow-sm">
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">W′ Depletion Above CP</h3>
+            <div class="mb-4 flex items-center gap-4">
+                <label class="text-sm text-slate-600 dark:text-slate-400">Constant power:</label>
+                <input
+                    type="number"
+                    id="depletion-power"
+                    class="w-24 rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-3 py-1.5 text-sm text-slate-900 dark:text-slate-100"
+                    placeholder="W"
+                />
+                <span class="text-sm text-slate-500 dark:text-slate-400">watts</span>
+            </div>
+            <div class="h-64 w-full">
+                <canvas id="depletion-chart"></canvas>
+            </div>
+            <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">
+                Simplified illustration of how W′ is depleted when riding above CP.
+            </p>
+            <p class="mt-1 text-xs text-amber-600 dark:text-amber-400">
+                ⚠️ This is a simplified demonstration and does not account for recovery dynamics.
+            </p>
+        </div>
+    </div>
+
+    <!-- Educational Sections -->
+    <div class="mt-8 space-y-4">
+        <details class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+            <summary class="cursor-pointer px-4 py-3 text-sm font-semibold text-slate-900 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-2xl">
+                What is Critical Power (CP)?
+            </summary>
+            <div class="px-4 pb-4 text-sm text-slate-600 dark:text-slate-400">
+                Critical Power represents the boundary between sustainable and unsustainable exercise intensity.
+                When riding above CP, fatigue accumulates continuously, limiting how long the effort can be maintained.
+            </div>
+        </details>
+
+        <details class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+            <summary class="cursor-pointer px-4 py-3 text-sm font-semibold text-slate-900 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-2xl">
+                What is W′?
+            </summary>
+            <div class="px-4 pb-4 text-sm text-slate-600 dark:text-slate-400">
+                W′ describes a finite amount of work that can be performed above CP. Once depleted, power output
+                must fall to CP or below until recovery occurs.
+            </div>
+        </details>
+
+        <details class="group rounded-2xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 shadow-sm">
+            <summary class="cursor-pointer px-4 py-3 text-sm font-semibold text-slate-900 dark:text-slate-100 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-2xl">
+                How CP and W′ differ from FTP
+            </summary>
+            <div class="px-4 pb-4 text-sm text-slate-600 dark:text-slate-400">
+                FTP represents a practical training benchmark, while CP and W′ provide a more explicit performance model.
+                Use CP/W′ alongside your <a href="/tools/ftp-calculator" class="text-sky-600 dark:text-sky-400 hover:underline">FTP estimate</a> for deeper insight.
+            </div>
+        </details>
+    </div>
+
+    <!-- Training Applications -->
+    <div class="mt-8 rounded-2xl border border-slate-200 dark:border-slate-700 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-slate-100">Practical training applications</h3>
+        <ul class="mt-3 space-y-2 text-sm text-slate-600 dark:text-slate-400">
+            <li class="flex items-start gap-2">
+                <span class="text-sky-500">→</span>
+                <span>Design high-quality <a href="/articles/vo2max-cycling" class="text-sky-600 dark:text-sky-400 hover:underline">VO₂max intervals</a></span>
+            </li>
+            <li class="flex items-start gap-2">
+                <span class="text-sky-500">→</span>
+                <span>Understand long-term progression toward <a href="/training/4-watt-per-kg" class="text-sky-600 dark:text-sky-400 hover:underline">ambitious goals</a></span>
+            </li>
+            <li class="flex items-start gap-2">
+                <span class="text-sky-500">→</span>
+                <span>Explore <a href="/training" class="text-sky-600 dark:text-sky-400 hover:underline">evidence-based training structure</a></span>
+            </li>
+        </ul>
+    </div>
+</BaseLayout>
+
+<!-- Chart.js -->
+<script is:inline src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+
+<script is:inline>
+document.addEventListener("DOMContentLoaded", () => {
+    const modeSimple = document.getElementById("mode-simple");
+    const modeAdvanced = document.getElementById("mode-advanced");
+    const effortsContainer = document.getElementById("efforts-container");
+    const addEffortBtn = document.getElementById("add-effort");
+    const calculateBtn = document.getElementById("calculate-btn");
+    const resetBtn = document.getElementById("reset-btn");
+    const copyBtn = document.getElementById("copy-btn");
+    const errorMessage = document.getElementById("error-message");
+    const resultsContainer = document.getElementById("results-container");
+    const resultsPlaceholder = document.getElementById("results-placeholder");
+    const graphsSection = document.getElementById("graphs-section");
+    const cpValue = document.getElementById("cp-value");
+    const wprimeValue = document.getElementById("wprime-value");
+    const modelFitContainer = document.getElementById("model-fit-container");
+    const rSquared = document.getElementById("r-squared");
+    const modelWarning = document.getElementById("model-warning");
+    const depletionPowerInput = document.getElementById("depletion-power");
+
+    let mode = "simple";
+    let efforts = [];
+    let calculatedCP = null;
+    let calculatedWPrime = null;
+    let charts = {};
+
+    // Initialize with 2 efforts
+    function init() {
+        effortsContainer.innerHTML = "";
+        efforts = [];
+        addEffort();
+        addEffort();
+        updateUI();
+    }
+
+    function createEffortRow(index) {
+        const div = document.createElement("div");
+        div.className = "effort-row flex gap-3 items-end";
+        div.dataset.index = index;
+
+        div.innerHTML = `
+            <div class="flex-1 space-y-1">
+                <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Duration</label>
+                <input 
+                    type="text" 
+                    class="effort-duration w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400"
+                    placeholder="mm:ss"
+                />
+                <p class="text-[0.65rem] text-slate-400">Recommended: 2–15 minutes</p>
+            </div>
+            <div class="flex-1 space-y-1">
+                <label class="text-xs font-medium text-slate-600 dark:text-slate-400">Average power</label>
+                <input 
+                    type="number" 
+                    class="effort-power w-full rounded-lg border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-700 px-3 py-2 text-sm text-slate-900 dark:text-slate-100 placeholder-slate-400"
+                    placeholder="Watts"
+                />
+                <p class="text-[0.65rem] text-slate-400">Best average from maximal effort</p>
+            </div>
+            <button class="remove-effort mb-6 rounded-lg border border-slate-300 dark:border-slate-600 px-3 py-2 text-sm text-slate-500 hover:bg-red-50 hover:border-red-300 hover:text-red-600 dark:hover:bg-red-900/30 dark:hover:border-red-700 dark:hover:text-red-400 transition-all ${mode === 'simple' || efforts.length <= 2 ? 'hidden' : ''}">
+                Remove
+            </button>
+        `;
+
+        // Add event listeners
+        div.querySelector(".remove-effort").addEventListener("click", () => {
+            removeEffort(index);
+        });
+
+        return div;
+    }
+
+    function addEffort() {
+        const index = efforts.length;
+        efforts.push({ duration: null, power: null });
+        const row = createEffortRow(index);
+        effortsContainer.appendChild(row);
+        updateRemoveButtons();
+    }
+
+    function removeEffort(index) {
+        if (efforts.length <= 2) return;
+        efforts.splice(index, 1);
+        renderEfforts();
+    }
+
+    function renderEfforts() {
+        effortsContainer.innerHTML = "";
+        efforts.forEach((_, i) => {
+            effortsContainer.appendChild(createEffortRow(i));
+        });
+        updateRemoveButtons();
+    }
+
+    function updateRemoveButtons() {
+        const removeButtons = document.querySelectorAll(".remove-effort");
+        removeButtons.forEach(btn => {
+            if (mode === "simple" || efforts.length <= 2) {
+                btn.classList.add("hidden");
+            } else {
+                btn.classList.remove("hidden");
+            }
+        });
+    }
+
+    function updateUI() {
+        if (mode === "simple") {
+            modeSimple.classList.add("border-sky-500", "bg-sky-50", "dark:bg-sky-900/30", "text-sky-700", "dark:text-sky-300");
+            modeSimple.classList.remove("border-slate-200", "dark:border-slate-700", "bg-white", "dark:bg-slate-800", "text-slate-600", "dark:text-slate-400");
+            modeAdvanced.classList.remove("border-sky-500", "bg-sky-50", "dark:bg-sky-900/30", "text-sky-700", "dark:text-sky-300");
+            modeAdvanced.classList.add("border-slate-200", "dark:border-slate-700", "bg-white", "dark:bg-slate-800", "text-slate-600", "dark:text-slate-400");
+            addEffortBtn.classList.add("hidden");
+
+            // Ensure only 2 efforts in simple mode
+            while (efforts.length > 2) {
+                efforts.pop();
+            }
+            while (efforts.length < 2) {
+                efforts.push({ duration: null, power: null });
+            }
+            renderEfforts();
+        } else {
+            modeAdvanced.classList.add("border-sky-500", "bg-sky-50", "dark:bg-sky-900/30", "text-sky-700", "dark:text-sky-300");
+            modeAdvanced.classList.remove("border-slate-200", "dark:border-slate-700", "bg-white", "dark:bg-slate-800", "text-slate-600", "dark:text-slate-400");
+            modeSimple.classList.remove("border-sky-500", "bg-sky-50", "dark:bg-sky-900/30", "text-sky-700", "dark:text-sky-300");
+            modeSimple.classList.add("border-slate-200", "dark:border-slate-700", "bg-white", "dark:bg-slate-800", "text-slate-600", "dark:text-slate-400");
+            addEffortBtn.classList.remove("hidden");
+        }
+        updateRemoveButtons();
+    }
+
+    function parseDuration(str) {
+        if (!str) return null;
+        const parts = str.split(":");
+        if (parts.length === 2) {
+            const mins = parseInt(parts[0], 10);
+            const secs = parseInt(parts[1], 10);
+            if (!isNaN(mins) && !isNaN(secs)) {
+                return mins * 60 + secs;
+            }
+        }
+        // Try parsing as just seconds
+        const secs = parseInt(str, 10);
+        if (!isNaN(secs)) return secs;
+        return null;
+    }
+
+    function formatDuration(seconds) {
+        const mins = Math.floor(seconds / 60);
+        const secs = seconds % 60;
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function getEffortsFromUI() {
+        const rows = document.querySelectorAll(".effort-row");
+        const effortData = [];
+        rows.forEach(row => {
+            const duration = parseDuration(row.querySelector(".effort-duration").value);
+            const power = parseFloat(row.querySelector(".effort-power").value);
+            if (duration && power && duration > 0 && power > 0) {
+                effortData.push({ duration, power });
+            }
+        });
+        return effortData;
+    }
+
+    function showError(msg) {
+        errorMessage.textContent = msg;
+        errorMessage.classList.remove("hidden");
+    }
+
+    function hideError() {
+        errorMessage.classList.add("hidden");
+    }
+
+    function calculateCPWPrime(effortData) {
+        // Sort by duration
+        effortData.sort((a, b) => a.duration - b.duration);
+
+        // Check for identical durations
+        const durations = effortData.map(e => e.duration);
+        if (new Set(durations).size !== durations.length) {
+            return { error: "Efforts must have different durations" };
+        }
+
+        if (effortData.length < 2) {
+            return { error: "Add at least two valid efforts to calculate CP and W′" };
+        }
+
+        // Calculate work for each effort (work = power * time in joules)
+        const workData = effortData.map(e => ({
+            t: e.duration,
+            W: e.power * e.duration, // Work in joules
+            P: e.power
+        }));
+
+        // Linear regression: W = CP * t + W'
+        // y = mx + b where y = W, x = t, m = CP, b = W'
+        const n = workData.length;
+        const sumT = workData.reduce((acc, d) => acc + d.t, 0);
+        const sumW = workData.reduce((acc, d) => acc + d.W, 0);
+        const sumTW = workData.reduce((acc, d) => acc + d.t * d.W, 0);
+        const sumT2 = workData.reduce((acc, d) => acc + d.t * d.t, 0);
+
+        const CP = (n * sumTW - sumT * sumW) / (n * sumT2 - sumT * sumT);
+        const WPrime = (sumW - CP * sumT) / n;
+
+        // Calculate R²
+        const meanW = sumW / n;
+        const ssRes = workData.reduce((acc, d) => {
+            const predicted = CP * d.t + WPrime;
+            return acc + Math.pow(d.W - predicted, 2);
+        }, 0);
+        const ssTot = workData.reduce((acc, d) => {
+            return acc + Math.pow(d.W - meanW, 2);
+        }, 0);
+        const rSquaredValue = 1 - (ssRes / ssTot);
+
+        return {
+            CP: Math.round(CP),
+            WPrime: WPrime / 1000, // Convert to kJ
+            rSquared: rSquaredValue,
+            workData
+        };
+    }
+
+    function showResults(result) {
+        calculatedCP = result.CP;
+        calculatedWPrime = result.WPrime;
+
+        cpValue.textContent = `${result.CP} W`;
+        wprimeValue.textContent = `${result.WPrime.toFixed(1)} kJ`;
+
+        if (mode === "advanced" && efforts.length > 2) {
+            modelFitContainer.classList.remove("hidden");
+            rSquared.textContent = `R² = ${result.rSquared.toFixed(3)}`;
+            if (result.rSquared < 0.95) {
+                modelWarning.classList.remove("hidden");
+            } else {
+                modelWarning.classList.add("hidden");
+            }
+        } else {
+            modelFitContainer.classList.add("hidden");
+        }
+
+        resultsContainer.classList.remove("hidden");
+        resultsPlaceholder.classList.add("hidden");
+        graphsSection.classList.remove("hidden");
+
+        // Set default depletion power
+        depletionPowerInput.value = Math.round(result.CP * 1.1);
+
+        // Render charts
+        renderCharts(result);
+    }
+
+    function renderCharts(result) {
+        const isDark = document.documentElement.classList.contains("dark");
+        const gridColor = isDark ? "rgba(148, 163, 184, 0.2)" : "rgba(148, 163, 184, 0.3)";
+        const textColor = isDark ? "#94a3b8" : "#64748b";
+
+        // Destroy existing charts
+        Object.values(charts).forEach(chart => chart.destroy());
+        charts = {};
+
+        // Power-Duration Curve
+        const pdCtx = document.getElementById("power-duration-chart").getContext("2d");
+        const durations = [];
+        const powers = [];
+        for (let t = 60; t <= 1800; t += 30) {
+            durations.push(t / 60); // Convert to minutes
+            powers.push(result.CP + (result.WPrime * 1000) / t);
+        }
+
+        // Get actual effort data for scatter points
+        const effortData = getEffortsFromUI();
+        const scatterData = effortData.map(e => ({ x: e.duration / 60, y: e.power }));
+
+        charts.pd = new Chart(pdCtx, {
+            type: "line",
+            data: {
+                labels: durations,
+                datasets: [
+                    {
+                        label: "Predicted Power",
+                        data: powers,
+                        borderColor: "#0ea5e9",
+                        backgroundColor: "rgba(14, 165, 233, 0.1)",
+                        fill: true,
+                        tension: 0.4,
+                        pointRadius: 0
+                    },
+                    {
+                        label: "Actual Efforts",
+                        data: scatterData,
+                        type: "scatter",
+                        borderColor: "#f59e0b",
+                        backgroundColor: "#f59e0b",
+                        pointRadius: 8,
+                        pointHoverRadius: 10
+                    },
+                    {
+                        label: "Critical Power",
+                        data: durations.map(() => result.CP),
+                        borderColor: "#10b981",
+                        borderDash: [5, 5],
+                        pointRadius: 0,
+                        fill: false
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: textColor } }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: "Duration (minutes)", color: textColor },
+                        grid: { color: gridColor },
+                        ticks: { color: textColor }
+                    },
+                    y: {
+                        title: { display: true, text: "Power (W)", color: textColor },
+                        grid: { color: gridColor },
+                        ticks: { color: textColor }
+                    }
+                }
+            }
+        });
+
+        // Work-Time Linear Fit
+        const wtCtx = document.getElementById("work-time-chart").getContext("2d");
+        const workScatter = result.workData.map(d => ({ x: d.t / 60, y: d.W / 1000 }));
+        const linePoints = [];
+        for (let t = 60; t <= 1800; t += 60) {
+            linePoints.push({ x: t / 60, y: (result.CP * t + result.WPrime * 1000) / 1000 });
+        }
+
+        charts.wt = new Chart(wtCtx, {
+            type: "scatter",
+            data: {
+                datasets: [
+                    {
+                        label: "Actual Work",
+                        data: workScatter,
+                        borderColor: "#f59e0b",
+                        backgroundColor: "#f59e0b",
+                        pointRadius: 8
+                    },
+                    {
+                        label: "Linear Fit",
+                        data: linePoints,
+                        type: "line",
+                        borderColor: "#0ea5e9",
+                        pointRadius: 0,
+                        tension: 0
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: textColor } }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: "Duration (minutes)", color: textColor },
+                        grid: { color: gridColor },
+                        ticks: { color: textColor }
+                    },
+                    y: {
+                        title: { display: true, text: "Work (kJ)", color: textColor },
+                        grid: { color: gridColor },
+                        ticks: { color: textColor }
+                    }
+                }
+            }
+        });
+
+        // W' Depletion Chart
+        updateDepletionChart();
+    }
+
+    function updateDepletionChart() {
+        if (!calculatedCP || !calculatedWPrime) return;
+
+        const power = parseFloat(depletionPowerInput.value) || calculatedCP * 1.1;
+        if (power <= calculatedCP) {
+            // No depletion if below CP
+            return;
+        }
+
+        const isDark = document.documentElement.classList.contains("dark");
+        const gridColor = isDark ? "rgba(148, 163, 184, 0.2)" : "rgba(148, 163, 184, 0.3)";
+        const textColor = isDark ? "#94a3b8" : "#64748b";
+
+        const wPrimeJ = calculatedWPrime * 1000;
+        const depletionRate = power - calculatedCP; // W depleted per second
+        const timeToDepletion = wPrimeJ / depletionRate; // seconds
+
+        const times = [];
+        const wPrimeRemaining = [];
+        const step = Math.max(1, Math.floor(timeToDepletion / 100));
+        for (let t = 0; t <= timeToDepletion; t += step) {
+            times.push(t);
+            wPrimeRemaining.push(Math.max(0, (wPrimeJ - depletionRate * t) / 1000));
+        }
+        times.push(timeToDepletion);
+        wPrimeRemaining.push(0);
+
+        if (charts.depletion) charts.depletion.destroy();
+
+        const depCtx = document.getElementById("depletion-chart").getContext("2d");
+        charts.depletion = new Chart(depCtx, {
+            type: "line",
+            data: {
+                labels: times.map(t => Math.round(t)),
+                datasets: [{
+                    label: "W′ Remaining (kJ)",
+                    data: wPrimeRemaining,
+                    borderColor: "#ef4444",
+                    backgroundColor: "rgba(239, 68, 68, 0.1)",
+                    fill: true,
+                    tension: 0.2,
+                    pointRadius: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: textColor } },
+                    annotation: {
+                        annotations: {
+                            timeLabel: {
+                                type: "label",
+                                xValue: timeToDepletion / 2,
+                                yValue: calculatedWPrime / 2,
+                                content: `Depleted in ${formatDuration(Math.round(timeToDepletion))}`,
+                                color: textColor
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: "Time (seconds)", color: textColor },
+                        grid: { color: gridColor },
+                        ticks: { color: textColor }
+                    },
+                    y: {
+                        title: { display: true, text: "W′ Remaining (kJ)", color: textColor },
+                        grid: { color: gridColor },
+                        ticks: { color: textColor },
+                        min: 0
+                    }
+                }
+            }
+        });
+    }
+
+    function copyResults() {
+        const effortData = getEffortsFromUI();
+        const effortStr = effortData.map(e => `${formatDuration(e.duration)} @ ${e.power} W`).join(", ");
+        const modelType = mode === "simple" ? "Two-point" : "Multi-point";
+
+        const text = `Critical Power (CP): ${calculatedCP} W
+W′: ${calculatedWPrime.toFixed(1)} kJ
+Model: ${modelType}
+Efforts: ${effortStr}
+Model equation: P(t) = CP + W′ / t`;
+
+        navigator.clipboard.writeText(text).then(() => {
+            copyBtn.textContent = "✓ Copied!";
+            setTimeout(() => {
+                copyBtn.textContent = "📋 Copy results";
+            }, 2000);
+        });
+    }
+
+    function reset() {
+        calculatedCP = null;
+        calculatedWPrime = null;
+        resultsContainer.classList.add("hidden");
+        resultsPlaceholder.classList.remove("hidden");
+        graphsSection.classList.add("hidden");
+        hideError();
+        init();
+    }
+
+    // Event listeners
+    modeSimple.addEventListener("click", () => {
+        mode = "simple";
+        updateUI();
+    });
+
+    modeAdvanced.addEventListener("click", () => {
+        mode = "advanced";
+        updateUI();
+    });
+
+    addEffortBtn.addEventListener("click", () => {
+        addEffort();
+    });
+
+    calculateBtn.addEventListener("click", () => {
+        hideError();
+        const effortData = getEffortsFromUI();
+        const result = calculateCPWPrime(effortData);
+
+        if (result.error) {
+            showError(result.error);
+            return;
+        }
+
+        if (result.CP <= 0 || result.WPrime <= 0) {
+            showError("Invalid result. Check your effort data and ensure efforts are truly maximal.");
+            return;
+        }
+
+        showResults(result);
+    });
+
+    resetBtn.addEventListener("click", reset);
+    copyBtn.addEventListener("click", copyResults);
+    depletionPowerInput.addEventListener("change", updateDepletionChart);
+    depletionPowerInput.addEventListener("input", updateDepletionChart);
+
+    // Initialize
+    init();
+});
+</script>

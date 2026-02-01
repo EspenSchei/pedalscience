@@ -18,7 +18,7 @@ FTP is the most common number in cycling, but critical power (CP) is often more 
 
 ## What FTP measures
 
-FTP is an estimate of the highest power you can sustain for about 40-60 minutes. It is usually calculated from a time trial test or a ramp test. It is practical and useful, but it is not a precise physiological threshold.
+FTP is an estimate of the highest power you can sustain for about 40-60 minutes. It is usually calculated from a time trial test or a ramp test using an [FTP calculator](/tools/ftp-calculator). It is practical and useful, but it is not a precise physiological threshold.
 
 ## What critical power measures
 
@@ -44,14 +44,14 @@ Studies comparing FTP and CP show that they are correlated but not interchangeab
 
 ## Practical implications for cyclists
 
-- Use FTP for broad training zones and long steady efforts.
-- Use CP if you want more precise pacing for short, hard efforts.
+- Use [FTP](/tools/ftp-calculator) for broad training zones and long steady efforts.
+- Use [CP](/tools/critical-power-wprime) if you want more precise pacing for short, hard efforts.
 - If your FTP feels too high for threshold work, CP might be a better anchor.
 
 ## A simple way to use both
 
-- Calculate FTP from a 20-minute test or ramp test.
-- Estimate CP using multiple maximal efforts (for example 3, 7, and 12 minutes).
+- [Calculate FTP](/tools/ftp-calculator) from a 20-minute test or ramp test.
+- [Estimate CP](/tools/critical-power-wprime) using multiple maximal efforts (for example 3, 7, and 12 minutes).
 - If FTP and CP are close, you can use either.
 - If FTP is 10% or more higher than CP, use CP for interval targets.
 
@@ -61,7 +61,7 @@ Studies comparing FTP and CP show that they are correlated but not interchangeab
 - Day 3: 7-minute all-out effort
 - Day 5: 12-minute all-out effort
 
-Use full recovery days between tests. Then plug the three efforts into a CP calculator or training app that fits a power-duration curve.
+Use full recovery days between tests. Then plug the three efforts into our [Critical Power & W′ Calculator](/tools/critical-power-wprime) to fit a power-duration curve and see your results instantly.
 
 ## How W' changes your pacing
 
@@ -79,8 +79,10 @@ If you pace a climb based on FTP and it feels unsustainable after 10-15 minutes,
 
 ## Related tools and guides
 
+- [Critical Power & W′ Calculator](/tools/critical-power-wprime) to estimate CP and W′ from your maximal efforts
 - [FTP Calculator](/tools/ftp-calculator) for quick zone checks
 - [Climb Time Calculator](/tools/climb-time) to apply CP pacing on climbs
+- [VO₂max Training Guide](/articles/vo2max-cycling) for high-intensity interval prescription
 
 ## Bottom line
 
