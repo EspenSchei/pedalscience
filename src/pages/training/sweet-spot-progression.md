@@ -26,7 +26,7 @@ Sweet spot is the intensity zone that sits just below your Functional Threshold 
 
 ## 🤔 Sweet Spot vs. Polarized Training: Which is Right for You?
 
-You may have heard that elite athletes follow "polarized" training – 80% easy (Zone 1-2), 20% hard (Zone 4-5), and almost nothing in between. So why would we recommend sweet spot, which sits in that supposedly problematic "grey zone"? For more context, see **[Polarized vs Pyramidal vs Sweet Spot](/articles/polarized-vs-pyramidal)**.
+You may have heard that elite athletes follow "polarized" training – 80% easy (Zone 1-2), 20% hard (Zone 4-5), and almost nothing in between. So why would we recommend sweet spot, which sits in that supposedly problematic "grey zone"? For more on high-intensity training approaches, see **[VO₂max Training for Cyclists](/articles/vo2max-cycling)**.
 
 **The key is training volume.**
 

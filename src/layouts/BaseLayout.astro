@@ -6,6 +6,7 @@ import Button from "../components/Button.astro";
 const {
     title = "Pedal Science",
     description = "Free cycling tools and training guides for recreational road cyclists",
+    canonical,
 } = Astro.props;
 
 const year = new Date().getFullYear();
@@ -17,6 +18,9 @@ const pageTitle = title === "Pedal Science"
     : title.includes("|")
         ? title
         : `${title} | Pedal Science`;
+
+// Determine canonical URL
+const canonicalURL = canonical || Astro.url.href;
 
 /* -------------------------------------------------------
    BREADCRUMB LOGIC
@@ -118,7 +122,7 @@ if (breadcrumbItems) {
     <!-- Additional SEO -->
     <meta name="author" content="Pedal Science" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href={Astro.url.href} />
+    <link rel="canonical" href={canonicalURL} />
 
     <!-- Theme color -->
     <meta name="theme-color" content="#0f172a" />
