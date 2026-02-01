@@ -230,13 +230,13 @@ const description =
 
         function getCogganZones(ftp) {
             return [
-                { name: "Zone 1 – Recovery", pct: [0, 55], color: "bg-slate-100" },
-                { name: "Zone 2 – Endurance", pct: [56, 75], color: "bg-blue-100" },
-                { name: "Zone 3 – Tempo", pct: [76, 90], color: "bg-green-100" },
-                { name: "Zone 4 – Threshold", pct: [91, 105], color: "bg-yellow-100" },
-                { name: "Zone 5 – VO₂max", pct: [106, 120], color: "bg-orange-100" },
-                { name: "Zone 6 – Anaerobic", pct: [121, 150], color: "bg-red-100" },
-                { name: "Zone 7 – Neuromuscular", pct: [151, null], color: "bg-purple-100" },
+                { name: "Zone 1 – Recovery", pct: [0, 55], color: "bg-slate-100 dark:bg-slate-700" },
+                { name: "Zone 2 – Endurance", pct: [56, 75], color: "bg-blue-100 dark:bg-blue-900" },
+                { name: "Zone 3 – Tempo", pct: [76, 90], color: "bg-green-100 dark:bg-green-900" },
+                { name: "Zone 4 – Threshold", pct: [91, 105], color: "bg-yellow-100 dark:bg-yellow-900" },
+                { name: "Zone 5 – VO₂max", pct: [106, 120], color: "bg-orange-100 dark:bg-orange-900" },
+                { name: "Zone 6 – Anaerobic", pct: [121, 150], color: "bg-red-100 dark:bg-red-900" },
+                { name: "Zone 7 – Neuromuscular", pct: [151, null], color: "bg-purple-100 dark:bg-purple-900" },
             ].map(z => ({
                 ...z,
                 range: [z.pct[0] ? (z.pct[0] / 100) * ftp : null, z.pct[1] ? (z.pct[1] / 100) * ftp : null]
@@ -245,9 +245,9 @@ const description =
 
         function getPolarizedZones(ftp) {
             return [
-                { name: "Zone 1 – Easy (below VT1)", pct: [0, 80], color: "bg-green-100", description: "~80% of training time" },
-                { name: "Zone 2 – Moderate (VT1–VT2)", pct: [81, 100], color: "bg-yellow-100", description: "Minimize time here" },
-                { name: "Zone 3 – Hard (above VT2)", pct: [101, null], color: "bg-red-100", description: "~20% of training time" },
+                { name: "Zone 1 – Easy (below VT1)", pct: [0, 80], color: "bg-green-100 dark:bg-green-900", description: "~80% of training time" },
+                { name: "Zone 2 – Moderate (VT1–VT2)", pct: [81, 100], color: "bg-yellow-100 dark:bg-yellow-900", description: "Minimize time here" },
+                { name: "Zone 3 – Hard (above VT2)", pct: [101, null], color: "bg-red-100 dark:bg-red-900", description: "~20% of training time" },
             ].map(z => ({
                 ...z,
                 range: [z.pct[0] ? (z.pct[0] / 100) * ftp : null, z.pct[1] ? (z.pct[1] / 100) * ftp : null]
@@ -256,12 +256,12 @@ const description =
 
         function getSweetSpotZones(ftp) {
             return [
-                { name: "Recovery", pct: [0, 55], color: "bg-slate-100" },
-                { name: "Endurance (Z2)", pct: [56, 75], color: "bg-blue-100" },
-                { name: "Tempo", pct: [76, 87], color: "bg-green-100" },
-                { name: "Sweet Spot ⭐", pct: [88, 94], color: "bg-amber-200 border-amber-400", highlight: true },
-                { name: "Threshold", pct: [95, 105], color: "bg-yellow-100" },
-                { name: "VO₂max+", pct: [106, null], color: "bg-red-100" },
+                { name: "Recovery", pct: [0, 55], color: "bg-slate-100 dark:bg-slate-700" },
+                { name: "Endurance (Z2)", pct: [56, 75], color: "bg-blue-100 dark:bg-blue-900" },
+                { name: "Tempo", pct: [76, 87], color: "bg-green-100 dark:bg-green-900" },
+                { name: "Sweet Spot ⭐", pct: [88, 94], color: "bg-amber-200 dark:bg-amber-800 border-amber-400 dark:border-amber-600", highlight: true },
+                { name: "Threshold", pct: [95, 105], color: "bg-yellow-100 dark:bg-yellow-900" },
+                { name: "VO₂max+", pct: [106, null], color: "bg-red-100 dark:bg-red-900" },
             ].map(z => ({
                 ...z,
                 range: [z.pct[0] ? (z.pct[0] / 100) * ftp : null, z.pct[1] ? (z.pct[1] / 100) * ftp : null]
@@ -278,7 +278,7 @@ const description =
 
             zones.forEach((zone) => {
                 const div = document.createElement("div");
-                div.className = `rounded-xl border border-slate-200 px-3 py-2 shadow-sm ${zone.color || "bg-white"} ${zone.highlight ? "ring-2 ring-amber-400" : ""}`;
+                div.className = `rounded-xl border border-slate-200 dark:border-slate-700 px-3 py-2 shadow-sm ${zone.color || "bg-white dark:bg-slate-800"} ${zone.highlight ? "ring-2 ring-amber-400 dark:ring-amber-500" : ""}`;
 
                 const [min, max] = zone.range;
                 const pctText = min === null && max != null
@@ -288,10 +288,10 @@ const description =
                         : `${zone.pct[0]}–${zone.pct[1]}%`;
 
                 div.innerHTML = `
-                    <div class="font-semibold text-slate-900">${zone.name}</div>
-                    <div class="text-slate-800">${formatRange(min, max)}</div>
-                    <div class="text-[0.7rem] text-slate-500">${pctText} of FTP</div>
-                    ${zone.description ? `<div class="text-[0.65rem] text-slate-400 mt-1">${zone.description}</div>` : ""}
+                    <div class="font-semibold text-slate-900 dark:text-slate-100">${zone.name}</div>
+                    <div class="text-slate-800 dark:text-slate-200">${formatRange(min, max)}</div>
+                    <div class="text-[0.7rem] text-slate-500 dark:text-slate-400">${pctText} of FTP</div>
+                    ${zone.description ? `<div class="text-[0.65rem] text-slate-400 dark:text-slate-500 mt-1">${zone.description}</div>` : ""}
                 `;
                 zonesGrid.appendChild(div);
             });
