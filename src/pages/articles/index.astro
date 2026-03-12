@@ -7,7 +7,9 @@ const description =
     "Conversational, evidence-based articles on cycling training science. Short reads that translate research into practical takeaways.";
 
 // Get all markdown articles in this folder
-const rawArticles = await Astro.glob("./*.md");
+const rawArticles = Object.values(
+    import.meta.glob("./*.md", { eager: true })
+);
 
 const WORDS_PER_MINUTE = 220;
 
