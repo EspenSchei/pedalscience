@@ -1,0 +1,31 @@
+These instructions apply to the entire repository unless a deeper `AGENTS.md` overrides them.
+- Static Astro site for `pedalscience.com`.
+- Main purpose: cycling calculators, articles, and training guides.
+- Styling uses Tailwind CSS plus shared styles in `src/styles/global.css`.
+- Keep calculator logic lightweight and framework-free unless there is a clear reason to add complexity.
+- `src/pages/` contains routes and page entrypoints.
+- `src/pages/tools/` contains calculator pages.
+- `src/pages/articles/` contains article pages.
+- `src/pages/training/` contains training-guide pages.
+- `src/components/` contains reusable Astro components.
+- `src/layouts/` contains shared page layouts.
+- `src/styles/global.css` contains global styles.
+- `public/` holds static assets when present.
+- Preserve the existing Astro structure and keep changes surgical.
+- Prefer `.astro` components and plain JavaScript over adding client frameworks.
+- Reuse existing layouts and components before creating new ones.
+- Keep UI copy concise, practical, and aligned with the site's cycling focus.
+- Extend existing styling patterns before introducing one-off overrides.
+- Do not commit generated output from `dist/`, `.astro/`, or dependencies.
+- Install dependencies with `npm install`.
+- Start the dev server with `npm run dev`.
+- Build production output with `npm run build`.
+- Preview the production build with `npm run preview`.
+- For content or styling changes, run `npm run build` when feasible.
+- For isolated documentation or copy edits, build validation is optional if the change cannot affect site compilation.
+- Call out any validation that could not be run.
+- Keep article and calculator copy science-oriented, readable, and practical for recreational cyclists.
+- Avoid marketing-heavy language.
+- Use metric units unless surrounding content already establishes a different convention.
+- Do not add new dependencies unless they are clearly necessary for the requested task.
+- If a dependency is required, prefer small, well-supported packages that fit Astro static-site usage.
