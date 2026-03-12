@@ -4,10 +4,14 @@ import BaseLayout from "./BaseLayout.astro";
 const {
     title = "Article",
     description = "",
+    canonical,
+    publishDate,
+    updated,
+    tags = [],
 } = Astro.props;
 ---
 
-<BaseLayout {title} {description}>
+<BaseLayout {title} {description} {canonical} pageType="article" {publishDate} {updated} {tags}>
     <article class="article-content w-full max-w-[65ch]">
         <a id="top"></a>
         <slot />

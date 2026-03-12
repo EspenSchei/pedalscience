@@ -1,0 +1,93 @@
+<svg width="960" height="720" viewBox="0 0 960 720" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">Example road cyclist power illustration</title>
+  <desc id="desc">Stylized road cyclist in an aggressive position with power meter inspired overlays and watt graphics.</desc>
+  <defs>
+    <linearGradient id="bg" x1="160" y1="80" x2="790" y2="640" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#08111F"/>
+      <stop offset="0.55" stop-color="#0F1F38"/>
+      <stop offset="1" stop-color="#09131F"/>
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(256 184) rotate(44.5) scale(242 209)">
+      <stop stop-color="#38BDF8" stop-opacity="0.85"/>
+      <stop offset="1" stop-color="#38BDF8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(726 532) rotate(140.9) scale(260 228)">
+      <stop stop-color="#10B981" stop-opacity="0.8"/>
+      <stop offset="1" stop-color="#10B981" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="frame" x1="285" y1="300" x2="700" y2="470" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#D7E3F2"/>
+      <stop offset="1" stop-color="#8EA5BF"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="464" y1="226" x2="622" y2="437" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#22D3EE"/>
+      <stop offset="1" stop-color="#10B981"/>
+    </linearGradient>
+    <linearGradient id="kit" x1="448" y1="220" x2="548" y2="415" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F97316"/>
+      <stop offset="1" stop-color="#EA580C"/>
+    </linearGradient>
+    <filter id="soft" x="0" y="0" width="960" height="720" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="36"/>
+    </filter>
+  </defs>
+  <rect width="960" height="720" rx="40" fill="url(#bg)"/>
+  <g opacity="0.9">
+    <ellipse cx="260" cy="180" rx="182" ry="142" fill="url(#glowA)"/>
+    <ellipse cx="716" cy="530" rx="226" ry="170" fill="url(#glowB)"/>
+  </g>
+  <g opacity="0.2" stroke="#E2E8F0">
+    <path d="M128 132H390"/>
+    <path d="M128 162H336"/>
+    <path d="M128 192H292"/>
+    <path d="M630 114H816"/>
+    <path d="M668 144H816"/>
+    <path d="M704 174H816"/>
+  </g>
+  <g opacity="0.75">
+    <rect x="96" y="98" width="198" height="88" rx="18" fill="#0F172A" stroke="#38BDF8" stroke-opacity="0.35"/>
+    <text x="124" y="130" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="22">LIVE POWER</text>
+    <text x="122" y="168" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">412 W</text>
+    <rect x="668" y="506" width="196" height="102" rx="18" fill="#0F172A" stroke="#10B981" stroke-opacity="0.35"/>
+    <text x="696" y="542" fill="#94A3B8" font-family="Arial, Helvetica, sans-serif" font-size="22">SPRINT</text>
+    <text x="694" y="584" fill="#ECFDF5" font-family="Arial, Helvetica, sans-serif" font-size="42" font-weight="700">6.1 W/kg</text>
+  </g>
+  <g opacity="0.5">
+    <path d="M90 428C166 426 246 416 324 390" stroke="#38BDF8" stroke-width="10" stroke-linecap="round"/>
+    <path d="M96 462C176 456 246 444 336 410" stroke="#38BDF8" stroke-opacity="0.7" stroke-width="6" stroke-linecap="round"/>
+    <path d="M660 276L874 212" stroke="#22D3EE" stroke-width="8" stroke-linecap="round"/>
+    <path d="M676 314L858 268" stroke="#10B981" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g>
+    <circle cx="304" cy="504" r="114" stroke="#E2E8F0" stroke-opacity="0.95" stroke-width="18"/>
+    <circle cx="686" cy="504" r="114" stroke="#E2E8F0" stroke-opacity="0.95" stroke-width="18"/>
+    <circle cx="304" cy="504" r="18" fill="#E2E8F0"/>
+    <circle cx="686" cy="504" r="18" fill="#E2E8F0"/>
+    <path d="M304 504L434 356H584L686 504H504L434 356L372 504H304Z" stroke="url(#frame)" stroke-width="18" stroke-linejoin="round"/>
+    <path d="M434 356L504 304L610 304" stroke="url(#frame)" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M596 286L644 250" stroke="url(#frame)" stroke-width="12" stroke-linecap="round"/>
+    <path d="M504 304L466 260" stroke="url(#frame)" stroke-width="12" stroke-linecap="round"/>
+    <path d="M568 334L622 356" stroke="url(#accent)" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="433" cy="356" r="18" fill="#CBD5E1"/>
+    <circle cx="504" cy="304" r="14" fill="#CBD5E1"/>
+  </g>
+  <g>
+    <path d="M462 226C487 210 528 214 548 238C562 254 566 280 556 304L540 344L470 328L448 278C440 260 445 238 462 226Z" fill="url(#kit)"/>
+    <path d="M498 232C478 232 460 242 450 260C442 274 442 292 450 306L464 330L438 386" stroke="#F8FAFC" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M536 250L596 286" stroke="#F8FAFC" stroke-width="14" stroke-linecap="round"/>
+    <path d="M438 386L372 504" stroke="#F8FAFC" stroke-width="16" stroke-linecap="round"/>
+    <path d="M520 344L594 418" stroke="#F8FAFC" stroke-width="16" stroke-linecap="round"/>
+    <path d="M594 418L650 504" stroke="#F8FAFC" stroke-width="16" stroke-linecap="round"/>
+    <circle cx="514" cy="202" r="34" fill="#F8D0B4"/>
+    <path d="M488 198C498 166 544 164 554 198C548 190 540 186 530 186C516 186 502 190 488 198Z" fill="#0F172A"/>
+    <path d="M530 230L572 264" stroke="#F8FAFC" stroke-width="10" stroke-linecap="round"/>
+    <path d="M472 208L448 224" stroke="#F8FAFC" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <g opacity="0.85">
+    <rect x="598" y="112" width="204" height="64" rx="14" fill="#0F172A" stroke="#22D3EE" stroke-opacity="0.35"/>
+    <text x="626" y="152" fill="#F8FAFC" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">TORQUE + CADENCE</text>
+  </g>
+  <g filter="url(#soft)" opacity="0.28">
+    <ellipse cx="490" cy="578" rx="258" ry="38" fill="#0EA5E9"/>
+  </g>
+</svg>
