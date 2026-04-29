@@ -26,7 +26,7 @@ Sweet spot is the intensity zone that sits just below your Functional Threshold 
 
 ## 🤔 Sweet Spot vs. Polarized Training: Which is Right for You?
 
-You may have heard that elite athletes follow "polarized" training – 80% easy (Zone 1-2), 20% hard (Zone 4-5), and almost nothing in between. So why would we recommend sweet spot, which sits in that supposedly problematic "grey zone"? For more on high-intensity training approaches, see **[VO₂max Training for Cyclists](/articles/vo2max-cycling)**.
+You may have heard that elite athletes follow "polarized" training – 80% easy (Zone 1-2), 20% hard (Zone 4-5), and almost nothing in between. So why would we recommend sweet spot, which sits in that supposedly problematic "grey zone"? For more on high-intensity training approaches, see **[VO₂max Training for Cyclists](/articles/vo2max-cycling/)**.
 
 **The key is training volume.**
 
@@ -58,7 +58,7 @@ As your fitness and available time increase, gradually shift toward more polariz
 - Keep sweet spot for time-crunched weekdays
 - The fitter you get, the more you benefit from true polarization
 
-**See also:** [The Road to 4 W/kg](/training/4-watt-per-kg) for a broader training framework, and use the [FTP Calculator](/tools/ftp-calculator) to set your exact sweet spot range.
+**See also:** [The Road to 4 W/kg](/training/4-watt-per-kg/) for a broader training framework, and use the [FTP Calculator](/tools/ftp-calculator/) to set your exact sweet spot range.
 
 ## Sweet Spot vs. Other Training Zones
 
@@ -72,7 +72,7 @@ As your fitness and available time increase, gradually shift toward more polariz
 
 ## 🎯 How Sweet Spot Should Feel
 
-Understanding the right feel is crucial – many riders go too hard and turn sweet spot into threshold work. If you are unsure about your numbers, check your zones in the [FTP Calculator](/tools/ftp-calculator).
+Understanding the right feel is crucial – many riders go too hard and turn sweet spot into threshold work. If you are unsure about your numbers, check your zones in the [FTP Calculator](/tools/ftp-calculator/).
 
 **Physical sensations:**
 - Breathing is elevated but controlled (can speak in short sentences)
@@ -252,9 +252,9 @@ Monitor these indicators to know sweet spot training is working:
 
 ## 🔧 Use Our Tools
 
-- **[FTP Calculator](/tools/ftp-calculator)** – Calculate your exact sweet spot power range
-- **[Climb Time Calculator](/tools/climb-time)** – See how FTP gains translate to faster climbs
-- **[Nutrition Calculator](/tools/nutrition)** – Fuel properly for quality sessions
+- **[FTP Calculator](/tools/ftp-calculator/)** – Calculate your exact sweet spot power range
+- **[Climb Time Calculator](/tools/climb-time/)** – See how FTP gains translate to faster climbs
+- **[Nutrition Calculator](/tools/nutrition/)** – Fuel properly for quality sessions
 
 ## 🔬 References
 
@@ -265,7 +265,7 @@ Monitor these indicators to know sweet spot training is working:
 <div class="related-articles">
   <p class="related-title">More training articles</p>
   <ul>
-    <li><a href="/training/4-watt-per-kg">The Road to 4 W/kg</a></li>
-    <li><a href="/training">All training articles</a></li>
+    <li><a href="/training/4-watt-per-kg/">The Road to 4 W/kg</a></li>
+    <li><a href="/training/">All training articles</a></li>
   </ul>
 </div>

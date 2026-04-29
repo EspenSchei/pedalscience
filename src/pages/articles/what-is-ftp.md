@@ -70,9 +70,9 @@ FTP is not perfect, but it is incredibly useful. It turns random riding into a p
 
 ## Related tools and guides
 
-- [FTP Calculator](/tools/ftp-calculator) to set your zones
-- [Sweet Spot Training Guide](/training/sweet-spot-progression) for time-efficient workouts
-- [Critical Power vs FTP](/articles/critical-power-vs-ftp) to understand the difference
+- [FTP Calculator](/tools/ftp-calculator/) to set your zones
+- [Sweet Spot Training Guide](/training/sweet-spot-progression/) for time-efficient workouts
+- [Critical Power vs FTP](/articles/critical-power-vs-ftp/) to understand the difference
 
 ## References
 

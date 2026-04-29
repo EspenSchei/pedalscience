@@ -81,8 +81,8 @@ Progress is not about maxing out every week. It is about accumulating high-quali
 
 ## Related tools and guides
 
-- [FTP Calculator](/tools/ftp-calculator) to track performance changes
-- [Sweet Spot Training Guide](/training/sweet-spot-progression) for structured bike work
+- [FTP Calculator](/tools/ftp-calculator/) to track performance changes
+- [Sweet Spot Training Guide](/training/sweet-spot-progression/) for structured bike work
 ## In-season maintenance that actually works
 
 When races or key events start, you do not need to quit strength training. You just reduce the volume.

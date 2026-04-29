@@ -93,8 +93,8 @@ This keeps training quality high while giving your body time to adapt.
 
 ## Related tools and guides
 
-- [FTP Calculator](/tools/ftp-calculator) to check post-camp changes
-- [Climb Time Calculator](/tools/climb-time) to see W/kg gains on climbs
+- [FTP Calculator](/tools/ftp-calculator/) to check post-camp changes
+- [Climb Time Calculator](/tools/climb-time/) to see W/kg gains on climbs
 
 ## Quick FAQ
 

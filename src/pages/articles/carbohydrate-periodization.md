@@ -107,8 +107,8 @@ No. Carb periodization keeps overall carbohydrate intake in the normal range. It
 
 ## Related tools and guides
 
-- [Nutrition Calculator](/tools/nutrition) to plan carbs per hour
-- [Sweet Spot Training Guide](/training/sweet-spot-progression) for steady aerobic sessions
+- [Nutrition Calculator](/tools/nutrition/) to plan carbs per hour
+- [Sweet Spot Training Guide](/training/sweet-spot-progression/) for steady aerobic sessions
 
 ## Bottom line
 

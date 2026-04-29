@@ -88,8 +88,8 @@ For eastbound travel, advance your bedtime 30-60 minutes per day in the week bef
 
 ## Related tools and guides
 
-- [Sweet Spot Training Guide](/training/sweet-spot-progression) for a recovery-friendly build
-- [The Road to 4 W/kg](/training/4-watt-per-kg) for long-term structure
+- [Sweet Spot Training Guide](/training/sweet-spot-progression/) for a recovery-friendly build
+- [The Road to 4 W/kg](/training/4-watt-per-kg/) for long-term structure
 
 ## Bottom line
 

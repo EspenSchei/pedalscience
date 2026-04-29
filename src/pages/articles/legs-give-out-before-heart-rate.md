@@ -69,9 +69,9 @@ Your heart rate is not the only limiter. Most cyclists improve fastest by buildi
 
 ## Related tools and guides
 
-- [Nutrition Calculator](/tools/nutrition) to fuel longer efforts
-- [Sweet Spot Training Guide](/training/sweet-spot-progression) to build muscular endurance
-- [What Is VO2max (and How to Improve It)](/articles/vo2max-cycling) for the aerobic ceiling
+- [Nutrition Calculator](/tools/nutrition/) to fuel longer efforts
+- [Sweet Spot Training Guide](/training/sweet-spot-progression/) to build muscular endurance
+- [What Is VO2max (and How to Improve It)](/articles/vo2max-cycling/) for the aerobic ceiling
 
 ## References
 

@@ -5,7 +5,7 @@ description: Evidence-based guide to VO₂max training for cyclists. Learn how t
 tags: ["VO₂max", "Intervals", "Aerobic Capacity", "Cycling Science", "Power Training"]
 difficulty: "Beginner"
 updated: "2026-02-01"
-canonical: "https://pedalscience.com/articles/vo2max-cycling"
+canonical: "https://pedalscience.com/articles/vo2max-cycling/"
 ---
 
 # VO₂max Training for Cyclists
@@ -54,7 +54,7 @@ However, **VO₂max training alone won't maximize FTP**. You need threshold and 
 - 1-2 threshold or sweet spot sessions for sustained power
 - Easy endurance volume to support recovery
 
-For [estimating your FTP accurately](/tools/ftp-calculator), use power-based testing rather than heart rate alone. This ensures your VO₂max intervals are prescribed at the right intensity (typically 110-120% of FTP).
+For [estimating your FTP accurately](/tools/ftp-calculator/), use power-based testing rather than heart rate alone. This ensures your VO₂max intervals are prescribed at the right intensity (typically 110-120% of FTP).
 
 ## What the science says improves VO2max
 
@@ -82,7 +82,7 @@ High-intensity sessions alone are not enough. You need steady aerobic volume to 
 
 Below is a practical setup that balances what the research supports with what real riders can recover from. VO₂max intervals are typically performed at **110-120% of FTP** with interval durations of **2-5 minutes**. The key is to limit frequency to **1-2 sessions per week** to avoid excessive fatigue that interferes with recovery and other training.
 
-VO₂max sessions work best when your overall intensity distribution is [anchored by training zones](/training/cycling-training-zones). This approach supports [long-term performance goals like reaching 4 W/kg](/training/4-watt-per-kg) by raising your aerobic ceiling while maintaining a sustainable training load. [Critical Power and W′ modeling](/tools/critical-power-wprime) can also be used to prescribe VO₂max intervals based on a rider's sustainable ceiling and finite work capacity.
+VO₂max sessions work best when your overall intensity distribution is [anchored by training zones](/training/cycling-training-zones/). This approach supports [long-term performance goals like reaching 4 W/kg](/training/4-watt-per-kg/) by raising your aerobic ceiling while maintaining a sustainable training load. [Critical Power and W′ modeling](/tools/critical-power-wprime/) can also be used to prescribe VO₂max intervals based on a rider's sustainable ceiling and finite work capacity.
 
 <div class="callout callout-tip">
   <p class="callout-title">Practical tip</p>
@@ -121,12 +121,12 @@ You do not need a gas analyzer. Practical signals include:
 - Lower heart rate at the same power
 - Higher sustainable power in 20-minute efforts
 
-Your FTP calculator is still useful here. If your FTP rises, your VO2max-focused training is likely doing its job. Try the [FTP Calculator](/tools/ftp-calculator) to update your zones.
+Your FTP calculator is still useful here. If your FTP rises, your VO2max-focused training is likely doing its job. Try the [FTP Calculator](/tools/ftp-calculator/) to update your zones.
 
 ## Helpful tools and guides
 
-- [FTP Calculator](/tools/ftp-calculator) for updated zones
-- [Sweet Spot Training Guide](/training/sweet-spot-progression) for aerobic support work
+- [FTP Calculator](/tools/ftp-calculator/) for updated zones
+- [Sweet Spot Training Guide](/training/sweet-spot-progression/) for aerobic support work
 
 ## Common VO₂max Training Mistakes
 
@@ -163,8 +163,8 @@ VO₂max is a tool in your training toolbox, not a goal in itself. It sets your 
 When properly structured, VO₂max training raises your performance ceiling and indirectly supports FTP gains over 6-12 weeks. The key is patience, proper intensity control, and integration with your broader training plan.
 
 **Ready to optimize your training?**
-- Use the [FTP Calculator](/tools/ftp-calculator) to set accurate training zones for your VO₂max intervals
-- Explore our [training guides](/training) for comprehensive programs that integrate VO₂max work with endurance and threshold training
+- Use the [FTP Calculator](/tools/ftp-calculator/) to set accurate training zones for your VO₂max intervals
+- Explore our [training guides](/training/) for comprehensive programs that integrate VO₂max work with endurance and threshold training
 - Track your progress systematically and adjust based on performance metrics, not just how hard sessions feel
 
 ---

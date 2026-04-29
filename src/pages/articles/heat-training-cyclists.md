@@ -90,8 +90,8 @@ After the block, return to normal training and focus on freshness.
 
 ## Related tools and guides
 
-- [Nutrition Calculator](/tools/nutrition) to plan hydration and carbs
-- [Watts to Speed](/tools/watts-to-speed) for pacing targets in hot races
+- [Nutrition Calculator](/tools/nutrition/) to plan hydration and carbs
+- [Watts to Speed](/tools/watts-to-speed/) for pacing targets in hot races
 
 ## Common mistakes
 

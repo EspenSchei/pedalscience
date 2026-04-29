@@ -11,7 +11,7 @@ updated: "2026-01-30"
 
 4 W/kg has become a milestone in the cycling community – a marker of "serious" fitness that opens up new terrain and group ride possibilities. But is it realistic for someone with a job, family, and limited training time?
 
-**The answer is yes** – with the right approach. This guide is based on current sports science, including research from Stephen Seiler on polarized training and the importance of low-intensity volume. For a deeper dive, see **[Polarized vs Pyramidal vs Sweet Spot](/articles/polarized-vs-pyramidal)**.
+**The answer is yes** – with the right approach. This guide is based on current sports science, including research from Stephen Seiler on polarized training and the importance of low-intensity volume. For a deeper dive, see **[Polarized vs Pyramidal vs Sweet Spot](/articles/polarized-vs-pyramidal/)**.
 
 <div class="callout callout-tip">
   <p class="callout-title">KEY INSIGHT</p>
@@ -30,8 +30,8 @@ Your power-to-weight ratio is simply **FTP ÷ body weight**:
 | 80 kg  | 320 W |
 | 85 kg  | 340 W |
 
-Use our **[FTP Calculator](/tools/ftp-calculator)** to see your current W/kg and training zones.
-If you want to explore the full toolkit, **[see all calculators](/tools)**.
+Use our **[FTP Calculator](/tools/ftp-calculator/)** to see your current W/kg and training zones.
+If you want to explore the full toolkit, **[see all calculators](/tools/)**.
 
 <div class="callout callout-info">
   <p class="callout-title">PERSPECTIVE</p>
@@ -40,7 +40,7 @@ If you want to explore the full toolkit, **[see all calculators](/tools)**.
 
 ## 📊 The science of training distribution
 
-Research by Seiler (2010) and others has shown that elite endurance athletes typically follow a **polarized** training distribution. If you want to compare models, read **[Polarized vs Pyramidal vs Sweet Spot](/articles/polarized-vs-pyramidal)**:
+Research by Seiler (2010) and others has shown that elite endurance athletes typically follow a **polarized** training distribution. If you want to compare models, read **[Polarized vs Pyramidal vs Sweet Spot](/articles/polarized-vs-pyramidal/)**:
 
 > **The 80/20 principle:**
 > - **~80% low intensity** (Zone 1-2, easy conversation possible)
@@ -69,7 +69,7 @@ When you can only train 5-8 hours per week:
 - Recovery cost is manageable with 48+ hours between hard sessions
 - The "grey zone" problem is less relevant because total training load is lower
 
-**Bottom line:** If you're training 10+ hours weekly, lean toward polarized. Under 8 hours, sweet spot becomes your friend. See our [Sweet Spot Training Guide](/training/sweet-spot-progression) for a complete program.
+**Bottom line:** If you're training 10+ hours weekly, lean toward polarized. Under 8 hours, sweet spot becomes your friend. See our [Sweet Spot Training Guide](/training/sweet-spot-progression/) for a complete program.
 
 ## 💡 The four key principles
 
@@ -184,9 +184,9 @@ Best for riders who can train 8+ hours. Follows the 80/20 polarized distribution
 
 ## ⚙️ Use the tools on this site
 
-1. **[FTP Calculator](/tools/ftp-calculator)** – Get your zones dialed in correctly
-2. **[Climb Time Calculator](/tools/climb-time)** – See how W/kg improvements translate to faster climbs
-3. **[Nutrition Calculator](/tools/nutrition)** – Fuel your training properly
+1. **[FTP Calculator](/tools/ftp-calculator/)** – Get your zones dialed in correctly
+2. **[Climb Time Calculator](/tools/climb-time/)** – See how W/kg improvements translate to faster climbs
+3. **[Nutrition Calculator](/tools/nutrition/)** – Fuel your training properly
 
 ## 📈 What to expect over time
 
@@ -208,7 +208,7 @@ With consistent training following these principles:
 <div class="related-articles">
   <p class="related-title">More training articles</p>
   <ul>
-    <li><a href="/training/sweet-spot-progression">Sweet Spot Progression Guide</a></li>
-    <li><a href="/training">All training articles</a></li>
+    <li><a href="/training/sweet-spot-progression/">Sweet Spot Progression Guide</a></li>
+    <li><a href="/training/">All training articles</a></li>
   </ul>
 </div>

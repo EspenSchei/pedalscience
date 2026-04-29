@@ -98,8 +98,8 @@ You will not lose strength in a week, but you can feel fresher.
 
 ## Related tools and guides
 
-- [FTP Calculator](/tools/ftp-calculator) to recalibrate zones after a rest block
-- [Sweet Spot Training Guide](/training/sweet-spot-progression) for your next build phase
+- [FTP Calculator](/tools/ftp-calculator/) to recalibrate zones after a rest block
+- [Sweet Spot Training Guide](/training/sweet-spot-progression/) for your next build phase
 
 ## FAQ
 

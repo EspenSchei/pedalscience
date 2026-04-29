@@ -5,7 +5,7 @@ description: A practical guide to cycling training zones using power and heart r
 tags: ["Training Zones", "FTP", "Critical Power", "VO₂max", "Power Training"]
 difficulty: "Beginner"
 updated: "2026-02-01"
-canonical: "https://pedalscience.com/training/cycling-training-zones"
+canonical: "https://pedalscience.com/training/cycling-training-zones/"
 ---
 
 # Cycling Training Zones Explained
@@ -27,13 +27,13 @@ Zones don't replace good judgment, but they reduce noise: you can separate endur
 
 Most cyclists anchor intensity using FTP — a practical benchmark for steady efforts and interval prescription. But FTP isn't the whole story.
 
-[Critical Power and W′](/tools/critical-power-wprime) provide a complementary performance model: CP behaves like a sustainable ceiling, while W′ describes your finite work capacity above it. VO₂max sits above both — it's your aerobic ceiling and a key limiter for high-intensity repeatability.
+[Critical Power and W′](/tools/critical-power-wprime/) provide a complementary performance model: CP behaves like a sustainable ceiling, while W′ describes your finite work capacity above it. VO₂max sits above both — it's your aerobic ceiling and a key limiter for high-intensity repeatability.
 
 Here's how the three anchors relate:
 
-- **FTP (Functional Threshold Power):** A practical steady-state benchmark used for training structure. Get your [FTP estimate](/tools/ftp-calculator) from a 20-minute test or ramp test.
+- **FTP (Functional Threshold Power):** A practical steady-state benchmark used for training structure. Get your [FTP estimate](/tools/ftp-calculator/) from a 20-minute test or ramp test.
 - **Critical Power (CP):** A model-based boundary between sustainable and unsustainable intensity. More accurate than FTP for pacing short, hard efforts.
-- **VO₂max:** The ceiling of aerobic capacity; targeted by hard [VO₂max intervals](/articles/vo2max-cycling). Raising this ceiling creates room for FTP to grow.
+- **VO₂max:** The ceiling of aerobic capacity; targeted by hard [VO₂max intervals](/articles/vo2max-cycling/). Raising this ceiling creates room for FTP to grow.
 
 ## A practical zone model (power-based)
 
@@ -67,7 +67,7 @@ The key is consistency over intensity. Three 90-minute Z2 rides per week will do
 
 Threshold work (Z4) and tempo (Z3) develop your ability to sustain hard efforts. This is where FTP lives, and it's the intensity that determines how fast you can ride a 20-minute climb or a 40km time trial.
 
-For cyclists chasing [4 W/kg](/training/4-watt-per-kg), threshold development is essential — but it needs to be balanced with recovery. Sweet spot training (88–94% FTP) offers a time-efficient compromise between tempo and threshold.
+For cyclists chasing [4 W/kg](/training/4-watt-per-kg/), threshold development is essential — but it needs to be balanced with recovery. Sweet spot training (88–94% FTP) offers a time-efficient compromise between tempo and threshold.
 
 ### Increasing your ceiling (Z5)
 
@@ -87,7 +87,7 @@ For most amateur cyclists, the highest ROI comes from consistency: a lot of Z2, 
 
 None of these is objectively "best." The right choice depends on your available hours, goals, and recovery capacity. What matters most is that you can repeat the training week after week without accumulating excessive fatigue.
 
-For more structured approaches, explore our [training guides](/training) to find a plan that fits your schedule.
+For more structured approaches, explore our [training guides](/training/) to find a plan that fits your schedule.
 
 <div class="callout callout-info">
   <p class="callout-title">How often should you re-check FTP?</p>

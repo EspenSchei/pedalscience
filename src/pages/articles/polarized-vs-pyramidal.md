@@ -73,8 +73,8 @@ This structure is flexible and matches the evidence that no single distribution 
 
 ## Related tools and guides
 
-- [Sweet Spot Training Guide](/training/sweet-spot-progression) for the time-crunched option
-- [The Road to 4 W/kg](/training/4-watt-per-kg) for a full training framework
+- [Sweet Spot Training Guide](/training/sweet-spot-progression/) for the time-crunched option
+- [The Road to 4 W/kg](/training/4-watt-per-kg/) for a full training framework
 ## Common mistakes to avoid
 
 - **Copying pro training** with 20+ hours when you ride 6.

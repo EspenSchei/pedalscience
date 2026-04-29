@@ -34,7 +34,7 @@ if (pathname.startsWith("/tools/") && pathname !== "/tools") {
     isToolDetail = true;
     breadcrumbItems = [
         { label: "Home", href: "/" },
-        { label: "Tools", href: "/tools" },
+        { label: "Tools", href: "/tools/" },
         { label: title },
     ];
 }
@@ -42,7 +42,7 @@ if (pathname.startsWith("/tools/") && pathname !== "/tools") {
 if (pathname.startsWith("/training/") && pathname !== "/training") {
     breadcrumbItems = [
         { label: "Home", href: "/" },
-        { label: "Training", href: "/training" },
+        { label: "Training", href: "/training/" },
         { label: title },
     ];
 }
@@ -50,7 +50,7 @@ if (pathname.startsWith("/training/") && pathname !== "/training") {
 if (pathname.startsWith("/articles/") && pathname !== "/articles") {
     breadcrumbItems = [
         { label: "Home", href: "/" },
-        { label: "Articles", href: "/articles" },
+        { label: "Articles", href: "/articles/" },
         { label: title },
     ];
 }
@@ -190,19 +190,19 @@ if (isArticlePage) {
                 Home
             </a>
             <a
-                    href="/tools"
+                    href="/tools/"
                     class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             >
                 Tools
             </a>
             <a
-                    href="/training"
+                    href="/training/"
                     class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             >
                 Training
             </a>
             <a
-                    href="/articles"
+                    href="/articles/"
                     class="rounded-full px-3 py-1 text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-slate-100"
             >
                 Articles
@@ -219,7 +219,7 @@ if (isArticlePage) {
                     {isToolDetail && (
                             <div class="mb-4">
                                 <Button
-                                        href="/tools"
+                                        href="/tools/"
                                         variant="ghost"
                                         class="px-3 py-1 text-xs"
                                 >
